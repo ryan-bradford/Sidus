@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
 		9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1E81AE54BAB007F45BE /* AppDelegate.swift */; };
 		9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1EA1AE54BAB007F45BE /* ViewController.swift */; };
 		9480A1EE1AE54BAB007F45BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1EC1AE54BAB007F45BE /* Main.storyboard */; };
 		9480A1F01AE54BAB007F45BE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1EF1AE54BAB007F45BE /* Images.xcassets */; };
 		9480A1F31AE54BAB007F45BE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1F11AE54BAB007F45BE /* LaunchScreen.xib */; };
 		9480A1FF1AE54BAB007F45BE /* WaypointerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1FE1AE54BAB007F45BE /* WaypointerTests.swift */; };
+		9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2091AE54BC9007F45BE /* AddButton.swift */; };
+		9480A20D1AE54BED007F45BE /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A20C1AE54BED007F45BE /* Waypoint.swift */; };
+		9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A20E1AE54C08007F45BE /* WaypointManager.swift */; };
+		9480A2121AE54C30007F45BE /* MyMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2111AE54C30007F45BE /* MyMath.swift */; };
+		9480A2151AE54C58007F45BE /* Point3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2141AE54C58007F45BE /* Point3D.swift */; };
+		9480A2171AE54C65007F45BE /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2161AE54C65007F45BE /* Line.swift */; };
+		9480A2191AE54C7D007F45BE /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2181AE54C7D007F45BE /* global.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
 		9480A1E31AE54BAB007F45BE /* Waypointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waypointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1E81AE54BAB007F45BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +45,13 @@
 		9480A1F81AE54BAB007F45BE /* WaypointerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaypointerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1FD1AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1FE1AE54BAB007F45BE /* WaypointerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointerTests.swift; sourceTree = "<group>"; };
+		9480A2091AE54BC9007F45BE /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
+		9480A20C1AE54BED007F45BE /* Waypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
+		9480A20E1AE54C08007F45BE /* WaypointManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointManager.swift; sourceTree = "<group>"; };
+		9480A2111AE54C30007F45BE /* MyMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMath.swift; sourceTree = "<group>"; };
+		9480A2141AE54C58007F45BE /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
+		9480A2161AE54C65007F45BE /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +93,17 @@
 		9480A1E51AE54BAB007F45BE /* Waypointer */ = {
 			isa = PBXGroup;
 			children = (
+				9480A2131AE54C4E007F45BE /* Geometry */,
+				9480A2101AE54C24007F45BE /* math */,
+				9480A20B1AE54BDE007F45BE /* Waypoint System */,
+				9480A2081AE54BC0007F45BE /* Other */,
 				9480A1E81AE54BAB007F45BE /* AppDelegate.swift */,
 				9480A1EA1AE54BAB007F45BE /* ViewController.swift */,
 				9480A1EC1AE54BAB007F45BE /* Main.storyboard */,
 				9480A1EF1AE54BAB007F45BE /* Images.xcassets */,
 				9480A1F11AE54BAB007F45BE /* LaunchScreen.xib */,
 				9480A1E61AE54BAB007F45BE /* Supporting Files */,
+				9480A2181AE54C7D007F45BE /* global.swift */,
 			);
 			path = Waypointer;
 			sourceTree = "<group>";
@@ -110,6 +131,41 @@
 				9480A1FD1AE54BAB007F45BE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9480A2081AE54BC0007F45BE /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				9480A2091AE54BC9007F45BE /* AddButton.swift */,
+				94616B391AE54F3700904114 /* VerifyButton.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		9480A20B1AE54BDE007F45BE /* Waypoint System */ = {
+			isa = PBXGroup;
+			children = (
+				9480A20C1AE54BED007F45BE /* Waypoint.swift */,
+				9480A20E1AE54C08007F45BE /* WaypointManager.swift */,
+			);
+			name = "Waypoint System";
+			sourceTree = "<group>";
+		};
+		9480A2101AE54C24007F45BE /* math */ = {
+			isa = PBXGroup;
+			children = (
+				9480A2111AE54C30007F45BE /* MyMath.swift */,
+			);
+			name = math;
+			sourceTree = "<group>";
+		};
+		9480A2131AE54C4E007F45BE /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				9480A2141AE54C58007F45BE /* Point3D.swift */,
+				9480A2161AE54C65007F45BE /* Line.swift */,
+			);
+			name = Geometry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +268,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9480A20D1AE54BED007F45BE /* Waypoint.swift in Sources */,
+				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
+				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
+				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,
+				94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */,
+				9480A2171AE54C65007F45BE /* Line.swift in Sources */,
+				9480A2121AE54C30007F45BE /* MyMath.swift in Sources */,
+				9480A2151AE54C58007F45BE /* Point3D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +475,7 @@
 				9480A2041AE54BAB007F45BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "WaypointerTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +484,7 @@
 				9480A2071AE54BAB007F45BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
