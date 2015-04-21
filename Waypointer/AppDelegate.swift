@@ -14,14 +14,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
     var window: UIWindow?
-    var locationManager: CLLocationManager!
-    var seenError : Bool = false
-    var locationFixAchieved : Bool = false
-    var locationStatus : NSString = "Not Started"
-    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        initLocationManager()
         classes.manage.addWaypoint(13760589.5938822, yPos: -44576100.4756811, zPos: 0, red: 255, green: 0, blue: 0, name: "Middle")
         //classes.manage.addWaypoint(0, yPos: 1000, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         return true
@@ -47,71 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    
-    func initLocationManager() {
-        seenError = false
-        locationFixAchieved = false
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.requestAlwaysAuthorization()
-    }
-    
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        locationManager.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
-            }
-        }
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if (locationFixAchieved == false) {
-            locationFixAchieved = true
-            var locationArray = locations as NSArray
-            var locationObj = locationArray.lastObject as! CLLocation
-            var coord = locationObj.coordinate
-            var latitude = Double(coord.latitude)
-            var longitude = Double(coord.longitude)
-            var altitude = Double(locationObj.altitude)
-            var kiloScaler = Double(10000/90)
-            var kiloX = latitude * kiloScaler
-            var kiloY = longitude * kiloScaler
-            var kiloZ = altitude
-            var feetScaler = 3280.84
-            var feetX = kiloX * feetScaler
-            var feetY = kiloY * feetScaler
-            var feetZ = kiloZ * 3.28084
-            println(feetX)
-            println(feetY)
-            classes.manage.changePersonLocation(feetX, yPos: feetY, zPos: feetZ)
-        }
-    }
-    
-    // authorization status
-    func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-            var shouldIAllow = false
-            switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationStatus = "Restricted Access to location"
-            case CLAuthorizationStatus.Denied:
-                locationStatus = "User denied access to location"
-            case CLAuthorizationStatus.NotDetermined:
-                locationStatus = "Status not determined"
-            default:
-                locationStatus = "Allowed to location Access"
-                shouldIAllow = true
-            }
-            if (shouldIAllow == true) {
-                // Start location services
-                locationManager.startUpdatingLocation()
-            } else {
-            }
     }
     
     

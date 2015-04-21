@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreMotion
+import CoreLocation
 
 public struct classes {
     static public var manage = WaypointManager(x: 0, y: 0, z: 0, personLeftRightAngle: 0, personUpDownAngle: 0)
@@ -21,5 +22,6 @@ public struct classes {
     static public var verifyButton = VerifyButton()
     static public var canContinue = false
     static public var timesInitRun = 0
+    static public var startFromNorth = 0.0
     
 }

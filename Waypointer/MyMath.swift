@@ -15,29 +15,29 @@ public class MyMath {
         var newAngle = 0.0
         var xLength = l1.getXLength()
         var yLength = l1.getYLength()
-        if(yLength < 0) {
-            return -90
-        } else if(yLength == 0) {
-            return 0.0
-        }
-        newAngle = atan(abs(xLength) / yLength)
-        if(xLength > 0) {
-            return newAngle
+        newAngle = atan(xLength / yLength)
+        if(xLength < 0 && yLength < 0) {
+            return M_PI + newAngle
+        } else if(xLength < 0) {
+            return M_PI * 3 / 2 - newAngle
+        } else if(yLength < 0) {
+            return M_PI - newAngle
         } else {
-            return -newAngle
+            return newAngle
         }
-        
     }
     
     class func getLineVerticalAngle(l1 : Line) -> Double {
-        var newAngle = 0.0
-        var hypotenuse = sqrt(pow(l1.getXLength(), 2) + pow(l1.getYLength(), 2))
-        var length = l1.length
-        if(l1.getYLength() < 0) {
-            return -90
+        var newAngle = atan(l1.getZLength() / l1.getYLength())
+        if(l1.getYLength() < 0 && l1.getZLength() < 0) {
+            return M_PI + newAngle
+        } else if(l1.getYLength() < 0) {
+            return M_PI  - newAngle
+        } else if(l1.getZLength() < 0) {
+            return M_PI * 2 - newAngle
+        } else {
+            return newAngle
         }
-        newAngle = acos(hypotenuse / length)
-        return newAngle
     }
     
     class func findSmallestAngle(angle : Double) -> Double {

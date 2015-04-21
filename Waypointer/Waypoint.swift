@@ -109,7 +109,7 @@ public class Waypoint : UIView {
     public func getScreenX() -> Double {
         var x = CGFloat(0)
         if let attitude = classes.motionManager.deviceMotion?.attitude {
-            x = CGFloat(-attitude.pitch)
+            x = CGFloat(-attitude.pitch - classes.startFromNorth)
         }
         var horAngle = MyMath.getLineHorizontalAngle(line)
         horAngle = (horAngle + Double(x))
