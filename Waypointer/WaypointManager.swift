@@ -11,7 +11,8 @@ import UIKit
 
 public class WaypointManager {
     
-    public var waypoints :  Array<Waypoint>
+    public var drawnWaypoints :  Array<Waypoint>
+    public var allWaypoints :  Array<Waypoint>
     var screenXAngles : Array<Double>
     var screenYAngles : Array<Double>
     var personX : Double
@@ -21,7 +22,8 @@ public class WaypointManager {
     var personUpDownRotation = 0.0  //Up is Positive, Down is Negative
     
     init(x : Double, y : Double, z : Double, personLeftRightAngle : Double, personUpDownAngle : Double) {
-        waypoints = Array<Waypoint>()
+        allWaypoints = Array<Waypoint>()
+        drawnWaypoints = Array<Waypoint>()
         screenXAngles = Array<Double>()
         screenYAngles = Array<Double>()
         personX = x
@@ -32,42 +34,47 @@ public class WaypointManager {
     }
     
     public func addWaypoint(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
-        waypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name))
+        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name))
     }
     
     public func addWaypoint(toAdd : Waypoint) {
-        waypoints.append(toAdd)
+        allWaypoints.append(toAdd)
     }
     
     
     public func removeWaypoint(ID : Int) {
-        waypoints.removeAtIndex(ID)
+        allWaypoints.removeAtIndex(ID)
     }
     
     public func changePersonLocation(xPos : Double, yPos : Double, zPos : Double) {
         personX = xPos
         personY = yPos
         personZ = zPos
-        for var i = 0;  i < waypoints.count;  i++ {
-            waypoints[i].updatePersonPossition()
+        for var i = 0;  i < drawnWaypoints.count;  i++ {
+            drawnWaypoints[i].updatePersonPossition()
         }
     }
     
-    public func orderWaypoints() {
+    public func orderWaypoints() { //Correct Ordering and Add Limit
+        let start = allWaypoints
         var newWaypoints = Array<Waypoint>()
-        var waypointCount = waypoints.count
         var heighestID = 0
-        for var x = 0; x < waypointCount; x++ {
+        var numToAdd = classes.numWaypoints
+        if(allWaypoints.count < classes.numWaypoints) {
+            numToAdd = allWaypoints.count
+        }
+        for var x = 0; x < numToAdd; x++ {
             heighestID = 0
-            for var i = 0; i < waypoints.count; i++ {
-                if(waypoints[i].line.length > waypoints[heighestID].line.length) {
+            for var i = 0; i < allWaypoints.count; i++ {
+                if(allWaypoints[i].line.length > allWaypoints[heighestID].line.length) {
                     heighestID = i
                 }
             }
-            newWaypoints.append(waypoints[heighestID])
-            waypoints.removeAtIndex(heighestID)
+            newWaypoints.append(allWaypoints[heighestID])
+            allWaypoints.removeAtIndex(heighestID)
         }
-        waypoints = newWaypoints
+        drawnWaypoints = newWaypoints
+        allWaypoints = start
     }
     
 }

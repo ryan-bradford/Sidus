@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         addMountainGroup()
         //classes.manage.addWaypoint(13760589.5938822, yPos: -44576100.4756811, zPos: 0, red: 255, green: 0, blue: 0, name: "Middle")
-        classes.manage.addWaypoint(0, yPos: 1000, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         return true
+            
     }
     
     func addMountainGroup() {

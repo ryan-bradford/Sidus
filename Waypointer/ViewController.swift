@@ -18,6 +18,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var seenError : Bool = false
     var locationFixAchieved : Bool = false
     var locationStatus : NSString = "Not Started"
+    var timesInitRun = 0
+    var addButton = AddButton()
+    var addGroupButton = AddGroup()
+    var verifyButton = VerifyButton()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -25,13 +29,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(anim : Bool) {
+        classes.manage.addWaypoint(0, yPos: 300, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
+        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
         initCameraFeed()
         sleep(2)
-        self.view.addSubview(classes.verifyButton)
+        self.view.addSubview(verifyButton)
         let location = locationManager.location
-        var startX = CGFloat(location.coordinate.latitude)
-        var startY = CGFloat(location.coordinate.longitude)
+        let startX = CGFloat(location.coordinate.latitude)
+        let startY = CGFloat(location.coordinate.longitude)
         var startAngle = CGFloat(0.0)
         if let attitude = classes.motionManager.deviceMotion?.attitude {
             startAngle = CGFloat(-attitude.pitch)
@@ -41,19 +47,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             while(true) {
                 usleep(100000)
                 if(classes.canContinue) {
-                    self.initApp(startX, startY: startY, startAngle: startAngle)
                     self.updateLocation()
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
-                        for var i = 0; i < classes.manage.waypoints.count; i++ {
-                            classes.manage.waypoints[i].drawRect(self.view.frame)
-                            self.view.addSubview(classes.manage.waypoints[i])
+                        self.initApp(startX, startY: startY, startAngle: startAngle)
+                        for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
+                            classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
+                            if(!classes.manage.drawnWaypoints[i].added) {
+                                self.view.addSubview(classes.manage.drawnWaypoints[i])
+                                classes.manage.drawnWaypoints[i].added = true
+                            }
                         }
-                        self.editAddButton(false)
-                        self.editAddButton(true)
-                        self.editAddGroup(false)
-                        self.editAddGroup(true)
-                        classes.startFromNorth += M_PI/100
+                        classes.startFromNorth += M_PI/1000
                     }
                 }
             }
@@ -71,16 +76,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ)
     }
     
-    func updateWaypoints() {
-        classes.manage.orderWaypoints()
-        for var i = 0; i < classes.manage.waypoints.count; i++ {
-            self.view.addSubview(classes.manage.waypoints[i])
-        }
-        
-    }
-    
     func initApp(startX : CGFloat, startY : CGFloat, startAngle : CGFloat) {
-        if(classes.timesInitRun == 0) {
+        if(timesInitRun == 0) {
             let location = locationManager.location
             var endX = location.coordinate.latitude
             var endY = location.coordinate.longitude
@@ -96,25 +93,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 classes.startFromNorth = 0
             }
             usleep(200000)
-            classes.verifyButton.removeFromSuperview()
-            classes.timesInitRun += 1
+            verifyButton.removeFromSuperview()
+            self.editAddButton(true)
+            self.editAddGroup(true)
+            timesInitRun += 1
         }
         
     }
     
     func editAddButton(toAddOrRemove : Bool) { //True is add, false is remove
         if(toAddOrRemove) {
-            self.view.addSubview(classes.addButton)
+            self.view.addSubview(addButton)
         } else {
-            classes.addButton.removeFromSuperview()
+            addButton.removeFromSuperview()
         }
     }
     
     func editAddGroup(toAddOrRemove : Bool) { //True is add, false is remove
         if(toAddOrRemove) {
-            self.view.addSubview(classes.addGroupButton)
+            self.view.addSubview(addGroupButton)
         } else {
-            classes.addGroupButton.removeFromSuperview()
+            addGroupButton.removeFromSuperview()
         }
     }
     
