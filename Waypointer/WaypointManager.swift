@@ -35,6 +35,11 @@ public class WaypointManager {
         waypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name))
     }
     
+    public func addWaypoint(toAdd : Waypoint) {
+        waypoints.append(toAdd)
+    }
+    
+    
     public func removeWaypoint(ID : Int) {
         waypoints.removeAtIndex(ID)
     }

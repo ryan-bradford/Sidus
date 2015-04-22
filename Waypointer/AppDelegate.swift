@@ -16,10 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        addMountainGroup()
         classes.manage.addWaypoint(13760589.5938822, yPos: -44576100.4756811, zPos: 0, red: 255, green: 0, blue: 0, name: "Middle")
         //classes.manage.addWaypoint(0, yPos: 1000, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         return true
     }
+    
+    func addMountainGroup() {
+        var group = WaypointGroup(name: "MOUNTAINS")
+        let waypoint  = Waypoint(xPos: 0.0, yPos: 1.0, zPos: 0.0, red: 255, green: 0, blue: 0, name: "HI")
+        group.addWaypoint(waypoint)
+        classes.groups.append(group)
+    }
+    
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

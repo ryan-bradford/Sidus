@@ -44,6 +44,20 @@ public class AddButton : UIButton {
         path.addLineToPoint(CGPoint(x: 4, y: 11))
         path.closePath()
         shape.path = path.CGPath
+        
+        var name = "W"
+        let fieldColor: UIColor = UIColor.darkGrayColor()
+        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(6))
+        var paraStyle = NSMutableParagraphStyle()
+        paraStyle.lineSpacing = 6.0
+        var skew = 0.1
+        var attributes: NSDictionary = [
+            NSForegroundColorAttributeName: fieldColor,
+            NSParagraphStyleAttributeName: paraStyle,
+            NSObliquenessAttributeName: skew,
+            NSFontAttributeName: fieldFont!
+        ]
+        name.drawInRect(CGRectMake(13, 0, 10, 10), withAttributes: attributes as [NSObject : AnyObject])
     }
     
     func pressed(sender: UIButton!) {
@@ -67,7 +81,7 @@ public class AddButton : UIButton {
                     alert4.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
                         let textf = alert4.textFields?[0] as! UITextField
                         name = textf.text
-                        classes.manage.addWaypoint(xDeg * 10000 * 3280.4 / 90 , yPos : yDeg * 10000 * 3280.4 / 90 , zPos: zHeight, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: name)
+                        classes.manage.addWaypoint(MyMath.degreesToFeet(xDeg) , yPos : MyMath.degreesToFeet(yDeg), zPos: zHeight, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: name)
                     }))
                     alert4.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                         textField.placeholder = "Name"
@@ -93,7 +107,6 @@ public class AddButton : UIButton {
             textField.secureTextEntry = false
         })
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-        let textf = alert.textFields
         
     }
     

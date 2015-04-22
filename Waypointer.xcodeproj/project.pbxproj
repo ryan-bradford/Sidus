@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC5F1AE70F360089EF3B /* AddGroup.swift */; };
+		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
 		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
 		9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1E81AE54BAB007F45BE /* AppDelegate.swift */; };
 		9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1EA1AE54BAB007F45BE /* ViewController.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		941DAC5F1AE70F360089EF3B /* AddGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroup.swift; sourceTree = "<group>"; };
+		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
 		9480A1E31AE54BAB007F45BE /* Waypointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waypointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			children = (
 				9480A2091AE54BC9007F45BE /* AddButton.swift */,
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
+				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 			children = (
 				9480A20C1AE54BED007F45BE /* Waypoint.swift */,
 				9480A20E1AE54C08007F45BE /* WaypointManager.swift */,
+				941DAC611AE7110E0089EF3B /* WaypointGroup.swift */,
 			);
 			name = "Waypoint System";
 			sourceTree = "<group>";
@@ -274,9 +280,11 @@
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,
+				941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */,
 				94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */,
 				9480A2171AE54C65007F45BE /* Line.swift in Sources */,
 				9480A2121AE54C30007F45BE /* MyMath.swift in Sources */,
+				941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */,
 				9480A2151AE54C58007F45BE /* Point3D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

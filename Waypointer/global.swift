@@ -19,9 +19,11 @@ public struct classes {
     static public var waypointTransparency = ( 255.0 )
     static public var motionManager = CMMotionManager()
     static public var addButton = AddButton()
+    static public var addGroupButton = AddGroup()
     static public var verifyButton = VerifyButton()
     static public var canContinue = false
     static public var timesInitRun = 0
     static public var startFromNorth = 0.0
+    static public var groups = Array<WaypointGroup>()
     
 }

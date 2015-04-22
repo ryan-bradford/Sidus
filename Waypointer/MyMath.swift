@@ -53,4 +53,12 @@ public class MyMath {
         }
     }
     
+    class func degreesToFeet(angle : Double) -> Double {
+        var kiloScaler = Double(10000/90)
+        var kilos = angle * kiloScaler
+        var feetScaler = 3280.84
+        var feet = kilos * feetScaler
+        return feet
+    }
+    
 }

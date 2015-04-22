@@ -42,17 +42,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 usleep(1000000)
                 if(classes.canContinue) {
                     self.initApp(startX, startY: startY, startAngle: startAngle)
+                    self.updateLocation()
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
                         for var i = 0; i < classes.manage.waypoints.count; i++ {
                             self.view.addSubview(classes.manage.waypoints[i])
                         }
-                        classes.addButton.removeFromSuperview()
-                        self.view.addSubview(classes.addButton)
+                        self.editAddButton(false)
+                        self.editAddButton(true)
+                        self.editAddGroup(false)
+                        self.editAddGroup(true)
                     }
                 }
             }
         }
+    }
+    
+    func updateLocation() {
+        let location = locationManager.location
+        var latitude = Double(location.coordinate.latitude)
+        var longitude = Double(location.coordinate.longitude)
+        var altitude = location.altitude
+        var feetZ = altitude * 3.28084
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ)
     }
     
     func updateWaypoints() {
@@ -89,12 +101,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func editWaypointEditor(toAddOrRemove : Bool) {
+    func editAddGroup(toAddOrRemove : Bool) { //True is add, false is remove
         if(toAddOrRemove) {
-            //Make it slide in
-            //Tell the editor which waypoint you are changing, or if you are adding
+            self.view.addSubview(classes.addGroupButton)
         } else {
-            //Make it slide out
+            classes.addGroupButton.removeFromSuperview()
         }
     }
     
@@ -143,29 +154,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 seenError = true
                 print(error)
             }
-        }
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if (locationFixAchieved == false) {
-            locationFixAchieved = true
-            var locationArray = locations as NSArray
-            var locationObj = locationArray.lastObject as! CLLocation
-            var coord = locationObj.coordinate
-            var latitude = Double(coord.latitude)
-            var longitude = Double(coord.longitude)
-            var altitude = Double(locationObj.altitude)
-            var kiloScaler = Double(10000/90)
-            var kiloX = latitude * kiloScaler
-            var kiloY = longitude * kiloScaler
-            var kiloZ = altitude
-            var feetScaler = 3280.84
-            var feetX = kiloX * feetScaler
-            var feetY = kiloY * feetScaler
-            var feetZ = kiloZ * 3.28084
-            println(feetX)
-            println(feetY)
-            classes.manage.changePersonLocation(feetX, yPos: feetY, zPos: feetZ)
         }
     }
     
