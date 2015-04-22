@@ -15,6 +15,7 @@ public class Waypoint : UIView {
     public var line : Line
     public var red, blue, green : Int
     public var name : String
+    var stringDraw : UILabel
     
     required public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
         self.line = Line(startingXPos: 1.0, startingYPos: 1.0, startingZPos: 1.0, endingXPos: 1.0, endingYPos: 1.0, endingZPos: 1.0)
@@ -22,6 +23,7 @@ public class Waypoint : UIView {
         self.name = name
         self.blue = blue
         self.green = green
+        stringDraw = UILabel()
         self.line = Line(startingXPos: classes.manage.personX, startingYPos: classes.manage.personY, startingZPos: classes.manage.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
         super.init(frame: ViewController().view.frame)
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
@@ -33,14 +35,17 @@ public class Waypoint : UIView {
         self.blue = 0
         self.green = 0
         name =  ""
+        stringDraw = UILabel()
         super.init(coder: aDecoder)
         self.clearsContextBeforeDrawing = true
     }
     
     override public func drawRect(rect: CGRect) {
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        for v in self.subviews {
-            v.removeFromSuperview()
+        if(self.layer.sublayers != nil) {
+            for v in self.layer.sublayers {
+                v.removeFromSuperlayer()
+            }
         }
         let imageView = UIImageView(image: UIImage(named: "profile.jpg"))
         imageView.frame = self.bounds
@@ -87,19 +92,12 @@ public class Waypoint : UIView {
         newOvalPath.closePath()
         frontCircle.path = newOvalPath.CGPath
         
-        let fieldColor: UIColor = UIColor.darkGrayColor()
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(14 * scaler))
-        var paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineSpacing = 6.0
-        var skew = 0.1
-        var attributes: NSDictionary = [
-            NSForegroundColorAttributeName: fieldColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            NSObliquenessAttributeName: skew,
-            NSFontAttributeName: fieldFont!
-        ]
-        name.drawInRect(CGRectMake(CGFloat(x - Double(count(name)) * 3 * scaler), CGFloat(y - yShift - yWidth - 10 * scaler - 22), 300.0, 48.0), withAttributes: attributes as [NSObject : AnyObject])
         
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(x - Double(count(name)) * 3.5 * scaler), y: CGFloat(y - yShift - yWidth - 10 * scaler - 22), width: 50, height: 20))
+        stringDraw.text = name
+        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        self.addSubview(stringDraw)
+
     }
     
     public func updateDistance() {
@@ -107,7 +105,7 @@ public class Waypoint : UIView {
     }
     
     public func getScreenX() -> Double {
-        var x = CGFloat(0)
+        var x = CGFloat(classes.startFromNorth)
         if let attitude = classes.motionManager.deviceMotion?.attitude {
             x = CGFloat(-attitude.pitch - classes.startFromNorth)
         }

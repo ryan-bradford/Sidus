@@ -37,7 +37,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>We need to know your location to show you the coordinates where you are located</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>UISupportedInterfaceOrientations~ipad</key>

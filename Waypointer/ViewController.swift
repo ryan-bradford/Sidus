@@ -27,7 +27,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewWillAppear(anim : Bool) {
         initLocationManager()
         initCameraFeed()
-        sleep(1)
+        sleep(2)
         self.view.addSubview(classes.verifyButton)
         let location = locationManager.location
         var startX = CGFloat(location.coordinate.latitude)
@@ -39,23 +39,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                usleep(1000000)
+                usleep(100000)
                 if(classes.canContinue) {
                     self.initApp(startX, startY: startY, startAngle: startAngle)
                     self.updateLocation()
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
                         for var i = 0; i < classes.manage.waypoints.count; i++ {
+                            classes.manage.waypoints[i].drawRect(self.view.frame)
                             self.view.addSubview(classes.manage.waypoints[i])
                         }
                         self.editAddButton(false)
                         self.editAddButton(true)
                         self.editAddGroup(false)
                         self.editAddGroup(true)
+                        classes.startFromNorth += M_PI/100
                     }
                 }
             }
         }
+        
+        let priority1 = DISPATCH_QUEUE_PRIORITY_DEFAULT
     }
     
     func updateLocation() {
@@ -64,7 +68,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(location.coordinate.longitude)
         var altitude = location.altitude
         var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ)
+        //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ)
     }
     
     func updateWaypoints() {
@@ -85,7 +89,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 endAngle = CGFloat(-attitude.pitch)
             }
             var toCalc = Line(startingXPos: Double(startX), startingYPos: Double(startY), startingZPos: 0.0, endingXPos: Double(endX), endingYPos: Double(endY), endingZPos: 0.0)
-            classes.startFromNorth = MyMath.getLineHorizontalAngle(toCalc)
+            var angle = MyMath.getLineHorizontalAngle(toCalc)
+            if(!angle.isNaN) {
+                classes.startFromNorth = angle
+            } else {
+                classes.startFromNorth = 0
+            }
             usleep(200000)
             classes.verifyButton.removeFromSuperview()
             classes.timesInitRun += 1
@@ -147,36 +156,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        locationManager.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
-            }
-        }
-    }
-    
-    // authorization status
-    func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-            var shouldIAllow = false
-            switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationStatus = "Restricted Access to location"
-            case CLAuthorizationStatus.Denied:
-                locationStatus = "User denied access to location"
-            case CLAuthorizationStatus.NotDetermined:
-                locationStatus = "Status not determined"
-            default:
-                locationStatus = "Allowed to location Access"
-                shouldIAllow = true
-            }
-            if (shouldIAllow == true) {
-                // Start location services
-                locationManager.startUpdatingLocation()
-            } else {
-            }
+    func locationManager(manager:CLLocationManager, didUpdateLocations locations:[AnyObject]) { // Updated to current array syntax [AnyObject] rather than AnyObject[]
     }
     
     
