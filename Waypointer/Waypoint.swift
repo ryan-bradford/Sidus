@@ -121,10 +121,10 @@ public class Waypoint : UIView {
         frontCircle.path = newOvalPath.CGPath
         
         
-        //stringDraw = UILabel(frame: CGRect(x: CGFloat(x - Double(count(name)) * 3.5 * scaler), y: CGFloat(y - yShift - yWidth - 10 * scaler - 22), width: 50, height: 20))
-        //stringDraw.text = name
-        //stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
-        //self.addSubview(stringDraw)
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(xWidth - Double(count(name)) * 2.0), y: CGFloat(-10), width: 50, height: 20))
+        stringDraw.text = name
+        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        self.addSubview(stringDraw)
         
     }
     

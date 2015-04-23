@@ -22,6 +22,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var addButton = AddButton()
     var addGroupButton = AddGroup()
     var verifyButton = VerifyButton()
+    var timesStarted = 0
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -29,9 +30,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(anim : Bool) {
-        classes.manage.addWaypoint(0, yPos: 300, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
-        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
+        //classes.manage.addWaypoint(0, yPos: 300, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
+        //classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
+    }
+    
+    func startApp()  {
         initCameraFeed()
         sleep(2)
         self.view.addSubview(verifyButton)
@@ -58,13 +62,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
-                        classes.startFromNorth += M_PI/1000
+                        //classes.startFromNorth += M_PI/1000
                     }
                 }
             }
         }
         
-        let priority1 = DISPATCH_QUEUE_PRIORITY_DEFAULT
     }
     
     func updateLocation() {
@@ -150,12 +153,61 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         seenError = false
         locationFixAchieved = false
         locationManager = CLLocationManager()
+        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
     }
     
-    func locationManager(manager:CLLocationManager, didUpdateLocations locations:[AnyObject]) { // Updated to current array syntax [AnyObject] rather than AnyObject[]
+    // Location Manager Delegate stuff
+    // If failed
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        locationManager.stopUpdatingLocation()
+        if ((error) != nil) {
+            if (seenError == false) {
+                seenError = true
+                print(error)
+            }
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        if (locationFixAchieved == false) {
+            locationFixAchieved = true
+            var locationArray = locations as NSArray
+            var locationObj = locationArray.lastObject as! CLLocation
+            var coord = locationObj.coordinate
+            if(timesStarted == 0) {
+                self.startApp()
+                timesStarted = 1
+            }
+        }
+    }
+    
+    // authorization status
+    func locationManager(manager: CLLocationManager!,
+        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+            var shouldIAllow = false
+            
+            switch status {
+            case CLAuthorizationStatus.Restricted:
+                locationStatus = "Restricted Access to location"
+            case CLAuthorizationStatus.Denied:
+                locationStatus = "User denied access to location"
+            case CLAuthorizationStatus.NotDetermined:
+                locationStatus = "Status not determined"
+            default:
+                locationStatus = "Allowed to location Access"
+                shouldIAllow = true
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
+            if (shouldIAllow == true) {
+                NSLog("Location to Allowed")
+                // Start location services
+                locationManager.startUpdatingLocation()
+            } else {
+                NSLog("Denied access: \(locationStatus)")
+            }
     }
     
     
