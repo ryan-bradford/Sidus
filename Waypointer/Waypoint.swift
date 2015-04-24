@@ -91,27 +91,29 @@ public class Waypoint : UIView {
     }
     
     public func getScreenX() -> Double {
-        var x = CGFloat(classes.startFromNorth)
+        var x1 = CGFloat(classes.startFromNorth)
         if let attitude = classes.motionManager.deviceMotion?.attitude {
-            x = CGFloat(-attitude.pitch - classes.startFromNorth)
+            x1 = CGFloat(-attitude.pitch - classes.startFromNorth)
         }
+        var realAngle = classes.cameraAngle * (classes.screenWidth / classes.screenHeight)
         var horAngle = MyMath.getLineHorizontalAngle(line)
-        horAngle = (horAngle + Double(x))
+        horAngle = (horAngle + Double(x1))
         horAngle = MyMath.findSmallestAngle(horAngle)
-        var perInstanceIncrease = Double(classes.cameraAngle) * (classes.screenHeight / classes.screenWidth) / classes.screenWidth
-        return (horAngle + classes.cameraAngle) * (classes.screenHeight / classes.screenWidth) / (perInstanceIncrease * 2)
+        var perInstanceIncrease = Double(classes.cameraAngle) * (classes.screenWidth / classes.screenHeight) / classes.screenWidth
+        return (horAngle + realAngle) / (perInstanceIncrease * 2)
     }
     
     public func getScreenY() -> Double {
-        var y = CGFloat(0)
+        var y1 = CGFloat(0)
         if let attitude = classes.motionManager.deviceMotion?.attitude {
-            y = CGFloat(-attitude.yaw)
+            y1 = CGFloat(-attitude.yaw)
         }
-        var angles = classes.manage.screenXAngles
         var vertAngle = MyMath.getLineVerticalAngle(line)
-        vertAngle = vertAngle + Double(y)
+        vertAngle = vertAngle + Double(y1)
         vertAngle = MyMath.findSmallestAngle(vertAngle)
         var perInstanceIncrease = Double(classes.cameraAngle) / classes.screenHeight
+        //return -vertAngle / perInstanceIncrease + classes.cameraAngle
+        //return -((vertAngle - classes.cameraAngle) / (perInstanceIncrease * 2))
         return classes.screenHeight - (vertAngle + classes.cameraAngle) / (perInstanceIncrease * 2)
     }
     

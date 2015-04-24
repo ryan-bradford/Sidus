@@ -13,8 +13,6 @@ public class WaypointManager {
     
     public var drawnWaypoints :  Array<Waypoint>
     public var allWaypoints :  Array<Waypoint>
-    var screenXAngles : Array<Double>
-    var screenYAngles : Array<Double>
     var personX : Double
     var personY : Double
     var personZ : Double
@@ -24,8 +22,6 @@ public class WaypointManager {
     init(x : Double, y : Double, z : Double, personLeftRightAngle : Double, personUpDownAngle : Double) {
         allWaypoints = Array<Waypoint>()
         drawnWaypoints = Array<Waypoint>()
-        screenXAngles = Array<Double>()
-        screenYAngles = Array<Double>()
         personX = x
         personY = y
         personZ = z
