@@ -44,48 +44,31 @@ public class Waypoint : UIView {
         generateVars()
         removeAllGraphics()
         var yShift = 40/scaler
+        self.frame = CGRect(x: x  - xWidth / 2, y: y - circleDiameter - yShift, width: 50, height: 50)
         if(x > classes.screenWidth && y - yShift > classes.screenHeight) {
-            //Draw Down Left Arrow
             return
         } else if(x > classes.screenWidth && y - yShift < 0) {
-            //Draw Up Left Arrow
             return
         } else if(x < 0 && y - yShift < 0) {
-            //Draw Up Right Arrow
             return
         } else if(x < 0 && y - yShift > classes.screenHeight) {
-            //Draw Down Right Arrow
             return
         } else if(x > classes.screenWidth) {
-            //Draw Left Arrow
+            //drawRightArrow()
             return
         } else if(x < 0) {
-            //Draw Right Arrow
+            //drawLeftArrow()
             return
         } else if(y - yShift > classes.screenHeight) {
-            drawDownArrow()
             return
         } else if(y - yShift < 0) {
-            //Draw Up Arrow
             return
         }
         addPolygon()
         addOuterOval()
         addInnerOval()
-        self.frame = CGRect(x: x  - xWidth / 2, y: y - circleDiameter - yShift, width: 50, height: 50)
-        let text = name as NSString
-        let font = UIFont(name: "Times New Roman", size: CGFloat(6))
-        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.Center
-        if let actualFont = font {
-            let textFontAttributes = [
-                NSFontAttributeName: actualFont,
-                NSParagraphStyleAttributeName: textStyle
-            ]
-            
-            text.drawAtPoint(CGPoint(x: CGFloat(xWidth - Double(count(name)) * 1.7), y: CGFloat(0)), withAttributes: textFontAttributes)
-        }
-
+        drawText()
+        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
     public func updatePersonPossition() {
@@ -196,9 +179,25 @@ public class Waypoint : UIView {
         frontCircle.path = newOvalPath.CGPath
     }
     
-    func drawDownArrow() {
-        var arrowHeight = 40 * scaler
-        y = classes.screenHeight
+    func drawText() {
+        let text = name as NSString
+        let font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.Center
+        if let actualFont = font {
+            let textFontAttributes = [
+                NSFontAttributeName: actualFont,
+                NSParagraphStyleAttributeName: textStyle
+            ]
+            
+            text.drawAtPoint(CGPoint(x: CGFloat(xWidth - Double(count(name)) * 1.7) + 2, y: CGFloat(4.0 * scaler)), withAttributes: textFontAttributes)
+        }
+    }
+    
+    func drawLeftArrow() {
+        var arrowWidth = 60 * scaler
+        var arrowHeight = yWidth/4
+        var middleWidth = 6.0
         let shape = CAShapeLayer()
         self.layer.addSublayer(shape)
         shape.opacity = 1
@@ -207,16 +206,60 @@ public class Waypoint : UIView {
         shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth), CGFloat(-arrowHeight/3.0)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-arrowHeight/3.0)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-arrowHeight)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-arrowHeight)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-arrowHeight/3.0)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth), CGFloat(-arrowHeight/3.0)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(arrowHeight)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(-middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(-middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(-arrowHeight)))
         path.closePath()
         shape.path = path.CGPath
+        let text = name as NSString
+        let font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.Center
+        if let actualFont = font {
+            let textFontAttributes = [
+                NSFontAttributeName: actualFont,
+                NSParagraphStyleAttributeName: textStyle
+            ]
+            
+            text.drawAtPoint(CGPoint(x: CGFloat(arrowWidth / 3 + 5), y: CGFloat(middleWidth + 0 * scaler)), withAttributes: textFontAttributes)
+        }
     }
     
-    
+    func drawRightArrow() {
+        var arrowWidth = -60 * scaler
+        var arrowHeight = yWidth/4
+        var middleWidth = 6.0
+        let shape = CAShapeLayer()
+        self.layer.addSublayer(shape)
+        shape.opacity = 1
+        shape.lineWidth = 2
+        shape.lineJoin = kCALineJoinMiter
+        shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        let path = UIBezierPath()
+        path.moveToPoint(CGPointMake(CGFloat(-arrowWidth), CGFloat(arrowHeight)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3 - arrowWidth), CGFloat(2 * arrowHeight)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3 - arrowWidth), CGFloat(arrowHeight + middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(0), CGFloat(arrowHeight + middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(0), CGFloat(arrowHeight + -middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3 - arrowWidth), CGFloat(arrowHeight + -middleWidth * scaler)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3 - arrowWidth), CGFloat(0)))
+        path.closePath()
+        shape.path = path.CGPath
+        let text = name as NSString
+        let font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.Center
+        if let actualFont = font {
+            let textFontAttributes = [
+                NSFontAttributeName: actualFont,
+                NSParagraphStyleAttributeName: textStyle
+            ]
+            
+            text.drawInRect(CGRect(x: CGFloat((arrowWidth / 3 + 3 * scaler)), y: CGFloat(middleWidth + 15 * scaler), width: 50, height: 50), withAttributes: textFontAttributes)
+        }
+    }
     
 }

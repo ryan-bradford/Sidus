@@ -27,12 +27,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-    }
+    } 
     
     override func viewWillAppear(anim : Bool) {
-        for var i = 0; i < 30; i++ {
-            classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
-        }
+        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
         //classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
     }
@@ -64,7 +62,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
-                        classes.startFromNorth += M_PI/1000
+                        //classes.startFromNorth -= M_PI/100
                     }
                 }
             }
