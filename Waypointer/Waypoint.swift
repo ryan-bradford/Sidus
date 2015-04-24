@@ -72,13 +72,20 @@ public class Waypoint : UIView {
         addPolygon()
         addOuterOval()
         addInnerOval()
-        stringDraw = UILabel(frame: CGRect(x: CGFloat(xWidth - Double(count(name)) * 2.0), y: CGFloat(-10), width: 50, height: 20))
-        stringDraw.text = name
-        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
-        self.addSubview(stringDraw)
         self.frame = CGRect(x: x  - xWidth / 2, y: y - circleDiameter - yShift, width: 50, height: 50)
-        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        
+        let text = name as NSString
+        let font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        textStyle.alignment = NSTextAlignment.Center
+        if let actualFont = font {
+            let textFontAttributes = [
+                NSFontAttributeName: actualFont,
+                NSParagraphStyleAttributeName: textStyle
+            ]
+            
+            text.drawAtPoint(CGPoint(x: CGFloat(xWidth - Double(count(name)) * 1.7), y: CGFloat(0)), withAttributes: textFontAttributes)
+        }
+
     }
     
     public func updatePersonPossition() {
@@ -139,10 +146,6 @@ public class Waypoint : UIView {
                 v.removeFromSuperlayer()
             }
         }
-        
-        //for v in self.subviews {
-        //    v.removeFromSuperview()
-        //}
     }
     
     func generateVars() {
@@ -213,7 +216,7 @@ public class Waypoint : UIView {
         path.closePath()
         shape.path = path.CGPath
     }
-
+    
     
     
 }
