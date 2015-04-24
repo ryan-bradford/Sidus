@@ -12,10 +12,15 @@ import UIKit
 
 public class AddButton : UIButton {
     
+    var redVal = 0.5
+    var blueVal = 0.5
+    var greenVal = 0.5
+    var alphaVal = 0.3
+    
     public init() {
         super.init(frame: CGRectMake(5, 50, 20, 20))
         self.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
-        self.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -61,6 +66,9 @@ public class AddButton : UIButton {
     }
     
     func pressed(sender: UIButton!) {
+        redVal = 0
+        blueVal = 0
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
         var alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
         var xDeg : Double = 0.0
         var yDeg : Double = 0.0
@@ -82,6 +90,9 @@ public class AddButton : UIButton {
                         let textf = alert4.textFields?[0] as! UITextField
                         name = textf.text
                         classes.manage.addWaypoint(MyMath.degreesToFeet(xDeg) , yPos : MyMath.degreesToFeet(yDeg), zPos: zHeight, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: name)
+                        self.redVal = 0.5
+                        self.blueVal = 0.5
+                        self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
                     }))
                     alert4.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                         textField.placeholder = "Name"

@@ -30,7 +30,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(anim : Bool) {
-        //classes.manage.addWaypoint(0, yPos: 300, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
+        classes.manage.addWaypoint(0, yPos: 1, zPos: -3, red: 0, green: 0, blue: 0, name: "Hello")
         //classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
     }

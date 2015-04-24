@@ -12,10 +12,15 @@ import UIKit
 
 public class AddGroup : UIButton {
     
+    var redVal = 0.5
+    var blueVal = 0.5
+    var greenVal = 0.5
+    var alphaVal = 0.3
+    
     public init() {
         super.init(frame: CGRectMake(5, 80, 20, 20))
         self.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
-        self.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.3)
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -61,6 +66,10 @@ public class AddGroup : UIButton {
     }
     
     func pressed(sender: UIButton!) {
+        redVal = 0
+        blueVal = 0
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
         var alert = UIAlertController(title: "Group Adder", message: "Enter The Name of the Group", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
             let textf = alert.textFields?[0] as! UITextField
@@ -72,9 +81,10 @@ public class AddGroup : UIButton {
                     }
                     break;
                 }
-                
             }
-            
+            self.redVal = 0.5
+            self.blueVal = 0.5
+            self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
         }))
         alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
             textField.placeholder = "Name"
