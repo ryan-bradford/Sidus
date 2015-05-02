@@ -30,7 +30,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     } 
     
     override func viewWillAppear(anim : Bool) {
-        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
+        classes.manage.addWaypoint(-0.25, yPos: -1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
         //classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
     }
@@ -59,6 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
                             if(!classes.manage.drawnWaypoints[i].added) {
                                 self.view.addSubview(classes.manage.drawnWaypoints[i])
+                                println(classes.manage.drawnWaypoints[i].getScreenX());
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
@@ -76,7 +77,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(location.coordinate.longitude)
         var altitude = location.altitude
         var feetZ = altitude * 3.28084
-        //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ)
+        //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
     }
     
     func initApp(startX : CGFloat, startY : CGFloat, startAngle : CGFloat) {

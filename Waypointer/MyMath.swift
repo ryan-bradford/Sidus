@@ -12,6 +12,7 @@ import Darwin
 public class MyMath {
     
     class func getLineHorizontalAngle(l1 : Line) -> Double {
+        /*
         var newAngle = 0.0
         var xLength = l1.getXLength()
         var yLength = l1.getYLength()
@@ -25,14 +26,25 @@ public class MyMath {
         } else {
             return newAngle
         }
+        */
+        var newAngle = atan(abs(l1.getXLength()) / abs(l1.getYLength()))
+        //var newAngle = atan((l1.getZLength()) / (l1.getYLength()))
+        if(l1.getYLength() < 0 && l1.getXLength() < 0) {
+            return M_PI + newAngle
+        } else if(l1.getXLength() < 0) {
+            return -newAngle
+        } else if(l1.getYLength() < 0) {
+            return M_PI - newAngle
+        } else {
+            return newAngle
+        }
     }
     
     class func getLineVerticalAngle(l1 : Line) -> Double {
         var newAngle = atan(abs(l1.getZLength()) / abs(l1.getYLength()))
+        //var newAngle = atan((l1.getZLength()) / (l1.getYLength()))
         if(l1.getYLength() < 0 && l1.getZLength() < 0) {
             return M_PI + newAngle
-        } else if(l1.getYLength() < 0) {
-            return M_PI  - newAngle
         } else if(l1.getZLength() < 0) {
             return M_PI * 2 - newAngle
         } else {
