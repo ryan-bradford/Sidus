@@ -27,6 +27,32 @@ public class Line {
             self.length = sqrt(pow(end.xPos - start.xPos, 2) + pow(end.yPos - start.yPos, 2) + pow(end.zPos - start.zPos, 2))
     }
     
+    func getLineHorizontalAngle() -> Double {
+        var opposite = getXLength()
+        var adjcent = getYLength()
+        var tanValue = atan(abs(opposite) / abs(adjcent));//Expands upon the java trig functions
+        if(opposite < 0 && adjcent < 0) {									//Allows for more accurate
+            return M_PI + tanValue;
+        }
+        if(opposite < 0) {
+            return M_PI * 2 - tanValue;
+        }
+        if(adjcent < 0) {
+            return M_PI - tanValue;
+        }
+        return tanValue;
+    }
+    
+    func getLineVerticalAngle() -> Double {
+        var adjcent = sqrt(pow(getZLength(), 2) + pow(getYLength(), 2));
+        var newAngle = atan(abs(getZLength()) / adjcent)
+        if(getZLength() < 0) {
+            return M_PI * 2 - newAngle
+        } else {
+            return newAngle
+        }
+    }
+    
     func getXLength() ->  Double {
         return end.getXPos() - start.getXPos()
     }

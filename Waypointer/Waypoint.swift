@@ -88,7 +88,7 @@ public class Waypoint : UIView {
             x1 = CGFloat(-attitude.pitch - classes.startFromNorth)
         }
         var realAngle = classes.cameraAngle * (classes.screenWidth / classes.screenHeight)
-        var horAngle = MyMath.getLineHorizontalAngle(line)
+        var horAngle = line.getLineHorizontalAngle()
         horAngle = (horAngle + Double(x1))
         horAngle = MyMath.findSmallestAngle(horAngle)
         var perInstanceIncrease = Double(classes.cameraAngle) * (classes.screenWidth / classes.screenHeight) / classes.screenWidth
@@ -100,7 +100,7 @@ public class Waypoint : UIView {
         if let attitude = classes.motionManager.deviceMotion?.attitude {
             y1 = CGFloat(-attitude.yaw)
         }
-        var vertAngle = MyMath.getLineVerticalAngle(line)
+        var vertAngle = line.getLineVerticalAngle()
         vertAngle = vertAngle + Double(y1)
         vertAngle = MyMath.findSmallestAngle(vertAngle)
         var perInstanceIncrease = Double(classes.cameraAngle) / classes.screenHeight
@@ -182,7 +182,9 @@ public class Waypoint : UIView {
     }
     
     func drawText() {
-        let text = name as NSString
+        //let text = name as NSString
+        /*
+        var toAdd = UILabel()
         let font = UIFont(name: "Times New Roman", size: CGFloat(6))
         let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center
@@ -194,6 +196,11 @@ public class Waypoint : UIView {
             
             text.drawAtPoint(CGPoint(x: CGFloat(xWidth - Double(count(name)) * 1.7) + 2, y: CGFloat(4.0 * scaler)), withAttributes: textFontAttributes)
         }
+        */
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(xWidth - Double(count(name)) * 2.0), y: CGFloat(-10), width: 50, height: 20))
+        stringDraw.text = name
+        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        self.addSubview(stringDraw)
     }
     
     func drawLeftArrow(yShift : Double) {

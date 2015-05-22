@@ -30,8 +30,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     } 
     
     override func viewWillAppear(anim : Bool) {
-        classes.manage.addWaypoint(-0.25, yPos: -1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
-        //classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
+        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
+        classes.manage.addWaypoint(0, yPos: 1000, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
     }
     
@@ -63,7 +63,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
-                        //classes.startFromNorth -= M_PI/100
+                        classes.startFromNorth -= M_PI/100
                     }
                 }
             }
@@ -90,7 +90,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 endAngle = CGFloat(-attitude.pitch)
             }
             var toCalc = Line(startingXPos: Double(startX), startingYPos: Double(startY), startingZPos: 0.0, endingXPos: Double(endX), endingYPos: Double(endY), endingZPos: 0.0)
-            var angle = MyMath.getLineHorizontalAngle(toCalc)
+            var angle = toCalc.getLineHorizontalAngle()
             if(!angle.isNaN) {
                 classes.startFromNorth = angle
             } else {
