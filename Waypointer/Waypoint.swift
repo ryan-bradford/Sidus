@@ -83,7 +83,7 @@ public class Waypoint : UIView {
     }
     
     public func getScreenX() -> Double {
-        var x1 = CGFloat(classes.startFromNorth)
+        var x1 = CGFloat(MyMath.findSmallestAngle(classes.startFromNorth))
         if let attitude = classes.motionManager.deviceMotion?.attitude {
             x1 = CGFloat(-attitude.pitch - classes.startFromNorth)
         }

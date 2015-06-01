@@ -63,7 +63,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
-                        classes.startFromNorth -= M_PI/100
+                        classes.startFromNorth -= 5*M_PI/100
                     }
                 }
             }
