@@ -28,6 +28,7 @@ public class AddGroup : UIButton {
     }
     
     override public func drawRect(rect: CGRect) {
+        removeAllGraphics()
         let shape = CAShapeLayer()
         self.layer.addSublayer(shape)
         shape.opacity = 1
@@ -92,6 +93,14 @@ public class AddGroup : UIButton {
         })
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
         
+    }
+    
+    func removeAllGraphics() {
+        if(self.layer.sublayers != nil) {
+            for v in self.layer.sublayers {
+                v.removeFromSuperlayer()
+            }
+        }
     }
     
 }

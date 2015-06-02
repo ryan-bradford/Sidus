@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC5F1AE70F360089EF3B /* AddGroup.swift */; };
 		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
+		943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */; };
 		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
 		9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1E81AE54BAB007F45BE /* AppDelegate.swift */; };
 		9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1EA1AE54BAB007F45BE /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		941DAC5F1AE70F360089EF3B /* AddGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroup.swift; sourceTree = "<group>"; };
 		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
+		943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressButton.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
 		9480A1E31AE54BAB007F45BE /* Waypointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waypointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				9480A2091AE54BC9007F45BE /* AddButton.swift */,
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
 				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
+				943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
+				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,
 				941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */,

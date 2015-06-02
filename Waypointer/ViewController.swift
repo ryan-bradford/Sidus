@@ -22,6 +22,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var addButton = AddButton()
     var addGroupButton = AddGroup()
     var verifyButton = VerifyButton()
+    var addressButton = AddAddressButton()
     var timesStarted = 0
     
     override func didReceiveMemoryWarning() {
@@ -59,11 +60,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
                             if(!classes.manage.drawnWaypoints[i].added) {
                                 self.view.addSubview(classes.manage.drawnWaypoints[i])
-                                println(classes.manage.drawnWaypoints[i].getScreenX());
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
-                        classes.startFromNorth -= 5*M_PI/100
+                        //classes.startFromNorth -= 5*M_PI/100
                     }
                 }
             }
@@ -100,6 +100,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             verifyButton.removeFromSuperview()
             self.editAddButton(true)
             self.editAddGroup(true)
+            self.editAddAddressButton(true)
             timesInitRun += 1
         }
         
@@ -110,6 +111,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.view.addSubview(addButton)
         } else {
             addButton.removeFromSuperview()
+        }
+    }
+    
+    func editAddAddressButton(toAddOrRemove : Bool) { //True is add, false is remove
+        if(toAddOrRemove) {
+            self.view.addSubview(addressButton)
+        } else {
+            addressButton.removeFromSuperview()
         }
     }
     
