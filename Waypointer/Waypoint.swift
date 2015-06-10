@@ -83,30 +83,22 @@ public class Waypoint : UIView {
     }
     
     public func getScreenX() -> Double {
-        var x1 = CGFloat(MyMath.findSmallestAngle(classes.startFromNorth))
-        if let attitude = classes.motionManager.deviceMotion?.attitude {
-            x1 = CGFloat(-attitude.pitch - classes.startFromNorth)
-        }
+        var x1 = CGFloat(classes.manage.pitch - MyMath.findSmallestAngle(classes.startFromNorth))
         var realAngle = classes.cameraAngle * (classes.screenWidth / classes.screenHeight)
         var horAngle = line.getLineHorizontalAngle()
         horAngle = (horAngle + Double(x1))
         horAngle = MyMath.findSmallestAngle(horAngle)
         var perInstanceIncrease = Double(classes.cameraAngle) * (classes.screenWidth / classes.screenHeight) / classes.screenWidth
-        return (horAngle + realAngle) / (perInstanceIncrease * 2)
+        return (horAngle + realAngle) / (perInstanceIncrease)
     }
     
     public func getScreenY() -> Double {
-        var y1 = CGFloat(0)
-        if let attitude = classes.motionManager.deviceMotion?.attitude {
-            y1 = CGFloat(-attitude.yaw)
-        }
+        var y1 = CGFloat(-classes.manage.yaw)
         var vertAngle = line.getLineVerticalAngle()
         vertAngle = vertAngle + Double(y1)
         vertAngle = MyMath.findSmallestAngle(vertAngle)
         var perInstanceIncrease = Double(classes.cameraAngle) / classes.screenHeight
-        //return -vertAngle / perInstanceIncrease + classes.cameraAngle
-        //return -((vertAngle - classes.cameraAngle) / (perInstanceIncrease * 2))
-        return classes.screenHeight - (vertAngle + classes.cameraAngle) / (perInstanceIncrease * 2)
+        return (-vertAngle + classes.cameraAngle) / (perInstanceIncrease)
     }
     
     public func getScreenScaller() -> Double {

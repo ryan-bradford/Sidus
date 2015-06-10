@@ -16,6 +16,10 @@ public class WaypointManager {
     var personX : Double
     var personY : Double
     var personZ : Double
+    var pitch = 0.0
+    var yaw = 0.0
+    var pitchScaler = 1
+    var yawScaler = 1
     var personLeftRightRotation = 0.0  // <--> //Left is Positive, Right is Negative
     var personUpDownRotation = 0.0  //Up is Positive, Down is Negative
     

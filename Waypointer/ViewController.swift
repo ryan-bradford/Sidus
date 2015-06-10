@@ -10,29 +10,33 @@ import UIKit
 import SceneKit
 import CoreText
 import AVFoundation
+import CoreMotion
 import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager!
-    var seenError : Bool = false
-    var locationFixAchieved : Bool = false
-    var locationStatus : NSString = "Not Started"
     var timesInitRun = 0
     var addButton = AddButton()
     var addGroupButton = AddGroup()
     var verifyButton = VerifyButton()
     var addressButton = AddAddressButton()
     var timesStarted = 0
+    var timesStored = 0
+    var startAttitude = CMAttitude()
+    var queue = NSOperationQueue()
+    var motionManager = CMMotionManager()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-    } 
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
+    }
     
     override func viewWillAppear(anim : Bool) {
-        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 0, green: 0, blue: 0, name: "Hello")
-        classes.manage.addWaypoint(0, yPos: 1000, zPos: 0, red: 0, green: 0, blue: 0, name: "Upper")
         initLocationManager()
     }
     
@@ -44,7 +48,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let startX = CGFloat(location.coordinate.latitude)
         let startY = CGFloat(location.coordinate.longitude)
         var startAngle = CGFloat(0.0)
-        if let attitude = classes.motionManager.deviceMotion?.attitude {
+        if let attitude = motionManager.deviceMotion?.attitude {
             startAngle = CGFloat(-attitude.pitch)
         }
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
@@ -52,10 +56,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             while(true) {
                 usleep(100000)
                 if(classes.canContinue) {
-                    self.updateLocation()
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.initApp(startX, startY: startY, startAngle: startAngle)
+                        self.initApp(startX, startY: startY)
                         for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
                             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
                             if(!classes.manage.drawnWaypoints[i].added) {
@@ -63,12 +66,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 classes.manage.drawnWaypoints[i].added = true
                             }
                         }
-                        //classes.startFromNorth -= 5*M_PI/100
                     }
                 }
             }
         }
         
+    }
+    
+    func initMotionManager() {
+        
+        if motionManager.gyroAvailable{
+            
+            if motionManager.gyroActive == false{
+                motionManager.deviceMotionUpdateInterval = 0.02;
+                motionManager.startDeviceMotionUpdates()
+                
+                motionManager.gyroUpdateInterval = 0.02
+                
+                motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()) {
+                    [weak self] (motion: CMDeviceMotion!, error: NSError!) in
+                    if(self!.timesStored == 0) {
+                        self!.timesStored++
+                        self!.startAttitude = motion.attitude
+                    } else {
+                        motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
+                        classes.manage.pitch = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+                        classes.manage.yaw = motion.attitude.pitch - classes.cameraAngle / 2
+                    }
+                }
+            } else {
+                println("Gyro is already active")
+            }
+            
+        } else {
+            println("Gyro isn't available")
+        }
     }
     
     func updateLocation() {
@@ -77,21 +109,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(location.coordinate.longitude)
         var altitude = location.altitude
         var feetZ = altitude * 3.28084
-        //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
     }
     
-    func initApp(startX : CGFloat, startY : CGFloat, startAngle : CGFloat) {
+    func initApp(startX : CGFloat, startY : CGFloat) {
         if(timesInitRun == 0) {
             let location = locationManager.location
             var endX = location.coordinate.latitude
             var endY = location.coordinate.longitude
-            var endAngle = CGFloat(0.0)
-            if let attitude = classes.motionManager.deviceMotion?.attitude {
-                endAngle = CGFloat(-attitude.pitch)
-            }
             var toCalc = Line(startingXPos: Double(startX), startingYPos: Double(startY), startingZPos: 0.0, endingXPos: Double(endX), endingYPos: Double(endY), endingZPos: 0.0)
             var angle = toCalc.getLineHorizontalAngle()
             if(!angle.isNaN) {
+                //classes.startFromNorth = 0//To Reverse
                 classes.startFromNorth = angle
             } else {
                 classes.startFromNorth = 0
@@ -102,6 +131,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.editAddGroup(true)
             self.editAddAddressButton(true)
             timesInitRun += 1
+            initMotionManager()
         }
         
     }
@@ -138,6 +168,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
             var err: NSError? = nil
             classes.cameraAngle = Double(videoDevice.activeFormat.videoFieldOfView)
+            classes.cameraAngle *= M_PI / 180
             if let videoIn : AVCaptureDeviceInput = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice, error: &err) as? AVCaptureDeviceInput {
                 if(err == nil){
                     if (captureSession.canAddInput(videoIn as AVCaptureInput)){
@@ -160,64 +191,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func initLocationManager() {
-        seenError = false
-        locationFixAchieved = false
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        locationManager.requestAlwaysAuthorization()
-    }
-    
-    // Location Manager Delegate stuff
-    // If failed
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        locationManager.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
-            }
-        }
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if (locationFixAchieved == false) {
-            locationFixAchieved = true
-            var locationArray = locations as NSArray
-            var locationObj = locationArray.lastObject as! CLLocation
-            var coord = locationObj.coordinate
-            if(timesStarted == 0) {
-                self.startApp()
-                timesStarted = 1
-            }
+        
+        //var locValue:CLLocationCoordinate2D = manager.location.coordinate
+        //var locationArray = locations as NSArray
+        //var locationObj = locationArray.lastObject as! CLLocation
+        //var coord = locationObj.coordinate
+        self.updateLocation()
+        if(timesStarted == 0) {
+            self.startApp()
+            timesStarted = 1
         }
-    }
-    
-    // authorization status
-    func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-            var shouldIAllow = false
-            
-            switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationStatus = "Restricted Access to location"
-            case CLAuthorizationStatus.Denied:
-                locationStatus = "User denied access to location"
-            case CLAuthorizationStatus.NotDetermined:
-                locationStatus = "Status not determined"
-            default:
-                locationStatus = "Allowed to location Access"
-                shouldIAllow = true
-            }
-            NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
-            if (shouldIAllow == true) {
-                NSLog("Location to Allowed")
-                // Start location services
-                locationManager.startUpdatingLocation()
-            } else {
-                NSLog("Denied access: \(locationStatus)")
-            }
     }
     
     

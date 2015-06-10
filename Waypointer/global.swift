@@ -15,9 +15,8 @@ public struct classes {
     static public var manage = WaypointManager(x: 0, y: 0, z: 0, personLeftRightAngle: 0, personUpDownAngle: 0) //Global
     static public var screenWidth = Double(UIScreen.mainScreen().bounds.width) //Final
     static public var screenHeight = Double(UIScreen.mainScreen().bounds.height) //Final
-    static public var cameraAngle = ( (M_PI) / 3 ) //Final
+    static public var cameraAngle = (0.0) //Global
     static public var waypointTransparency = ( 255.0 ) //Final
-    static public var motionManager = CMMotionManager() //Global
     static public var canContinue = false //Global
     static public var startFromNorth = 0.0 //Final
     static public var groups = Array<WaypointGroup>() //Final
