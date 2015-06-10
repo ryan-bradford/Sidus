@@ -28,6 +28,7 @@
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
+		<string>magnetometer</string>
 		<string>armv7</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
@@ -38,6 +39,10 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to know your location to show you the coordinates where you are located</string>
+	<key>LSApplicationCategoryType</key>
+	<array>
+		<string></string>
+	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>UISupportedInterfaceOrientations~ipad</key>

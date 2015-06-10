@@ -23,6 +23,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var addressButton = AddAddressButton()
     var timesStarted = 0
     var timesStored = 0
+    var startFromNorthSet = false
     var startAttitude = CMAttitude()
     var queue = NSOperationQueue()
     var motionManager = CMMotionManager()
@@ -44,13 +45,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         initCameraFeed()
         sleep(2)
         self.view.addSubview(verifyButton)
-        let location = locationManager.location
-        let startX = CGFloat(location.coordinate.latitude)
-        let startY = CGFloat(location.coordinate.longitude)
-        var startAngle = CGFloat(0.0)
-        if let attitude = motionManager.deviceMotion?.attitude {
-            startAngle = CGFloat(-attitude.pitch)
-        }
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
@@ -58,7 +52,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 if(classes.canContinue) {
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.initApp(startX, startY: startY)
+                        self.initApp()
                         for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
                             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
                             if(!classes.manage.drawnWaypoints[i].added) {
@@ -91,6 +85,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     } else {
                         motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
                         classes.manage.pitch = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+                        println(motion.attitude.pitch - classes.cameraAngle / 2)
                         classes.manage.yaw = motion.attitude.pitch - classes.cameraAngle / 2
                     }
                 }
@@ -109,22 +104,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(location.coordinate.longitude)
         var altitude = location.altitude
         var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
+        //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
     }
     
-    func initApp(startX : CGFloat, startY : CGFloat) {
+    func initApp() {
         if(timesInitRun == 0) {
-            let location = locationManager.location
-            var endX = location.coordinate.latitude
-            var endY = location.coordinate.longitude
-            var toCalc = Line(startingXPos: Double(startX), startingYPos: Double(startY), startingZPos: 0.0, endingXPos: Double(endX), endingYPos: Double(endY), endingZPos: 0.0)
-            var angle = toCalc.getLineHorizontalAngle()
-            if(!angle.isNaN) {
-                //classes.startFromNorth = 0//To Reverse
-                classes.startFromNorth = angle
-            } else {
-                classes.startFromNorth = 0
-            }
+            locationManager.startUpdatingHeading()
             usleep(200000)
             verifyButton.removeFromSuperview()
             self.editAddButton(true)
@@ -199,15 +184,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        
-        //var locValue:CLLocationCoordinate2D = manager.location.coordinate
-        //var locationArray = locations as NSArray
-        //var locationObj = locationArray.lastObject as! CLLocation
-        //var coord = locationObj.coordinate
         self.updateLocation()
         if(timesStarted == 0) {
             self.startApp()
             timesStarted = 1
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+        let h2 = newHeading.trueHeading // will be -1 if we have no location info
+        if(h2 != 0.0 && !startFromNorthSet) {
+            startFromNorthSet = true
+            classes.startFromNorth = h2
+            //classes.startFromNorth = 0.0//To Reverse
+            println(classes.startFromNorth)
         }
     }
     

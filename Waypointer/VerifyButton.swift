@@ -22,10 +22,10 @@ public class VerifyButton : UIButton {
     }
     
     override public func drawRect(rect: CGRect) {
-        var message  = "Move Forward Then Tap The Screen"
+        var message  = "Hold the Device Vertically Then Tap The Screen"
         
         let fieldColor: UIColor = UIColor.darkGrayColor()
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(18))
+        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(16))
         var paraStyle = NSMutableParagraphStyle()
         paraStyle.lineSpacing = 6.0
         var skew = 0.1
