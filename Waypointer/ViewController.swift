@@ -76,7 +76,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 motionManager.startDeviceMotionUpdates()
                 
                 motionManager.gyroUpdateInterval = 0.02
-                
+                //motionManager.startDeviceMotionUpdatesUsingReferenceFrame(referenceFrame: CMAttitudeReferenceFrame.XTrueNorthZVertical)
                 motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()) {
                     [weak self] (motion: CMDeviceMotion!, error: NSError!) in
                     if(self!.timesStored == 0) {
@@ -84,9 +84,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         self!.startAttitude = motion.attitude
                     } else {
                         motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
-                        classes.manage.pitch = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
-                        println(motion.attitude.pitch - classes.cameraAngle / 2)
-                        classes.manage.yaw = motion.attitude.pitch - classes.cameraAngle / 2
+                        classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+                        classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
+                        var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
+                        if(motion.attitude.roll > -M_PI / 2) {
+                            classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
+                        } else {
+                            classes.manage.vertAngle = -(realVertAngle - classes.cameraAngle / 2)
+                        }
                     }
                 }
             } else {
@@ -195,9 +200,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
         if(h2 != 0.0 && !startFromNorthSet) {
             startFromNorthSet = true
-            classes.startFromNorth = h2
-            //classes.startFromNorth = 0.0//To Reverse
-            println(classes.startFromNorth)
+            //classes.startFromNorth = h2
+            classes.startFromNorth = 0.0//To Reverse
         }
     }
     

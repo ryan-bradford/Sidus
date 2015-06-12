@@ -22,20 +22,29 @@ public class VerifyButton : UIButton {
     }
     
     override public func drawRect(rect: CGRect) {
-        var message  = "Hold the Device Vertically Then Tap The Screen"
-        
-        let fieldColor: UIColor = UIColor.darkGrayColor()
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(16))
+        var message1  = "Hold the Device Vertically Then Tap The Screen"
+        var message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
+
+        let fieldColor: UIColor = UIColor.blackColor()
+        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
         var paraStyle = NSMutableParagraphStyle()
+        paraStyle.alignment = NSTextAlignment.Center
         paraStyle.lineSpacing = 6.0
         var skew = 0.1
+        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 5, length: 2))
+
         var attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
             NSParagraphStyleAttributeName: paraStyle,
             NSObliquenessAttributeName: skew,
             NSFontAttributeName: fieldFont!
         ]
-        message.drawInRect(CGRectMake(CGFloat(classes.screenWidth / 2.0 - Double(count(message)) * 5.0) + 10, CGFloat(classes.screenHeight / 2.0), 300.0, 60.0), withAttributes: attributes as [NSObject : AnyObject])
+        let countString = (message.length)
+        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
+        message.addAttributes(attributes as [NSObject : AnyObject], range: NSRange(location: 0, length: countString) )
+        let toSubtract = CGFloat(countString / 2 * 7)
+        //classes.screenWidth / 2) - toSubtract) + 10
+        message.drawInRect(CGRectMake(CGFloat(0), CGFloat(classes.screenHeight / 2.0) - 30.0, 300.0, 60.0))
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -45,7 +54,7 @@ public class VerifyButton : UIButton {
     func pressed(sender: UIButton!) {
         classes.canContinue = true
         redVal = 0
-        blueVal = 0
+        blueVal = 0.4
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
