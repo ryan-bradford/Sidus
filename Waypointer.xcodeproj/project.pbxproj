@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		940DF6DA1B2C858300552527 /* StandardAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940DF6D91B2C858300552527 /* StandardAddButton.swift */; };
 		941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC5F1AE70F360089EF3B /* AddGroup.swift */; };
 		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
 		943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		940DF6D91B2C858300552527 /* StandardAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardAddButton.swift; sourceTree = "<group>"; };
 		941DAC5F1AE70F360089EF3B /* AddGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroup.swift; sourceTree = "<group>"; };
 		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
 		943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressButton.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
 				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
 				943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */,
+				940DF6D91B2C858300552527 /* StandardAddButton.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */,
 				94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */,
 				9480A2171AE54C65007F45BE /* Line.swift in Sources */,
+				940DF6DA1B2C858300552527 /* StandardAddButton.swift in Sources */,
 				9480A2121AE54C30007F45BE /* MyMath.swift in Sources */,
 				941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */,
 				9480A2151AE54C58007F45BE /* Point3D.swift in Sources */,

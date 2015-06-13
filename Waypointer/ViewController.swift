@@ -48,7 +48,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                usleep(100000)
+                usleep(20000)
                 if(classes.canContinue) {
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
@@ -87,11 +87,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
                         classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
                         var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
-                        if(motion.attitude.roll > -M_PI / 2) {
+                        //if(motion.attitude.roll > -M_PI / 2) {
                             classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
-                        } else {
-                            classes.manage.vertAngle = -(realVertAngle - classes.cameraAngle / 2)
-                        }
+                        //} else {
+                        //    classes.manage.vertAngle = -(realVertAngle - classes.cameraAngle / 2)
+                        //}
                     }
                 }
             } else {
@@ -109,7 +109,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(location.coordinate.longitude)
         var altitude = location.altitude
         var feetZ = altitude * 3.28084
-        //classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
     }
     
     func initApp() {
@@ -200,8 +200,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
         if(h2 != 0.0 && !startFromNorthSet) {
             startFromNorthSet = true
-            //classes.startFromNorth = h2
-            classes.startFromNorth = 0.0//To Reverse
+            classes.startFromNorth = h2 * M_PI / 180
+            println(h2)
+            //classes.startFromNorth = 0.0//To Reverse
         }
     }
     

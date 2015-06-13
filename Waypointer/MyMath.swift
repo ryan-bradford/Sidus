@@ -13,7 +13,7 @@ public class MyMath {
     
     class func findSmallestAngle(angle : Double) -> Double {
         var calc = angle
-        if(calc > M_PI + classes.cameraAngle) {
+        if(calc > M_PI - classes.cameraAngle) {
             calc = calc -  M_PI * 2
             return findSmallestAngle(calc)
         } else if(calc < (-classes.cameraAngle - M_PI)) {

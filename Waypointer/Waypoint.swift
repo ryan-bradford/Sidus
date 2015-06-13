@@ -25,7 +25,6 @@ public class Waypoint : UIView {
     var circleDiameter : Double = 0.0
     
     required public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
-        self.line = Line(startingXPos: 1.0, startingYPos: 1.0, startingZPos: 1.0, endingXPos: 1.0, endingYPos: 1.0, endingZPos: 1.0)
         self.red = red
         self.name = name
         self.blue = blue
