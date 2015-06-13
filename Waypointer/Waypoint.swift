@@ -31,6 +31,8 @@ public class Waypoint : UIView {
         self.green = green
         stringDraw = UILabel()
         self.line = Line(startingXPos: classes.manage.personX, startingYPos: classes.manage.personY, startingZPos: classes.manage.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
+        println(self.line.getXLength())
+        println(self.line.getYLength())
         super.init(frame : CGRect(x: 0, y: 0, width: 20, height: 20))
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }

@@ -54,11 +54,11 @@ public class Line {
     }
     
     func getXLength() ->  Double {
-        return end.getXPos() - start.getXPos()
+        return end.getYPos() - start.getYPos()
     }
     
     func getYLength() ->  Double {
-        return end.getYPos() - start.getYPos()
+        return end.getXPos() - start.getXPos()
     }
     
     func getZLength() ->  Double {
