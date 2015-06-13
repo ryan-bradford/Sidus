@@ -25,7 +25,7 @@ public class AddButton : StandardAddButton {
         redVal = 0
         blueVal = 0
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        var alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
+        var alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Longitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
         var xDeg : Double = 0.0
         var yDeg : Double = 0.0
         var zHeight : Double = 0.0
@@ -33,7 +33,7 @@ public class AddButton : StandardAddButton {
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
             let textf = alert.textFields?[0] as! UITextField
             xDeg = Double((textf.text as NSString).doubleValue)
-            var alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Longitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
+            var alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
             alert2.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
                 let textf = alert2.textFields?[0] as! UITextField
                 yDeg = Double((textf.text as NSString).doubleValue)

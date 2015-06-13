@@ -37,7 +37,7 @@ public class AddAddressButton : StandardAddButton {
                     var alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Name of the Waypoint", preferredStyle: UIAlertControllerStyle.Alert)
                     alert2.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
                         let textf1 = alert2.textFields?[0] as! UITextField
-                        classes.manage.addWaypoint(MyMath.degreesToFeet(coordinate.latitude) , yPos : MyMath.degreesToFeet(coordinate.longitude), zPos: classes.manage.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: textf1.text)
+                        classes.manage.addWaypoint(MyMath.degreesToFeet(coordinate.longitude) , yPos : MyMath.degreesToFeet(coordinate.latitude), zPos: classes.manage.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: textf1.text)
                         self.redVal = 0.5
                         self.blueVal = 0.5
                         self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))

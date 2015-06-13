@@ -11,7 +11,7 @@ import SceneKit
 import CoreText
 import AVFoundation
 import CoreMotion
-import CoreLocation
+import CoreLocation //Longitude is X, Latitude is Y
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -103,15 +103,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func updateLocation() {
-        let location = locationManager.location
-        var latitude = Double(location.coordinate.latitude)
-        var longitude = Double(location.coordinate.longitude)
-        var altitude = location.altitude
-        var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(latitude), yPos: MyMath.degreesToFeet(longitude), zPos: feetZ) //To Reverse
-    }
-    
     func initApp() {
         if(timesInitRun == 0) {
             locationManager.startUpdatingHeading()
@@ -124,30 +115,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             initMotionManager()
         }
         
-    }
-    
-    func editAddButton(toAddOrRemove : Bool) { //True is add, false is remove
-        if(toAddOrRemove) {
-            self.view.addSubview(addButton)
-        } else {
-            addButton.removeFromSuperview()
-        }
-    }
-    
-    func editAddAddressButton(toAddOrRemove : Bool) { //True is add, false is remove
-        if(toAddOrRemove) {
-            self.view.addSubview(addressButton)
-        } else {
-            addressButton.removeFromSuperview()
-        }
-    }
-    
-    func editAddGroup(toAddOrRemove : Bool) { //True is add, false is remove
-        if(toAddOrRemove) {
-            self.view.addSubview(addGroupButton)
-        } else {
-            addGroupButton.removeFromSuperview()
-        }
     }
     
     func initCameraFeed() {
@@ -183,13 +150,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func initLocationManager() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        self.updateLocation()
+        var latitude = Double(manager.location.coordinate.latitude
+        )
+        var longitude = Double(manager.location.coordinate.longitude)
+        var altitude = manager.location.altitude
+        var feetZ = altitude * 3.28084
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.startApp()
             timesStarted = 1
@@ -203,6 +175,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             classes.startFromNorth = h2 * M_PI / 180
             println(h2)
             //classes.startFromNorth = 0.0//To Reverse
+        }
+    }
+    
+    
+    func editAddButton(toAddOrRemove : Bool) { //True is add, false is remove
+        if(toAddOrRemove) {
+            self.view.addSubview(addButton)
+        } else {
+            addButton.removeFromSuperview()
+        }
+    }
+    
+    func editAddAddressButton(toAddOrRemove : Bool) { //True is add, false is remove
+        if(toAddOrRemove) {
+            self.view.addSubview(addressButton)
+        } else {
+            addressButton.removeFromSuperview()
+        }
+    }
+    
+    func editAddGroup(toAddOrRemove : Bool) { //True is add, false is remove
+        if(toAddOrRemove) {
+            self.view.addSubview(addGroupButton)
+        } else {
+            addGroupButton.removeFromSuperview()
         }
     }
     
