@@ -23,10 +23,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var addressButton = AddAddressButton()
     var timesStarted = 0
     var timesStored = 0
-    var startFromNorthSet = false
     var startAttitude = CMAttitude()
     var queue = NSOperationQueue()
     var motionManager = CMMotionManager()
+    var headingSet = false
+    var headingCounter = 0
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -106,13 +107,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func initApp() {
         if(timesInitRun == 0) {
             locationManager.startUpdatingHeading()
-            usleep(200000)
-            verifyButton.removeFromSuperview()
-            self.editAddButton(true)
-            self.editAddGroup(true)
-            self.editAddAddressButton(true)
-            timesInitRun += 1
-            initMotionManager()
+            if(headingSet) {
+                verifyButton.removeFromSuperview()
+                self.editAddButton(true)
+                self.editAddGroup(true)
+                self.editAddAddressButton(true)
+                timesInitRun += 1
+                initMotionManager()
+            }
         }
         
     }
@@ -156,8 +158,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var latitude = Double(manager.location.coordinate.latitude
-        )
+        var latitude = Double(manager.location.coordinate.latitude)
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
@@ -170,11 +171,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        if(h2 != 0.0 && !startFromNorthSet) {
-            startFromNorthSet = true
-            classes.startFromNorth = h2 * M_PI / 180
-            println(h2)
-            //classes.startFromNorth = 0.0//To Reverse
+        headingCounter++
+        if(headingCounter > 9) {
+            if(h2 != 0.0 && !headingSet) {
+                headingSet = true
+                classes.startFromNorth = h2 * M_PI / 180
+            }
         }
     }
     
