@@ -14,7 +14,6 @@ public class WaypointGroup {
     public var waypoints :  Array<Waypoint>
     public var name : String
     
-    
     init(name : String) {
         waypoints = Array<Waypoint>()
         self.name = name

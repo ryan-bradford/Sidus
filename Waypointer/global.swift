@@ -26,6 +26,9 @@ public struct classes {
     static public var buttonLength = 13 //Final
     static public var buttonOutlineWidth = 40 //Final
     static public var buttonGap = 10 //Final
+    static public var groupScreen = GroupScreen()
+    static public var goAwayGroupScreen = false
+    static public var showGroupScreen = false
 
     
 }

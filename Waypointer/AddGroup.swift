@@ -22,31 +22,6 @@ public class AddGroup : StandardAddButton {
     }
     
     func pressed(sender: UIButton!) {
-        redVal = 0
-        blueVal = 0
-        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        var alert = UIAlertController(title: "Group Adder", message: "Enter The Name of the Group", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
-            let textf = alert.textFields?[0] as! UITextField
-            for var i = 0; i < classes.groups.count; i++ {
-                if(classes.groups[i].name == textf.text.uppercaseString) {
-                    for var x = 0; x < classes.groups[i].waypoints.count; x++ {
-                        classes.groups[i].waypoints[x].updateDistance()
-                        classes.manage.addWaypoint(classes.groups[i].waypoints[x])
-                    }
-                    break;
-                }
-            }
-            self.redVal = 0.5
-            self.blueVal = 0.5
-            self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
-        }))
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-            textField.placeholder = "Name"
-            textField.secureTextEntry = false
-        })
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-        
+        classes.showGroupScreen = true
     }
 }

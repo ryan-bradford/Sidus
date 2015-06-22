@@ -54,6 +54,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
                         self.initApp()
+                        if(classes.goAwayGroupScreen) {
+                            classes.groupScreen.removeFromSuperview()
+                            classes.goAwayGroupScreen = false
+                        }
+                        if(classes.showGroupScreen) {
+                            self.view.addSubview(classes.groupScreen)
+                            classes.showGroupScreen = false
+                        }
                         for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
                             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
                             if(!classes.manage.drawnWaypoints[i].added) {
@@ -69,9 +77,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initMotionManager() {
-        
         if motionManager.gyroAvailable{
-            
             if motionManager.gyroActive == false{
                 motionManager.deviceMotionUpdateInterval = 0.02;
                 motionManager.startDeviceMotionUpdates()
@@ -147,8 +153,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.view.layer.addSublayer(previewLayer)
     }
     
-    
-    
     func initLocationManager() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -162,7 +166,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        //classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.startApp()
             timesStarted = 1

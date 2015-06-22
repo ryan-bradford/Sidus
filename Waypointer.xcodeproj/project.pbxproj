@@ -25,6 +25,8 @@
 		9480A2151AE54C58007F45BE /* Point3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2141AE54C58007F45BE /* Point3D.swift */; };
 		9480A2171AE54C65007F45BE /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2161AE54C65007F45BE /* Line.swift */; };
 		9480A2191AE54C7D007F45BE /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2181AE54C7D007F45BE /* global.swift */; };
+		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
+		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		9480A2141AE54C58007F45BE /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
 		9480A2161AE54C65007F45BE /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
+		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
+		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,8 @@
 				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
 				943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */,
 				940DF6D91B2C858300552527 /* StandardAddButton.swift */,
+				94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */,
+				94C6E1011B38C08E00F6FA08 /* GroupButton.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -282,9 +288,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9480A20D1AE54BED007F45BE /* Waypoint.swift in Sources */,
+				94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */,
 				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
+				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,

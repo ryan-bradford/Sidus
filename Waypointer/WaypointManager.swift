@@ -55,6 +55,13 @@ public class WaypointManager {
         }
     }
     
+    public func addGroup(group : WaypointGroup) {
+        for var i = 0; i < group.waypoints.count; i++ {
+            self.addWaypoint(group.waypoints[i])
+            println("Hi!")
+        }
+    }
+    
     public func orderWaypoints() { //Correct Ordering and Add Limit
         let start = allWaypoints
         var newWaypoints = Array<Waypoint>()
