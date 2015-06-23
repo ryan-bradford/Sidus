@@ -13,6 +13,7 @@ public class WaypointGroup {
     
     public var waypoints :  Array<Waypoint>
     public var name : String
+    public var active = false
     
     init(name : String) {
         waypoints = Array<Waypoint>()

@@ -54,13 +54,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
                         self.initApp()
-                        if(classes.goAwayGroupScreen) {
-                            classes.groupScreen.removeFromSuperview()
-                            classes.goAwayGroupScreen = false
-                        }
                         if(classes.showGroupScreen) {
                             self.view.addSubview(classes.groupScreen)
                             classes.showGroupScreen = false
+                            self.hideAllButtons()
+                        }
+                        if(classes.goAwayGroupScreen) {
+                            self.showAllButtons()
+                            classes.groupScreen.removeFromSuperview()
+                            classes.goAwayGroupScreen = false
                         }
                         for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
                             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
@@ -83,7 +85,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 motionManager.startDeviceMotionUpdates()
                 
                 motionManager.gyroUpdateInterval = 0.02
-                //motionManager.startDeviceMotionUpdatesUsingReferenceFrame(referenceFrame: CMAttitudeReferenceFrame.XTrueNorthZVertical)
                 motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()) {
                     [weak self] (motion: CMDeviceMotion!, error: NSError!) in
                     if(self!.timesStored == 0) {
@@ -94,11 +95,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
                         classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
                         var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
-                        //if(motion.attitude.roll > -M_PI / 2) {
-                            classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
-                        //} else {
-                        //    classes.manage.vertAngle = -(realVertAngle - classes.cameraAngle / 2)
-                        //}
+                        classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
                     }
                 }
             } else {
@@ -115,9 +112,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.startUpdatingHeading()
             if(headingSet) {
                 verifyButton.removeFromSuperview()
-                self.editAddButton(true)
-                self.editAddGroup(true)
-                self.editAddAddressButton(true)
+                showAllButtons()
                 timesInitRun += 1
                 initMotionManager()
             }
@@ -166,7 +161,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
-        //classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.startApp()
             timesStarted = 1
@@ -185,28 +180,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func editAddButton(toAddOrRemove : Bool) { //True is add, false is remove
-        if(toAddOrRemove) {
-            self.view.addSubview(addButton)
-        } else {
-            addButton.removeFromSuperview()
-        }
+    func showAllButtons() {
+        self.view.addSubview(addButton)
+        self.view.addSubview(addressButton)
+        self.view.addSubview(addGroupButton)
     }
     
-    func editAddAddressButton(toAddOrRemove : Bool) { //True is add, false is remove
-        if(toAddOrRemove) {
-            self.view.addSubview(addressButton)
-        } else {
-            addressButton.removeFromSuperview()
-        }
-    }
-    
-    func editAddGroup(toAddOrRemove : Bool) { //True is add, false is remove
-        if(toAddOrRemove) {
-            self.view.addSubview(addGroupButton)
-        } else {
-            addGroupButton.removeFromSuperview()
-        }
+    func hideAllButtons() {
+        addButton.removeFromSuperview()
+        addressButton.removeFromSuperview()
+        addGroupButton.removeFromSuperview()
     }
     
     

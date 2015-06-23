@@ -42,7 +42,7 @@ public class Waypoint : UIView {
     override public func drawRect(rect: CGRect) {
         generateVars()
         removeAllGraphics()
-        var yShift = 40/scaler
+        var yShift = 20/scaler
         if(x > classes.screenWidth && y - yShift > classes.screenHeight) {
             return
         } else if(x > classes.screenWidth && y - yShift < 0) {
@@ -173,21 +173,6 @@ public class Waypoint : UIView {
     }
     
     func drawText() {
-        //let text = name as NSString
-        /*
-        var toAdd = UILabel()
-        let font = UIFont(name: "Times New Roman", size: CGFloat(6))
-        let textStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.Center
-        if let actualFont = font {
-            let textFontAttributes = [
-                NSFontAttributeName: actualFont,
-                NSParagraphStyleAttributeName: textStyle
-            ]
-            
-            text.drawAtPoint(CGPoint(x: CGFloat(xWidth - Double(count(name)) * 1.7) + 2, y: CGFloat(4.0 * scaler)), withAttributes: textFontAttributes)
-        }
-        */
         stringDraw = UILabel(frame: CGRect(x: CGFloat(xWidth - Double(count(name)) * 2.0), y: CGFloat(-10), width: 50, height: 20))
         stringDraw.text = name
         stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))

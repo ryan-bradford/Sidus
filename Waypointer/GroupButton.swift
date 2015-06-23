@@ -14,6 +14,9 @@ class GroupButton : UIButton {
     var width = 0
     var height = 0
     var myID = 0
+    var numPerCollom = 15
+    var numPerRow = 3
+    var spaceNeeded = 80.0
     
     // #1
     required init(coder: NSCoder) {
@@ -23,32 +26,39 @@ class GroupButton : UIButton {
     // #2
     init(group : WaypointGroup, order : Int) {
         myID = order
-        var numPerRow = 3
-        var numPerCollom = 15
         var xPos = order % numPerRow
-        var yPos = order / numPerCollom
-        var xCord = 50 + (xPos * (Int(classes.screenWidth) - 50) / numPerRow)
-        var yCord = 50 + yPos * (Int(classes.screenHeight) - 50) / numPerCollom
-        width = (Int(classes.screenWidth) - 50) / numPerRow - 5
-        height = (Int(classes.screenHeight - 50) / numPerCollom - 5)
+        var yPos = order / numPerRow
+        var screenHeight = classes.screenHeight - spaceNeeded
+        var xCord = 20 + (xPos * (Int(classes.screenWidth - 20)) / numPerRow)
+        var yCord = 20 + yPos * (Int(screenHeight - 20)) / numPerCollom
+        width = (Int(classes.screenWidth)) / numPerRow - 25
+        height = (Int(screenHeight) / numPerCollom - 12)
         super.init(frame: CGRect(x: xCord, y: yCord, width: width, height: height));
         self.addTarget(self, action: "pressed:", forControlEvents: UIControlEvents.TouchUpInside);
-        self.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+        self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
     }
     
     func pressed(sender: UIButton!) {
+        classes.groups[myID].active = !classes.groups[myID].active
+        if(!classes.groups[myID].active) {
+            self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
+            for var i = 0; i < classes.groups[myID].waypoints.count; i++ {
+                classes.groups[myID].waypoints[i].removeFromSuperview()
+                classes.groups[myID].waypoints[i].added = false
+            }
+        }
+        if(classes.groups[myID].active) {
+            self.backgroundColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.8)
+        }
         classes.goAwayGroupScreen = true
-        classes.manage.addGroup(classes.groups[myID])
     }
-    
     
     override func drawRect(rect: CGRect) {
-        self.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+        var width = CGFloat(classes.screenWidth - 80) / CGFloat(numPerRow)
+        let stringDraw = UILabel(frame: CGRect(x: 2, y: CGFloat(1), width: width, height: 20))
+        stringDraw.text = classes.groups[myID].name
+        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(12))
+        self.addSubview(stringDraw)
     }
-    
-    
-    
-    
-    
     
 }

@@ -84,6 +84,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		943F4D501B39EDA000A1EBCF /* PrimiaryButtons */ = {
+			isa = PBXGroup;
+			children = (
+				940DF6D91B2C858300552527 /* StandardAddButton.swift */,
+				9480A2091AE54BC9007F45BE /* AddButton.swift */,
+				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
+				943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */,
+			);
+			name = PrimiaryButtons;
+			sourceTree = "<group>";
+		};
+		943F4D511B39EDD200A1EBCF /* SecondaryButtons */ = {
+			isa = PBXGroup;
+			children = (
+				94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */,
+				94C6E1011B38C08E00F6FA08 /* GroupButton.swift */,
+			);
+			name = SecondaryButtons;
+			sourceTree = "<group>";
+		};
 		9480A1DA1AE54BAB007F45BE = {
 			isa = PBXGroup;
 			children = (
@@ -148,13 +168,9 @@
 		9480A2081AE54BC0007F45BE /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				9480A2091AE54BC9007F45BE /* AddButton.swift */,
+				943F4D511B39EDD200A1EBCF /* SecondaryButtons */,
+				943F4D501B39EDA000A1EBCF /* PrimiaryButtons */,
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
-				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
-				943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */,
-				940DF6D91B2C858300552527 /* StandardAddButton.swift */,
-				94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */,
-				94C6E1011B38C08E00F6FA08 /* GroupButton.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";

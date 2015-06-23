@@ -55,15 +55,15 @@ public class WaypointManager {
         }
     }
     
-    public func addGroup(group : WaypointGroup) {
-        for var i = 0; i < group.waypoints.count; i++ {
-            self.addWaypoint(group.waypoints[i])
-            println("Hi!")
-        }
-    }
-    
     public func orderWaypoints() { //Correct Ordering and Add Limit
         let start = allWaypoints
+        for var i = 0; i < classes.groups.count; i++ {
+            if(classes.groups[i].active) {
+                for var z = 0; z < classes.groups[i].waypoints.count; z++ {
+                    allWaypoints.append(classes.groups[i].waypoints[z])
+                }
+            }
+        }
         var newWaypoints = Array<Waypoint>()
         var heighestID = 0
         var numToAdd = classes.numWaypoints
