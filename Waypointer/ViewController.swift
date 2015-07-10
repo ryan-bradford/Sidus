@@ -27,6 +27,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var queue = NSOperationQueue()
     var motionManager = CMMotionManager()
     var headingSet = false
+    var cannotRun = CannotRunScreen()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,72 +39,112 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(anim : Bool) {
-        initLocationManager()
+        initStage1()
     }
     
-    func startApp()  {
-        initCameraFeed()
+    func manageGroupScreen() {
+        if(classes.showGroupScreen) {
+            self.view.addSubview(classes.groupScreen)
+            classes.showGroupScreen = false
+            self.hideAllButtons()
+        }
+        if(classes.goAwayGroupScreen) {
+            self.showAllButtons()
+            classes.groupScreen.removeFromSuperview()
+            classes.goAwayGroupScreen = false
+        }
+    }
+    
+    func updateWaypoints() {
+        for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
+            classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
+            if(!classes.manage.drawnWaypoints[i].added) {
+                self.view.addSubview(classes.manage.drawnWaypoints[i])
+                classes.manage.drawnWaypoints[i].added = true
+            }
+        }
+    }
+    
+    func initStage1() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.headingFilter = kCLHeadingFilterNone
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+    }
+    
+    func initStage2()  {
+        initCameraFeed()
         sleep(2)
         self.view.addSubview(verifyButton)
+    }
+    
+    func initStage3() {
+        initMotionManager()
+        locationManager.stopUpdatingHeading()
+        startThread()
+    }
+    
+    
+    func startThread() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
                 usleep(20000)
-                if(classes.canContinue) {
-                    classes.manage.orderWaypoints()
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if(classes.showGroupScreen) {
-                            self.view.addSubview(classes.groupScreen)
-                            classes.showGroupScreen = false
-                            self.hideAllButtons()
-                        }
-                        if(classes.goAwayGroupScreen) {
-                            self.showAllButtons()
-                            classes.groupScreen.removeFromSuperview()
-                            classes.goAwayGroupScreen = false
-                        }
-                        for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
-                            classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
-                            if(!classes.manage.drawnWaypoints[i].added) {
-                                self.view.addSubview(classes.manage.drawnWaypoints[i])
-                                classes.manage.drawnWaypoints[i].added = true
-                            }
-                        }
-                    }
+                classes.manage.orderWaypoints()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.manageGroupScreen()
+                    self.updateWaypoints()
                 }
             }
         }
-        
     }
     
-    func initMotionManager() {
-        if motionManager.gyroAvailable{
-            if motionManager.gyroActive == false{
-                motionManager.deviceMotionUpdateInterval = 0.02;
-                motionManager.startDeviceMotionUpdates()
-                
-                motionManager.gyroUpdateInterval = 0.02
-                motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()) {
-                    [weak self] (motion: CMDeviceMotion!, error: NSError!) in
-                    if(self!.timesStored == 0) {
-                        self!.timesStored++
-                        self!.startAttitude = motion.attitude
-                    } else {
-                        motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
-                        classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
-                        classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
-                        var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
-                        classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
-                    }
-                }
-            } else {
-                println("Gyro is already active")
-            }
-            
-        } else {
-            println("Gyro isn't available")
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        manager.location.course
+        var latitude = Double(manager.location.coordinate.latitude)
+        var longitude = Double(manager.location.coordinate.longitude)
+        var altitude = manager.location.altitude
+        var feetZ = altitude * 3.28084
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        if(timesStarted == 0) {
+            self.initStage2()
+            timesStarted = 1
         }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+        let h2 = newHeading.trueHeading // will be -1 if we have no location info
+        println(h2)
+        if(classes.canContinue) {
+            if(h2 != 0.0 && !headingSet) {
+                headingSet = true
+                classes.startFromNorth = h2 * M_PI / 180 //To Reverse
+                //classes.startFromNorth = 0.0
+                verifyButton.removeFromSuperview()
+                showAllButtons()
+                timesInitRun += 1
+                initStage3()
+            }
+            if(h2 == -1) {
+                self.view.addSubview(cannotRun)
+            }
+        }
+    }
+    
+    
+    func showAllButtons() {
+        self.view.addSubview(addButton)
+        self.view.addSubview(addressButton)
+        self.view.addSubview(addGroupButton)
+    }
+    
+    func hideAllButtons() {
+        addButton.removeFromSuperview()
+        addressButton.removeFromSuperview()
+        addGroupButton.removeFromSuperview()
     }
     
     func initCameraFeed() {
@@ -124,9 +165,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 }
                 else {
+                    self.view.addSubview(cannotRun)
                 }
             }
             else {
+                self.view.addSubview(cannotRun)
             }
         }
         captureSession.startRunning()
@@ -134,55 +177,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.view.layer.addSublayer(previewLayer)
     }
     
-    func initLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        manager.location.course
-        var latitude = Double(manager.location.coordinate.latitude)
-        var longitude = Double(manager.location.coordinate.longitude)
-        var altitude = manager.location.altitude
-        var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
-        if(timesStarted == 0) {
-            self.startApp()
-            timesStarted = 1
-        }
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
-        let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        if(classes.canContinue) {
-            if(h2 != 0.0 && !headingSet) {
-                headingSet = true
-                classes.startFromNorth = h2 * M_PI / 180 //To Reverse
-                //classes.startFromNorth = 0.0
-                verifyButton.removeFromSuperview()
-                showAllButtons()
-                timesInitRun += 1
-                initMotionManager()
+    func initMotionManager() {
+        if motionManager.gyroAvailable{
+            if motionManager.gyroActive == false{
+                motionManager.deviceMotionUpdateInterval = 0.02;
+                motionManager.startDeviceMotionUpdates()
+                motionManager.gyroUpdateInterval = 0.02
+                motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()) {
+                    [weak self] (motion: CMDeviceMotion!, error: NSError!) in
+                    if(self!.timesStored == 0) {
+                        self!.timesStored++
+                        self!.startAttitude = motion.attitude
+                    } else {
+                        motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
+                        classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+                        classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
+                        var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
+                        classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
+                    }
+                }
+            } else {
+                println("Gyro is already active")
+                self.view.addSubview(cannotRun)
             }
+        } else {
+            println("Gyro isn't available")
+            self.view.addSubview(cannotRun)
         }
     }
-    
-    
-    func showAllButtons() {
-        self.view.addSubview(addButton)
-        self.view.addSubview(addressButton)
-        self.view.addSubview(addGroupButton)
-    }
-    
-    func hideAllButtons() {
-        addButton.removeFromSuperview()
-        addressButton.removeFromSuperview()
-        addGroupButton.removeFromSuperview()
-    }
-    
     
 }
 

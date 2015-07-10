@@ -25,6 +25,7 @@
 		9480A2151AE54C58007F45BE /* Point3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2141AE54C58007F45BE /* Point3D.swift */; };
 		9480A2171AE54C65007F45BE /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2161AE54C65007F45BE /* Line.swift */; };
 		9480A2191AE54C7D007F45BE /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2181AE54C7D007F45BE /* global.swift */; };
+		9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2741B5058730038D3B6 /* CannotRunScreen.swift */; };
 		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
 		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		9480A2141AE54C58007F45BE /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
 		9480A2161AE54C65007F45BE /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
+		9494B2741B5058730038D3B6 /* CannotRunScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannotRunScreen.swift; sourceTree = "<group>"; };
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,7 +130,7 @@
 				9480A2131AE54C4E007F45BE /* Geometry */,
 				9480A2101AE54C24007F45BE /* math */,
 				9480A20B1AE54BDE007F45BE /* Waypoint System */,
-				9480A2081AE54BC0007F45BE /* Other */,
+				9480A2081AE54BC0007F45BE /* UIStuff */,
 				9480A1E81AE54BAB007F45BE /* AppDelegate.swift */,
 				9480A1EA1AE54BAB007F45BE /* ViewController.swift */,
 				9480A1EC1AE54BAB007F45BE /* Main.storyboard */,
@@ -165,14 +167,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9480A2081AE54BC0007F45BE /* Other */ = {
+		9480A2081AE54BC0007F45BE /* UIStuff */ = {
 			isa = PBXGroup;
 			children = (
 				943F4D511B39EDD200A1EBCF /* SecondaryButtons */,
 				943F4D501B39EDA000A1EBCF /* PrimiaryButtons */,
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
+				9494B2741B5058730038D3B6 /* CannotRunScreen.swift */,
 			);
-			name = Other;
+			name = UIStuff;
 			sourceTree = "<group>";
 		};
 		9480A20B1AE54BDE007F45BE /* Waypoint System */ = {
@@ -310,6 +313,7 @@
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
+				9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,
 				941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */,
