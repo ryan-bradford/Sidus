@@ -22,9 +22,19 @@ public class VerifyButton : UIButton {
     }
     
     override public func drawRect(rect: CGRect) {
-        var message1  = "Hold the Device Vertically Then Tap The Screen"
+        drawMessage("Hold the Device Vertically Then Tap The Screen", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 30.0)
+        //drawMessage("Key : ", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 190.0)
+        drawMessage("G = Add A Group", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 160.0)
+        drawMessage("A = Add An Address", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 130.0)
+        drawMessage("W = Add A Coordinate", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 100.0)
+        
+    }
+    
+    func drawMessage(message2 : String, X : CGFloat, Y : CGFloat) {
+        
+        var message1  = message2
         var message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
-
+        
         let fieldColor: UIColor = UIColor.blackColor()
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
         var paraStyle = NSMutableParagraphStyle()
@@ -32,7 +42,7 @@ public class VerifyButton : UIButton {
         paraStyle.lineSpacing = 6.0
         var skew = 0.1
         message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 5, length: 2))
-
+        
         var attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
             NSParagraphStyleAttributeName: paraStyle,
@@ -44,7 +54,8 @@ public class VerifyButton : UIButton {
         message.addAttributes(attributes as [NSObject : AnyObject], range: NSRange(location: 0, length: countString) )
         let toSubtract = CGFloat(countString / 2 * 7)
         //classes.screenWidth / 2) - toSubtract) + 10
-        message.drawInRect(CGRectMake(CGFloat(0), CGFloat(classes.screenHeight / 2.0) - 30.0, 300.0, 60.0))
+        message.drawInRect(CGRectMake(X, Y, 300.0, 60.0))
+        
     }
     
     required public init(coder aDecoder: NSCoder) {

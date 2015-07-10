@@ -157,11 +157,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        manager.location.course
         var latitude = Double(manager.location.coordinate.latitude)
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        //classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.startApp()
             timesStarted = 1
@@ -174,7 +175,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if(headingCounter > 9) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
-                classes.startFromNorth = h2 * M_PI / 180
+                //classes.startFromNorth = h2 * M_PI / 180 //To Reverse
+                classes.startFromNorth = 0.0
             }
         }
     }

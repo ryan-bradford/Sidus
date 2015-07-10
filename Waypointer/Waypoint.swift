@@ -64,12 +64,14 @@ public class Waypoint : UIView {
         } else if(y - yShift < 0) {
             return
         }
-        addPolygon()
-        addOuterOval()
-        addInnerOval()
+        drawBackground()
+        drawCircle()
+        //addPolygon()
+        //addOuterOval()
+        //addInnerOval()
         drawText()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        self.frame = CGRect(x: x  - xWidth / 2, y: y - circleDiameter - yShift, width: 50, height: 50)
+        self.frame = CGRect(x: x, y: y, width: 50, height: 50)
     }
     
     public func updatePersonPossition() {
@@ -130,50 +132,11 @@ public class Waypoint : UIView {
         scaler = getScreenScaller()
         xWidth = (20 * scaler)
         yWidth = (70 * scaler)
-        circleDiameter = ((xWidth * 2))
-    }
-    
-    func addPolygon() {
-        let shape = CAShapeLayer()
-        self.layer.addSublayer(shape)
-        shape.opacity = 1
-        shape.lineWidth = 2
-        shape.lineJoin = kCALineJoinMiter
-        shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
-        let path = UIBezierPath()
-        path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(circleDiameter)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth), CGFloat(circleDiameter + yWidth)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth * 2), CGFloat(circleDiameter)))
-        path.closePath()
-        shape.path = path.CGPath
-    }
-    
-    func addOuterOval() {
-        let circle = CAShapeLayer() //Draw Outer Oval
-        self.layer.addSublayer(circle)
-        circle.opacity = 1
-        circle.lineWidth = 2
-        circle.lineJoin = kCALineJoinMiter
-        circle.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
-        var ovalPath = UIBezierPath(ovalInRect: CGRectMake(CGFloat(0), CGFloat((((circleDiameter / 2)))), CGFloat(circleDiameter), CGFloat(circleDiameter)))
-        ovalPath.closePath()
-        circle.path = ovalPath.CGPath
-    }
-    
-    func addInnerOval() {
-        let frontCircle = CAShapeLayer() //Draw Inner Oval
-        self.layer.addSublayer(frontCircle)
-        frontCircle.opacity = 1
-        frontCircle.lineWidth = 2
-        frontCircle.lineJoin = kCALineJoinMiter
-        frontCircle.fillColor = UIColor(red: CGFloat(255.0/255.0), green: CGFloat(255.0/255.0), blue: CGFloat(255.0/255.0), alpha: CGFloat(1.0)).CGColor
-        var newOvalPath = UIBezierPath(ovalInRect: CGRectMake(CGFloat(circleDiameter / 4), CGFloat(circleDiameter * 3 / 4), CGFloat(circleDiameter / 2), CGFloat(circleDiameter / 2)))
-        newOvalPath.closePath()
-        frontCircle.path = newOvalPath.CGPath
+        circleDiameter = ((xWidth / 2.5))
     }
     
     func drawText() {
-        stringDraw = UILabel(frame: CGRect(x: CGFloat(xWidth - Double(count(name)) * 2.0), y: CGFloat(-10), width: 50, height: 20))
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(count(name)) * 1.7), y: CGFloat(-yWidth - 17), width: 50, height: 20))
         stringDraw.text = name
         stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
         self.addSubview(stringDraw)
@@ -225,6 +188,40 @@ public class Waypoint : UIView {
         path.closePath()
         shape.path = path.CGPath
         self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
+    }
+    
+    func drawBackground() {
+        let shape = CAShapeLayer()
+        self.layer.addSublayer(shape)
+        shape.opacity = 1
+        shape.lineJoin = kCALineJoinMiter
+        shape.strokeColor = UIColor.blackColor().CGColor
+        shape.lineWidth = 1
+        shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        let path = UIBezierPath()
+        path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
+        path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-yWidth * 13/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(xWidth * 5 / 4), CGFloat(-yWidth * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-yWidth * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(0), CGFloat(-yWidth)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-yWidth * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xWidth * 5 / 4), CGFloat(-yWidth * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-yWidth * 13/24)))
+        path.closePath()
+        shape.path = path.CGPath
+    }
+    
+    func drawCircle() {
+        let circle = CAShapeLayer() //Draw Outer Oval
+        self.layer.addSublayer(circle)
+        circle.opacity = 1
+        circle.lineWidth = 1
+        circle.strokeColor = UIColor.blackColor().CGColor
+        circle.lineJoin = kCALineJoinMiter
+        circle.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: CGFloat(classes.waypointTransparency)).CGColor
+        var ovalPath = UIBezierPath(ovalInRect: CGRectMake(CGFloat(-circleDiameter/2), CGFloat(-yWidth * 16/24 - circleDiameter/2), CGFloat(circleDiameter), CGFloat(circleDiameter)))
+        ovalPath.closePath()
+        circle.path = ovalPath.CGPath
     }
     
 }
