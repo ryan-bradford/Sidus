@@ -27,7 +27,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var queue = NSOperationQueue()
     var motionManager = CMMotionManager()
     var headingSet = false
-    var headingCounter = 0
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -44,6 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func startApp()  {
         initCameraFeed()
+        locationManager.startUpdatingHeading()
         sleep(2)
         self.view.addSubview(verifyButton)
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
@@ -53,7 +53,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 if(classes.canContinue) {
                     classes.manage.orderWaypoints()
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.initApp()
                         if(classes.showGroupScreen) {
                             self.view.addSubview(classes.groupScreen)
                             classes.showGroupScreen = false
@@ -107,19 +106,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func initApp() {
-        if(timesInitRun == 0) {
-            locationManager.startUpdatingHeading()
-            if(headingSet) {
-                verifyButton.removeFromSuperview()
-                showAllButtons()
-                timesInitRun += 1
-                initMotionManager()
-            }
-        }
-        
-    }
-    
     func initCameraFeed() {
         let captureSession = AVCaptureSession()
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -162,7 +148,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
-        //classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.startApp()
             timesStarted = 1
@@ -171,12 +157,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        headingCounter++
-        if(headingCounter > 9) {
+        if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
-                //classes.startFromNorth = h2 * M_PI / 180 //To Reverse
-                classes.startFromNorth = 0.0
+                classes.startFromNorth = h2 * M_PI / 180 //To Reverse
+                //classes.startFromNorth = 0.0
+                verifyButton.removeFromSuperview()
+                showAllButtons()
+                timesInitRun += 1
+                initMotionManager()
             }
         }
     }
