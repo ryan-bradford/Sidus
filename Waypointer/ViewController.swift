@@ -201,8 +201,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             self!.startAttitude = motion.attitude
                         } else {
                             motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
-                            classes.manage.horAngle = motion.attitude.roll// - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
-                            classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
+                            classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
                             var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
                             classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
                         }
