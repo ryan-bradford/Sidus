@@ -126,6 +126,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
+        println(h2)
         if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
