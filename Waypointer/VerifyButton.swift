@@ -22,11 +22,11 @@ public class VerifyButton : UIButton {
     }
     
     override public func drawRect(rect: CGRect) {
-        drawMessage("Hold the Device Vertically Then Tap The Screen", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 30.0)
+        drawMessage("Hold the Device Vertically Then Tap The Screen", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 10)
         //drawMessage("Key : ", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 190.0)
-        drawMessage("G = Add A Group", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 160.0)
-        drawMessage("A = Add An Address", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 130.0)
-        drawMessage("W = Add A Coordinate", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 100.0)
+        drawMessage("G = Add A Group", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 160.0)
+        drawMessage("A = Add An Address", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 130.0)
+        drawMessage("W = Add A Coordinate", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 100.0)
         
     }
     

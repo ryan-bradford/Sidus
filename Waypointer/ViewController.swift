@@ -31,6 +31,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var activeLine = CenterLine()
     var centerLine = CenterLine()
     var motionStage1Or2 = true //True is 1, false is 2
+    var tint = GreyTintScreen()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -69,6 +70,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initStage1() {
+        initCameraFeed()
+        self.view.addSubview(tint)
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -79,7 +82,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initStage2()  {
-        initCameraFeed()
+        tint.removeFromSuperview()
         initMotionManager()
         self.centerLine.setY(Int(classes.screenHeight / 2))
         self.view.addSubview(activeLine)

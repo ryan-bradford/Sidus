@@ -27,6 +27,7 @@
 		9480A2191AE54C7D007F45BE /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2181AE54C7D007F45BE /* global.swift */; };
 		9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2741B5058730038D3B6 /* CannotRunScreen.swift */; };
 		9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2761B505F1D0038D3B6 /* CenterLine.swift */; };
+		94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF40441B507A020052E347 /* GreyTintScreen.swift */; };
 		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
 		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		9494B2741B5058730038D3B6 /* CannotRunScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannotRunScreen.swift; sourceTree = "<group>"; };
 		9494B2761B505F1D0038D3B6 /* CenterLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterLine.swift; sourceTree = "<group>"; };
+		94AF40441B507A020052E347 /* GreyTintScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyTintScreen.swift; sourceTree = "<group>"; };
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +179,7 @@
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
 				9494B2741B5058730038D3B6 /* CannotRunScreen.swift */,
 				9494B2761B505F1D0038D3B6 /* CenterLine.swift */,
+				94AF40441B507A020052E347 /* GreyTintScreen.swift */,
 			);
 			name = UIStuff;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */,
 				9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */,
 				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
+				94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,

@@ -66,9 +66,6 @@ public class Waypoint : UIView {
         }
         drawBackground()
         drawCircle()
-        //addPolygon()
-        //addOuterOval()
-        //addInnerOval()
         drawText()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.frame = CGRect(x: x, y: y, width: 50, height: 50)
