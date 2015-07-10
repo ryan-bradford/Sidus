@@ -26,6 +26,7 @@
 		9480A2171AE54C65007F45BE /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2161AE54C65007F45BE /* Line.swift */; };
 		9480A2191AE54C7D007F45BE /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2181AE54C7D007F45BE /* global.swift */; };
 		9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2741B5058730038D3B6 /* CannotRunScreen.swift */; };
+		9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2761B505F1D0038D3B6 /* CenterLine.swift */; };
 		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
 		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		9480A2161AE54C65007F45BE /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		9494B2741B5058730038D3B6 /* CannotRunScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannotRunScreen.swift; sourceTree = "<group>"; };
+		9494B2761B505F1D0038D3B6 /* CenterLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterLine.swift; sourceTree = "<group>"; };
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +176,7 @@
 				943F4D501B39EDA000A1EBCF /* PrimiaryButtons */,
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
 				9494B2741B5058730038D3B6 /* CannotRunScreen.swift */,
+				9494B2761B505F1D0038D3B6 /* CenterLine.swift */,
 			);
 			name = UIStuff;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			files = (
 				9480A20D1AE54BED007F45BE /* Waypoint.swift in Sources */,
 				94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */,
+				9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */,
 				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,

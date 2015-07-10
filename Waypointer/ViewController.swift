@@ -28,6 +28,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var motionManager = CMMotionManager()
     var headingSet = false
     var cannotRun = CannotRunScreen()
+    var activeLine = CenterLine()
+    var centerLine = CenterLine()
+    var motionStage1Or2 = true //True is 1, false is 2
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -77,12 +80,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage2()  {
         initCameraFeed()
+        initMotionManager()
+        self.centerLine.setY(Int(classes.screenHeight / 2))
+        self.view.addSubview(activeLine)
+        self.view.addSubview(centerLine)
         sleep(2)
         self.view.addSubview(verifyButton)
     }
     
     func initStage3() {
-        initMotionManager()
+        self.motionStage1Or2 = false
+        self.activeLine.removeFromSuperview()
+        self.centerLine.removeFromSuperview()
         locationManager.stopUpdatingHeading()
         startThread()
     }
@@ -117,7 +126,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        println(h2)
         if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
@@ -185,15 +193,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 motionManager.gyroUpdateInterval = 0.02
                 motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()) {
                     [weak self] (motion: CMDeviceMotion!, error: NSError!) in
-                    if(self!.timesStored == 0) {
-                        self!.timesStored++
-                        self!.startAttitude = motion.attitude
+                    if(self!.motionStage1Or2) {
+                        self!.activeLine.setY(Int(classes.screenHeight / 2 - classes.screenHeight / 2 * cos(motion.attitude.pitch)))
                     } else {
-                        motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
-                        classes.manage.horAngle = motion.attitude.roll - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
-                        classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
-                        var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
-                        classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
+                        if(self!.timesStored == 0) {
+                            self!.timesStored++
+                            self!.startAttitude = motion.attitude
+                        } else {
+                            motion.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
+                            classes.manage.horAngle = motion.attitude.roll// - ((classes.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+                            classes.manage.vertAngle = motion.attitude.pitch - classes.cameraAngle / 2
+                            var realVertAngle = cos(motion.attitude.roll) * motion.attitude.pitch - sin(motion.attitude.roll) * motion.attitude.yaw
+                            classes.manage.vertAngle = realVertAngle - classes.cameraAngle / 2
+                        }
                     }
                 }
             } else {
