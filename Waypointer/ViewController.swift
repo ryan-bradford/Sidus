@@ -139,6 +139,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 showAllButtons()
                 timesInitRun += 1
                 initStage3()
+                var message = "We Have Detected You Are "  + (classes.startFromNorth * 180 / M_PI).description + " Degrees From North, Type -1 If You Agree or Override"
+                var alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
+                    let textf = alert.textFields?[0] as! UITextField
+                    if(textf.text == "-1") {
+                        
+                    } else {
+                        classes.startFromNorth = Double(NSNumberFormatter().numberFromString(textf.text)!) * M_PI / 180
+                        println(classes.startFromNorth)
+                    }
+                }))
+                alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                    textField.placeholder = "Name"
+                    textField.secureTextEntry = false
+                })
+                UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
             }
             if(h2 == -1) {
                 self.view.addSubview(cannotRun)

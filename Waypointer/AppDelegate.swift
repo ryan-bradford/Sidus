@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func addMountainGroup() {
         var group = WaypointGroup(name: "MOUNTAINS")
-        let waypoint  = Waypoint(xPos: 0.0, yPos: 1.0, zPos: 0.0, red: 255, green: 0, blue: 0, name: "HI")
+        let waypoint  = Waypoint(xPos: 0.0, yPos: -1.0, zPos: 0.0, red: 255, green: 0, blue: 0, name: "HI")
         group.addWaypoint(waypoint)
         classes.groups.append(group)
     }
