@@ -50,8 +50,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                usleep(20000)
+                usleep(60000)
                 classes.manage.orderWaypoints()
+            }
+        }
+        
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            while(true) {
+                usleep(20000)
                 self.updateVars()
                 dispatch_async(dispatch_get_main_queue()) {
                     self.manageGroupScreen()
@@ -121,7 +127,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.activeLine.removeFromSuperview()
         self.centerLine.removeFromSuperview()
         locationManager.stopUpdatingHeading()
-        startThread()
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -159,6 +164,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         //println(classes.startFromNorth)
                         }
                     }
+                    self.startThread()
                 }))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                     textField.placeholder = "Name"
