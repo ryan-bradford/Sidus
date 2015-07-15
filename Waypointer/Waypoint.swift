@@ -48,14 +48,18 @@ public class Waypoint : UIView {
     override public func drawRect(rect: CGRect) {
         var yShift = Double(orderNum * 10)
         if(x > classes.screenWidth) {
+            stringDraw.removeFromSuperview()
             drawRightArrow(yShift)
             return
         } else if(x < 0) {
+            stringDraw.removeFromSuperview()
             drawLeftArrow(yShift)
             return
         }
         drawBackground()
         drawCircle()
+        self.addSubview(stringDraw)
+        updateText()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
     }
@@ -90,16 +94,13 @@ public class Waypoint : UIView {
     
     public func getScreenScaller() -> Double {
         var length = line.length
-        var multiplier = 0.0005
+        var multiplier = 0.00005
         var scaler : Double
         scaler = 1 - (length * multiplier)
-        if(scaler < 0.3) {
-            scaler = 1 - (length * 0.0001) - 0.24
+        if(scaler < 0.2) {
+            scaler = 0.2
         }
-        if(scaler < 0.1) {
-            scaler = 0.1
-        }
-        return scaler / 1.5
+        return scaler
     }
     
     //Different Graphic Stuff From Here Down
@@ -118,6 +119,10 @@ public class Waypoint : UIView {
         stringDraw.text = name
         stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
         self.addSubview(stringDraw)
+    }
+    
+    func updateText() {
+        stringDraw.frame = CGRect(x: CGFloat(-Double(count(name)) * 1.7), y: CGFloat(-yWidth - 17), width: 50, height: 20)
     }
     
     func initGraphics() {
