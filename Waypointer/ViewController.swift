@@ -84,18 +84,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func removeWaypoints() {
         for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
             classes.manage.drawnWaypoints[i].removeFromSuperview()
-            classes.manage.drawnWaypoints[i].added = false
         }
     }
     
     func updateWaypoints() {
-        
         for var i = classes.manage.drawnWaypoints.count - 1; i >= 0; i-- {
             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
-            if(!classes.manage.drawnWaypoints[i].added) {
-                self.view.addSubview(classes.manage.drawnWaypoints[i])
-                classes.manage.drawnWaypoints[i].added = true
-            }
+            self.view.addSubview(classes.manage.drawnWaypoints[i])
         }
     }
     

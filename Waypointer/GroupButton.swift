@@ -44,7 +44,6 @@ class GroupButton : UIButton {
             self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
             for var i = 0; i < classes.groups[myID].waypoints.count; i++ {
                 classes.groups[myID].waypoints[i].removeFromSuperview()
-                classes.groups[myID].waypoints[i].added = false
             }
         }
         if(classes.groups[myID].active) {

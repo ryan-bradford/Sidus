@@ -77,7 +77,6 @@ public class WaypointManager {
                     heighestID = i
                 }
             }
-            println(heighestID)
             allWaypoints[heighestID].orderNum = newWaypoints.count
             newWaypoints.append(allWaypoints[heighestID])
             allWaypoints.removeAtIndex(heighestID)

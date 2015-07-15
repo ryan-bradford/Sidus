@@ -24,15 +24,20 @@ public class Waypoint : UIView {
     var scaler : Double = 0.0
     var circleDiameter : Double = 0.0
     public var orderNum = 0
+    var background = CAShapeLayer()
+    var circle = CAShapeLayer()
+    var rightArrowShape = CAShapeLayer()
+    var leftArrowShape = CAShapeLayer()
     
-    required public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
+    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
         self.red = red
         self.name = name
         self.blue = blue
         self.green = green
-        stringDraw = UILabel()
         self.line = Line(startingXPos: classes.manage.personX, startingYPos: classes.manage.personY, startingZPos: classes.manage.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
         super.init(frame : CGRect(x: 0, y: 0, width: 20, height: 20))
+        self.drawText()
+        self.initGraphics()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
@@ -41,32 +46,16 @@ public class Waypoint : UIView {
     }
     
     override public func drawRect(rect: CGRect) {
-        removeAllGraphics()
         var yShift = Double(orderNum * 10)
-        if(x > classes.screenWidth && y - yShift > classes.screenHeight) {
-            return
-        } else if(x > classes.screenWidth && y - yShift < 0) {
-            return
-        } else if(x < 0 && y - yShift < 0) {
-            return
-        } else if(x < 0 && y - yShift > classes.screenHeight) {
-            return
-        } else if(x > classes.screenWidth) {
-            removeAllGraphics()
+        if(x > classes.screenWidth) {
             drawRightArrow(yShift)
             return
         } else if(x < 0) {
-            removeAllGraphics()
             drawLeftArrow(yShift)
-            return
-        } else if(y - yShift > classes.screenHeight) {
-            return
-        } else if(y - yShift < 0) {
             return
         }
         drawBackground()
         drawCircle()
-        drawText()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
     }
@@ -115,14 +104,6 @@ public class Waypoint : UIView {
     
     //Different Graphic Stuff From Here Down
     
-    func removeAllGraphics() {
-        if(self.layer.sublayers != nil) {
-            for v in self.layer.sublayers {
-                v.removeFromSuperlayer()
-            }
-        }
-    }
-    
     public func generateVars() {
         x = getScreenX()
         y = getScreenY()
@@ -139,17 +120,40 @@ public class Waypoint : UIView {
         self.addSubview(stringDraw)
     }
     
+    func initGraphics() {
+        leftArrowShape = CAShapeLayer()
+        leftArrowShape.opacity = 1
+        leftArrowShape.lineWidth = 2
+        leftArrowShape.lineJoin = kCALineJoinMiter
+        leftArrowShape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        rightArrowShape = CAShapeLayer()
+        rightArrowShape.opacity = 1
+        rightArrowShape.lineWidth = 2
+        rightArrowShape.lineJoin = kCALineJoinMiter
+        rightArrowShape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        background = CAShapeLayer()
+        background.opacity = 1
+        background.lineJoin = kCALineJoinMiter
+        background.strokeColor = UIColor.blackColor().CGColor
+        background.lineWidth = 1
+        background.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        circle = CAShapeLayer()
+        circle.opacity = 1
+        circle.lineWidth = 1
+        circle.strokeColor = UIColor.blackColor().CGColor
+        circle.lineJoin = kCALineJoinMiter
+        circle.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: CGFloat(classes.waypointTransparency)).CGColor
+    }
+    
     func drawLeftArrow(yShift : Double) {
         x = 0
         var arrowWidth = 80 * scaler
         var arrowHeight = yWidth/3
         var middleWidth = 10.0
-        let shape = CAShapeLayer()
-        self.layer.addSublayer(shape)
-        shape.opacity = 1
-        shape.lineWidth = 2
-        shape.lineJoin = kCALineJoinMiter
-        shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        self.layer.addSublayer(leftArrowShape)
+        rightArrowShape.removeFromSuperlayer()
+        background.removeFromSuperlayer()
+        circle.removeFromSuperlayer()
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
         path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(arrowHeight)))
@@ -159,7 +163,7 @@ public class Waypoint : UIView {
         path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(-middleWidth * scaler)))
         path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(-arrowHeight)))
         path.closePath()
-        shape.path = path.CGPath
+        leftArrowShape.path = path.CGPath
         self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
     }
     
@@ -168,12 +172,10 @@ public class Waypoint : UIView {
         var arrowWidth = -80 * scaler
         var arrowHeight = yWidth/3
         var middleWidth = 10.0
-        let shape = CAShapeLayer()
-        self.layer.addSublayer(shape)
-        shape.opacity = 1
-        shape.lineWidth = 2
-        shape.lineJoin = kCALineJoinMiter
-        shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        self.layer.addSublayer(rightArrowShape)
+        leftArrowShape.removeFromSuperlayer()
+        background.removeFromSuperlayer()
+        circle.removeFromSuperlayer()
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
         path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(arrowHeight)))
@@ -183,18 +185,14 @@ public class Waypoint : UIView {
         path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(-middleWidth * scaler)))
         path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/3), CGFloat(-arrowHeight)))
         path.closePath()
-        shape.path = path.CGPath
+        rightArrowShape.path = path.CGPath
         self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
     }
     
     public func drawBackground() {
-        let shape = CAShapeLayer()
-        self.layer.addSublayer(shape)
-        shape.opacity = 1
-        shape.lineJoin = kCALineJoinMiter
-        shape.strokeColor = UIColor.blackColor().CGColor
-        shape.lineWidth = 1
-        shape.fillColor = UIColor(red: CGFloat(Double(red)/255.0), green: CGFloat(Double(green)/255.0), blue: CGFloat(Double(blue)/255.0), alpha: CGFloat(classes.waypointTransparency)).CGColor
+        self.layer.addSublayer(background)
+        rightArrowShape.removeFromSuperlayer()
+        leftArrowShape.removeFromSuperlayer()
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
         path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-yWidth * 13/24)))
@@ -205,17 +203,13 @@ public class Waypoint : UIView {
         path.addLineToPoint(CGPointMake(CGFloat(-xWidth * 5 / 4), CGFloat(-yWidth * 17/24)))
         path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-yWidth * 13/24)))
         path.closePath()
-        shape.path = path.CGPath
+        background.path = path.CGPath
     }
     
     func drawCircle() {
-        let circle = CAShapeLayer() //Draw Outer Oval
         self.layer.addSublayer(circle)
-        circle.opacity = 1
-        circle.lineWidth = 1
-        circle.strokeColor = UIColor.blackColor().CGColor
-        circle.lineJoin = kCALineJoinMiter
-        circle.fillColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: CGFloat(classes.waypointTransparency)).CGColor
+        rightArrowShape.removeFromSuperlayer()
+        leftArrowShape.removeFromSuperlayer()
         var ovalPath = UIBezierPath(ovalInRect: CGRectMake(CGFloat(-circleDiameter/2), CGFloat(-yWidth * 16/24 - circleDiameter/2), CGFloat(circleDiameter), CGFloat(circleDiameter)))
         ovalPath.closePath()
         circle.path = ovalPath.CGPath
