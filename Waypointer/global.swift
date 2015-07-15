@@ -20,7 +20,7 @@ public struct classes {
     static public var canContinue = false //Global
     static public var startFromNorth = 0.0 //Final
     static public var groups = Array<WaypointGroup>() //Final
-    static public var numWaypoints = 30 //Final
+    static public var numWaypoints = 10 //Final
     static public var buttonStart = 4 //Final //2 * Start + Width + 2 * Length = 40
     static public var buttonWidth = 6 //Final
     static public var buttonLength = 13 //Final

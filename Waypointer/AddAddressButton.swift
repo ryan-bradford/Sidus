@@ -48,6 +48,10 @@ public class AddAddressButton : StandardAddButton {
                             textField.secureTextEntry = false
                     })
                     UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert2, animated: true, completion: nil)
+                } else {
+                    self.redVal = 0.5
+                    self.blueVal = 0.5
+                    self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
                 }
             })
         }))

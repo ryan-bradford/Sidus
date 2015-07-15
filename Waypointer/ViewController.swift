@@ -46,6 +46,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         initStage1()
     }
     
+    func startThread() {
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            while(true) {
+                usleep(20000)
+                classes.manage.orderWaypoints()
+                self.updateVars()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.manageGroupScreen()
+                    self.removeWaypoints()
+                    self.updateWaypoints()
+                }
+            }
+        }
+    }
+    
     func manageGroupScreen() {
         if(classes.showGroupScreen) {
             self.view.addSubview(classes.groupScreen)
@@ -59,8 +75,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func updateWaypoints() {
+    func updateVars() {
         for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
+            classes.manage.drawnWaypoints[i].generateVars()
+        }
+    }
+    
+    func removeWaypoints() {
+        for var i = 0; i < classes.manage.drawnWaypoints.count; i++ {
+            classes.manage.drawnWaypoints[i].removeFromSuperview()
+            classes.manage.drawnWaypoints[i].added = false
+        }
+    }
+    
+    func updateWaypoints() {
+        
+        for var i = classes.manage.drawnWaypoints.count - 1; i >= 0; i-- {
             classes.manage.drawnWaypoints[i].drawRect(self.view.frame)
             if(!classes.manage.drawnWaypoints[i].added) {
                 self.view.addSubview(classes.manage.drawnWaypoints[i])
@@ -99,28 +129,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         startThread()
     }
     
-    
-    func startThread() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            while(true) {
-                usleep(20000)
-                classes.manage.orderWaypoints()
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.manageGroupScreen()
-                    self.updateWaypoints()
-                }
-            }
-        }
-    }
-    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         manager.location.course
         var latitude = Double(manager.location.coordinate.latitude)
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
-        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        //classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.initStage2()
             timesStarted = 1
@@ -129,25 +144,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        println(h2)
+        //println(h2)
         if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
-                classes.startFromNorth = h2 * M_PI / 180 //To Reverse
-                //classes.startFromNorth = 0.0
+                //classes.startFromNorth = h2 * M_PI / 180 //To Reverse
+                classes.startFromNorth = 0.0
                 verifyButton.removeFromSuperview()
                 showAllButtons()
                 timesInitRun += 1
                 initStage3()
-                var message = "We Have Detected You Are "  + (classes.startFromNorth * 180 / M_PI).description + " Degrees From North, Type -1 If You Agree or Override"
+                var message = "We Have Detected You Are "  + Int(round(classes.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
                 var alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
-                    let textf = alert.textFields?[0] as! UITextField
-                    if(textf.text == "-1") {
-                        
-                    } else {
-                        classes.startFromNorth = Double(NSNumberFormatter().numberFromString(textf.text)!) * M_PI / 180
-                        println(classes.startFromNorth)
+                    let text: AnyObject? = alert.textFields?[0]
+                    if let textf = text as? UITextField {
+                        if let number = NSNumberFormatter().numberFromString(textf.text) {
+                        classes.startFromNorth = Double(number) * M_PI / 180
+                        //println(classes.startFromNorth)
+                        }
                     }
                 }))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in

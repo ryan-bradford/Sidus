@@ -23,6 +23,7 @@ public class Waypoint : UIView {
     var y : Double = 0.0
     var scaler : Double = 0.0
     var circleDiameter : Double = 0.0
+    public var orderNum = 0
     
     required public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
         self.red = red
@@ -40,9 +41,8 @@ public class Waypoint : UIView {
     }
     
     override public func drawRect(rect: CGRect) {
-        generateVars()
         removeAllGraphics()
-        var yShift = 20/scaler
+        var yShift = Double(orderNum * 10)
         if(x > classes.screenWidth && y - yShift > classes.screenHeight) {
             return
         } else if(x > classes.screenWidth && y - yShift < 0) {
@@ -68,7 +68,7 @@ public class Waypoint : UIView {
         drawCircle()
         drawText()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        self.frame = CGRect(x: x, y: y, width: 50, height: 50)
+        self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
     }
     
     public func updatePersonPossition() {
@@ -123,7 +123,7 @@ public class Waypoint : UIView {
         }
     }
     
-    func generateVars() {
+    public func generateVars() {
         x = getScreenX()
         y = getScreenY()
         scaler = getScreenScaller()
@@ -187,7 +187,7 @@ public class Waypoint : UIView {
         self.frame = CGRect(x: x, y: y - yShift, width: 50, height: 50)
     }
     
-    func drawBackground() {
+    public func drawBackground() {
         let shape = CAShapeLayer()
         self.layer.addSublayer(shape)
         shape.opacity = 1

@@ -35,7 +35,7 @@ public class AddButton : StandardAddButton {
             xDeg = Double((textf.text as NSString).doubleValue)
             var alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
             alert2.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
-                let textf = alert2.textFields?[0] as! UITextField
+                if let textf = alert2.textFields?[0] as? UITextField {
                 yDeg = Double((textf.text as NSString).doubleValue)
                 var alert3 = UIAlertController(title: "Waypoint Creator", message: "Enter Height (In Feet)", preferredStyle: UIAlertControllerStyle.Alert)
                 alert3.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
@@ -61,6 +61,7 @@ public class AddButton : StandardAddButton {
                     textField.secureTextEntry = false
                 })
                 UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert3, animated: true, completion: nil)
+                }
             }))
             alert2.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                 textField.placeholder = "Name"

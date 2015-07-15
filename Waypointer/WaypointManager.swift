@@ -73,10 +73,12 @@ public class WaypointManager {
         for var x = 0; x < numToAdd; x++ {
             heighestID = 0
             for var i = 0; i < allWaypoints.count; i++ {
-                if(allWaypoints[i].line.length > allWaypoints[heighestID].line.length) {
+                if(allWaypoints[i].line.length < allWaypoints[heighestID].line.length) {
                     heighestID = i
                 }
             }
+            println(heighestID)
+            allWaypoints[heighestID].orderNum = newWaypoints.count
             newWaypoints.append(allWaypoints[heighestID])
             allWaypoints.removeAtIndex(heighestID)
         }
