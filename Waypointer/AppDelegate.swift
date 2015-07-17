@@ -16,16 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
         addMountainGroup()
         return true
             
     }
     
     func addMountainGroup() {
-        var group = WaypointGroup(name: "MOUNTAINS")
-        let waypoint  = Waypoint(xPos: 0.0, yPos: -1.0, zPos: 0.0, red: 255, green: 0, blue: 0, name: "HI")
+        var group = WaypointGroup(name: "App Mtns")
+        let waypoint  = Waypoint(xPos: MyMath.degreesToFeet(-71.273333), yPos: MyMath.degreesToFeet(43.954167), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua")
+        let waypoint2  = Waypoint(xPos: MyMath.degreesToFeet(43.954167), yPos: MyMath.degreesToFeet(-71.273333), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua2")
         group.addWaypoint(waypoint)
+        group.addWaypoint(waypoint2)
         classes.groups.append(group)
     }
     

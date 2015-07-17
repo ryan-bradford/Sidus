@@ -16,22 +16,22 @@ import CoreLocation //Longitude is X, Latitude is Y
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager!
+    var timesInitRun = 0
     var addButton = AddButton()
     var addGroupButton = AddGroup()
     var verifyButton = VerifyButton()
     var addressButton = AddAddressButton()
     var timesStarted = 0
     var timesStored = 0
-    var startAttitude : CMAttitude!
+    var startAttitude = CMAttitude()
     var queue = NSOperationQueue()
-    var motionManager : CMMotionManager!
+    var motionManager = CMMotionManager()
     var headingSet = false
     var cannotRun = CannotRunScreen()
     var activeLine = CenterLine()
     var centerLine = CenterLine()
     var motionStage1Or2 = true //True is 1, false is 2
     var tint = GreyTintScreen()
-    var count = 0
     var shouldRun = false
     
     override func didReceiveMemoryWarning() {
@@ -45,15 +45,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewWillAppear(anim : Bool) {
         initStage1()
-        self.startThread()
+        startThread()
     }
     
     func startThread() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                usleep(60000)
                 if(self.shouldRun) {
+                    usleep(60000)
                     classes.manage.orderWaypoints()
                 }
             }
@@ -61,13 +61,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                usleep(30000)
                 if(self.shouldRun) {
+                    usleep(20000)
                     self.updateVars()
                     dispatch_async(dispatch_get_main_queue()) {
                         self.manageGroupScreen()
                         self.removeWaypoints()
                         self.updateWaypoints()
+                        if(classes.shouldRecalibrate) {
+                            self.recalibrate()
+                        }
                     }
                 }
             }
@@ -120,7 +123,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage2()  {
         tint.removeFromSuperview()
-        motionManager = CMMotionManager()
         initMotionManager()
         self.centerLine.setY(Int(classes.screenHeight / 2))
         self.view.addSubview(activeLine)
@@ -151,6 +153,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
+        //println(h2)
         if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
@@ -158,6 +161,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 //classes.startFromNorth = 0.0
                 verifyButton.removeFromSuperview()
                 showAllButtons()
+                timesInitRun += 1
                 initStage3()
                 var message = "We Have Detected You Are "  + Int(round(classes.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
                 var alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -166,6 +170,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     if let textf = text as? UITextField {
                         if let number = NSNumberFormatter().numberFromString(textf.text) {
                             classes.startFromNorth = Double(number) * M_PI / 180
+                            //println(classes.startFromNorth)
                         }
                     }
                     self.shouldRun = true
@@ -270,6 +275,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func resetVars() {
+        self.shouldRun = false
+        classes.shouldRecalibrate = false
         shouldRun = false
         self.motionStage1Or2 = true
         headingSet = false

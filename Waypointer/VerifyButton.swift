@@ -23,6 +23,7 @@ public class VerifyButton : UIButton {
     
     override public func drawRect(rect: CGRect) {
         drawMessage("Hold the Device Vertically Then Tap The Screen", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 10)
+        //drawMessage("Key : ", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 190.0)
         drawMessage("G = Add A Group", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 160.0)
         drawMessage("A = Add An Address", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 130.0)
         drawMessage("W = Add A Coordinate", X: 0, Y: CGFloat(classes.screenHeight / 2.0) + 100.0)
@@ -52,6 +53,7 @@ public class VerifyButton : UIButton {
         message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
         message.addAttributes(attributes as [NSObject : AnyObject], range: NSRange(location: 0, length: countString) )
         let toSubtract = CGFloat(countString / 2 * 7)
+        //classes.screenWidth / 2) - toSubtract) + 10
         message.drawInRect(CGRectMake(X, Y, 300.0, 60.0))
         
     }
