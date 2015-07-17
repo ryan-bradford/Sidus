@@ -16,22 +16,23 @@ import CoreLocation //Longitude is X, Latitude is Y
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager!
-    var timesInitRun = 0
     var addButton = AddButton()
     var addGroupButton = AddGroup()
     var verifyButton = VerifyButton()
     var addressButton = AddAddressButton()
     var timesStarted = 0
     var timesStored = 0
-    var startAttitude = CMAttitude()
+    var startAttitude : CMAttitude!
     var queue = NSOperationQueue()
-    var motionManager = CMMotionManager()
+    var motionManager : CMMotionManager!
     var headingSet = false
     var cannotRun = CannotRunScreen()
     var activeLine = CenterLine()
     var centerLine = CenterLine()
     var motionStage1Or2 = true //True is 1, false is 2
     var tint = GreyTintScreen()
+    var count = 0
+    var shouldRun = false
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -44,6 +45,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewWillAppear(anim : Bool) {
         initStage1()
+        self.startThread()
     }
     
     func startThread() {
@@ -51,18 +53,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
                 usleep(60000)
-                classes.manage.orderWaypoints()
+                if(self.shouldRun) {
+                    classes.manage.orderWaypoints()
+                }
             }
         }
         
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                usleep(20000)
-                self.updateVars()
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.manageGroupScreen()
-                    self.removeWaypoints()
-                    self.updateWaypoints()
+                usleep(30000)
+                if(self.shouldRun) {
+                    self.updateVars()
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.manageGroupScreen()
+                        self.removeWaypoints()
+                        self.updateWaypoints()
+                    }
                 }
             }
         }
@@ -114,6 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage2()  {
         tint.removeFromSuperview()
+        motionManager = CMMotionManager()
         initMotionManager()
         self.centerLine.setY(Int(classes.screenHeight / 2))
         self.view.addSubview(activeLine)
@@ -135,7 +142,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var longitude = Double(manager.location.coordinate.longitude)
         var altitude = manager.location.altitude
         var feetZ = altitude * 3.28084
-        //classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        classes.manage.changePersonLocation(MyMath.degreesToFeet(longitude), yPos: MyMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesStarted == 0) {
             self.initStage2()
             timesStarted = 1
@@ -144,15 +151,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        //println(h2)
         if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
-                //classes.startFromNorth = h2 * M_PI / 180 //To Reverse
-                classes.startFromNorth = 0.0
+                classes.startFromNorth = h2 * M_PI / 180 //To Reverse
+                //classes.startFromNorth = 0.0
                 verifyButton.removeFromSuperview()
                 showAllButtons()
-                timesInitRun += 1
                 initStage3()
                 var message = "We Have Detected You Are "  + Int(round(classes.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
                 var alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -160,11 +165,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     let text: AnyObject? = alert.textFields?[0]
                     if let textf = text as? UITextField {
                         if let number = NSNumberFormatter().numberFromString(textf.text) {
-                        classes.startFromNorth = Double(number) * M_PI / 180
-                        //println(classes.startFromNorth)
+                            classes.startFromNorth = Double(number) * M_PI / 180
                         }
                     }
-                    self.startThread()
+                    self.shouldRun = true
                 }))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                     textField.placeholder = "Name"
@@ -251,6 +255,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             println("Gyro isn't available")
             self.view.addSubview(cannotRun)
         }
+    }
+    
+    func recalibrate() {
+        self.resetVars()
+        locationManager.startUpdatingHeading()
+        self.centerLine.setY(Int(classes.screenHeight / 2))
+        self.view.addSubview(activeLine)
+        activeLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        self.view.addSubview(centerLine)
+        centerLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        self.view.addSubview(verifyButton)
+        verifyButton.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+    }
+    
+    func resetVars() {
+        shouldRun = false
+        self.motionStage1Or2 = true
+        headingSet = false
+        self.timesStored = 0
+        self.verifyButton = VerifyButton()
+        classes.canContinue = false
+        addGroupButton.removeFromSuperview()
+        addressButton.removeFromSuperview()
+        addButton.removeFromSuperview()
     }
     
 }

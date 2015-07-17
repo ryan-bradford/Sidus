@@ -18,39 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         addMountainGroup()
-
-        classes.manage.addWaypoint(0, yPos: 1, zPos: 0, red: 255, green: 0, blue: 0, name: "1")
-        classes.manage.addWaypoint(0, yPos: 10, zPos: 0, red: 255, green: 0, blue: 0, name: "2")
-        classes.manage.addWaypoint(0, yPos: 100, zPos: 0, red: 255, green: 0, blue: 0, name: "3")
-        classes.manage.addWaypoint(0, yPos: 1000, zPos: 0, red: 255, green: 0, blue: 0, name: "4")
-        classes.manage.addWaypoint(0, yPos: 10000, zPos: 0, red: 255, green: 0, blue: 0, name: "5")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "6")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "7")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "8")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "9")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "10")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "11")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "12")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "13")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "14")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "15")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "16")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "17")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "18")
-        classes.manage.addWaypoint(0, yPos: 100000, zPos: 0, red: 255, green: 0, blue: 0, name: "19")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "20")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "21")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "22")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "23")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "24")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "25")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "26")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "27")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "28")
-        classes.manage.addWaypoint(0, yPos: 100000000, zPos: 0, red: 255, green: 0, blue: 0, name: "29")
-        classes.manage.addWaypoint(0, yPos: 1000009000, zPos: 0, red: 255, green: 0, blue: 0, name: "30")
-
-
         return true
             
     }
