@@ -25,8 +25,9 @@ public struct classes {
     static public var groupScreen = GroupScreen() //Global
     static public var goAwayGroupScreen = false //Global
     static public var showGroupScreen = false //Global
-    static public var shouldRecalibrate = false
-    static public var isInForeground = false
+    static public var shouldRecalibrate = false //Global
+    static public var isInForeground = false //Global
+    
     
     //Preferences
 
