@@ -24,9 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func addMountainGroup() {
         var group = WaypointGroup(name: "App Mtns")
         let waypoint  = Waypoint(xPos: MyMath.degreesToFeet(-71.273333), yPos: MyMath.degreesToFeet(43.954167), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua")
-        let waypoint2  = Waypoint(xPos: MyMath.degreesToFeet(43.954167), yPos: MyMath.degreesToFeet(-71.273333), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua2")
         group.addWaypoint(waypoint)
-        group.addWaypoint(waypoint2)
         classes.groups.append(group)
     }
     
@@ -37,11 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
+        classes.isInForeground = false;
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
+        classes.shouldRecalibrate = true
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
     

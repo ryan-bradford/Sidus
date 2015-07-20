@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class GroupScreen : UIView {
+public class GroupScreen : UIButton {
     
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -17,6 +17,7 @@ public class GroupScreen : UIView {
     
     public init() {
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        self.addTarget(self, action: "pressed:", forControlEvents: UIControlEvents.TouchUpInside);
         for var i = 0; i < classes.groups.count; i++ {
             self.addSubview(GroupButton(group: classes.groups[i], order: i))
         }
@@ -50,9 +51,8 @@ public class GroupScreen : UIView {
         
     }
     
-    
-    
-    
-    
+    func pressed(sender: UIButton!) {
+        classes.goAwayGroupScreen = true
+    }
     
 }

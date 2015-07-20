@@ -32,7 +32,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var centerLine = CenterLine()
     var motionStage1Or2 = true //True is 1, false is 2
     var tint = GreyTintScreen()
-    var shouldRun = false
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,8 +51,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                if(self.shouldRun) {
-                    usleep(60000)
+                usleep(60000)
+                if(classes.isInForeground) {
                     classes.manage.orderWaypoints()
                 }
             }
@@ -61,13 +60,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(true) {
-                if(self.shouldRun) {
-                    usleep(20000)
+                usleep(20000)
+                if(classes.isInForeground) {
                     self.updateVars()
                     dispatch_async(dispatch_get_main_queue()) {
                         self.manageGroupScreen()
                         self.removeWaypoints()
                         self.updateWaypoints()
+                        if(classes.shouldRecalibrate) {
+                            self.recalibrate()
+                        }
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
                         if(classes.shouldRecalibrate) {
                             self.recalibrate()
                         }
@@ -132,7 +137,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initStage3() {
-        self.motionStage1Or2 = false
+        verifyButton.removeFromSuperview()
+        showAllButtons()
+        timesInitRun += 1
         self.activeLine.removeFromSuperview()
         self.centerLine.removeFromSuperview()
         locationManager.stopUpdatingHeading()
@@ -159,10 +166,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 headingSet = true
                 classes.startFromNorth = h2 * M_PI / 180 //To Reverse
                 //classes.startFromNorth = 0.0
-                verifyButton.removeFromSuperview()
-                showAllButtons()
-                timesInitRun += 1
-                initStage3()
+                self.motionStage1Or2 = false
                 var message = "We Have Detected You Are "  + Int(round(classes.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
                 var alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
@@ -173,13 +177,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             //println(classes.startFromNorth)
                         }
                     }
-                    self.shouldRun = true
+                    classes.isInForeground = true
                 }))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
                     textField.placeholder = "Name"
                     textField.secureTextEntry = false
                 })
                 UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                initStage3()
             }
             if(h2 == -1) {
                 self.view.addSubview(cannotRun)
@@ -275,9 +280,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func resetVars() {
-        self.shouldRun = false
+        classes.isInForeground = false
         classes.shouldRecalibrate = false
-        shouldRun = false
         self.motionStage1Or2 = true
         headingSet = false
         self.timesStored = 0

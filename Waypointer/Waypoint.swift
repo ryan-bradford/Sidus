@@ -28,6 +28,7 @@ public class Waypoint : UIView {
     var circle = CAShapeLayer()
     var rightArrowShape = CAShapeLayer()
     var leftArrowShape = CAShapeLayer()
+    var myID = random()
     
     public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
         self.red = red
@@ -94,7 +95,7 @@ public class Waypoint : UIView {
     
     public func getScreenScaller() -> Double {
         var length = line.length
-        var multiplier = 0.00005
+        var multiplier = 0.000005
         var scaler : Double
         scaler = 1 - (length * multiplier)
         if(scaler < 0.2) {
@@ -115,14 +116,15 @@ public class Waypoint : UIView {
     }
     
     func drawText() {
-        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(count(name)) * 1.7), y: CGFloat(-yWidth - 17), width: 50, height: 20))
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(count(name)) * 2.0), y: CGFloat(-yWidth - 17), width: 50, height: 20))
         stringDraw.text = name
-        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(6))
+        stringDraw.textColor = UIColor.greenColor()
+        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(9))
         self.addSubview(stringDraw)
     }
     
     func updateText() {
-        stringDraw.frame = CGRect(x: CGFloat(-Double(count(name)) * 1.7), y: CGFloat(-yWidth - 17), width: 50, height: 20)
+        stringDraw.frame = CGRect(x: CGFloat(-Double(count(name)) * 2.0), y: CGFloat(-yWidth - 17), width: 50, height: 20)
     }
     
     func initGraphics() {
