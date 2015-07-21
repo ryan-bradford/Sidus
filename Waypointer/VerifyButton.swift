@@ -58,15 +58,17 @@ public class VerifyButton : UIButton {
         
     }
     
+    
+    
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func pressed(sender: UIButton!) {
         classes.canContinue = true
-        redVal = 0
-        blueVal = 0.4
-        self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        redVal = 1
+        blueVal = 0.2
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: 0, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
 }

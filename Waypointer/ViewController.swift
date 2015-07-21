@@ -51,7 +51,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func startThread() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            while(true) {
+            while(self.shouldContinue) {
                 usleep(60000)
                 if(classes.isInForeground) {
                     classes.manage.orderWaypoints()
@@ -60,7 +60,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            while(true) {
+            while(self.shouldContinue) {
                 usleep(20000)
                 if(classes.isInForeground) {
                     self.updateVars()
@@ -186,6 +186,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             classes.startFromNorth = Double(number) * M_PI / 180
                         }
                     }
+                    self.initStage3()
                     classes.isInForeground = true
                 }))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
@@ -193,7 +194,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     textField.secureTextEntry = false
                 })
                 UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-                initStage3()
             }
             if(h2 == -1) {
                 shouldContinue = false
