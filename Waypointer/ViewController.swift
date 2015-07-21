@@ -32,6 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var centerLine = CenterLine()
     var motionStage1Or2 = true //True is 1, false is 2
     var tint = GreyTintScreen()
+    var shouldContinue = true
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -116,33 +117,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage1() {
         initCameraFeed()
-        self.view.addSubview(tint)
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.headingFilter = kCLHeadingFilterNone
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
+        if(shouldContinue) {
+            self.view.addSubview(tint)
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            locationManager.headingFilter = kCLHeadingFilterNone
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+        }
     }
     
     func initStage2()  {
-        tint.removeFromSuperview()
-        initMotionManager()
-        self.centerLine.setY(Int(classes.screenHeight / 2))
-        self.view.addSubview(activeLine)
-        self.view.addSubview(centerLine)
-        sleep(2)
-        self.view.addSubview(verifyButton)
+        if(shouldContinue) {
+            tint.removeFromSuperview()
+            initMotionManager()
+        }
+        if(shouldContinue) {
+            self.centerLine.setY(Int(classes.screenHeight / 2))
+            self.view.addSubview(activeLine)
+            self.view.addSubview(centerLine)
+            sleep(2)
+            self.view.addSubview(verifyButton)
+        }
     }
     
     func initStage3() {
-        verifyButton.removeFromSuperview()
-        showAllButtons()
-        timesInitRun += 1
-        self.activeLine.removeFromSuperview()
-        self.centerLine.removeFromSuperview()
-        locationManager.stopUpdatingHeading()
+        if(shouldContinue) {
+            verifyButton.removeFromSuperview()
+            showAllButtons()
+            timesInitRun += 1
+            self.activeLine.removeFromSuperview()
+            self.centerLine.removeFromSuperview()
+            locationManager.stopUpdatingHeading()
+        }
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -187,6 +196,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 initStage3()
             }
             if(h2 == -1) {
+                shouldContinue = false
+                removeAllGraphics()
                 self.view.addSubview(cannotRun)
             }
         }
@@ -209,7 +220,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let captureSession = AVCaptureSession()
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        
         if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
             var err: NSError? = nil
             classes.cameraAngle = Double(videoDevice.activeFormat.videoFieldOfView)
@@ -218,15 +228,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 if(err == nil){
                     if (captureSession.canAddInput(videoIn as AVCaptureInput)){
                         captureSession.addInput(videoIn as AVCaptureDeviceInput)
+                    } else {
+                        
                     }
-                    else {
-                    }
-                }
-                else {
+                } else {
+                    removeAllGraphics()
+                    shouldContinue = false
                     self.view.addSubview(cannotRun)
                 }
-            }
-            else {
+            } else {
+                shouldContinue = false
+                removeAllGraphics()
                 self.view.addSubview(cannotRun)
             }
         }
@@ -236,8 +248,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initMotionManager() {
-        if motionManager.gyroAvailable{
-            if motionManager.gyroActive == false{
+        if motionManager.gyroAvailable {
+            if motionManager.gyroActive == false {
                 motionManager.deviceMotionUpdateInterval = 0.02;
                 motionManager.startDeviceMotionUpdates()
                 motionManager.gyroUpdateInterval = 0.02
@@ -258,10 +270,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 }
             } else {
+                removeAllGraphics()
+                shouldContinue = false
                 println("Gyro is already active")
                 self.view.addSubview(cannotRun)
             }
         } else {
+            removeAllGraphics()
+            shouldContinue = false
             println("Gyro isn't available")
             self.view.addSubview(cannotRun)
         }
@@ -290,6 +306,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         addGroupButton.removeFromSuperview()
         addressButton.removeFromSuperview()
         addButton.removeFromSuperview()
+    }
+    
+    func removeAllGraphics() {
+        for v in self.view.subviews {
+            if(!(v is AVCaptureVideoPreviewLayer)) {
+                v.removeFromSuperview()
+            }
+        }
     }
     
 }

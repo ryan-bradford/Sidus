@@ -38,7 +38,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need to know your location to show you the coordinates where you are located</string>
+	<string>We need to know your location to place the chosen waypoints on your screen.</string>
 	<key>LSApplicationCategoryType</key>
 	<array>
 		<string></string>
