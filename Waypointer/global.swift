@@ -27,6 +27,7 @@ public struct classes {
     static public var showGroupScreen = false //Global
     static public var shouldRecalibrate = false //Global
     static public var isInForeground = false //Global
+    static public var inInit = true
     
     
     //Preferences

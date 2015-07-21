@@ -116,6 +116,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func initStage1() {
+        classes.inInit = true
         initCameraFeed()
         if(shouldContinue) {
             self.view.addSubview(tint)
@@ -151,6 +152,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.activeLine.removeFromSuperview()
             self.centerLine.removeFromSuperview()
             locationManager.stopUpdatingHeading()
+            classes.inInit = false
         }
     }
     
@@ -169,7 +171,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        //println(h2)
         if(classes.canContinue) {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
@@ -183,7 +184,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     if let textf = text as? UITextField {
                         if let number = NSNumberFormatter().numberFromString(textf.text) {
                             classes.startFromNorth = Double(number) * M_PI / 180
-                            //println(classes.startFromNorth)
                         }
                     }
                     classes.isInForeground = true
@@ -296,6 +296,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func resetVars() {
+        classes.inInit = true
         classes.isInForeground = false
         classes.shouldRecalibrate = false
         self.motionStage1Or2 = true
