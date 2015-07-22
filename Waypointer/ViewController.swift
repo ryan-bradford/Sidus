@@ -146,6 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage3() {
         if(shouldContinue) {
+            self.motionStage1Or2 = false
             verifyButton.removeFromSuperview()
             showAllButtons()
             timesInitRun += 1
@@ -175,8 +176,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if(h2 != 0.0 && !headingSet) {
                 headingSet = true
                 classes.startFromNorth = h2 * M_PI / 180 //To Reverse
+                self.initStage3()
                 //classes.startFromNorth = 0.0
-                self.motionStage1Or2 = false
                 var message = "We Have Detected You Are "  + Int(round(classes.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
                 var alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction!) in
@@ -186,7 +187,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             classes.startFromNorth = Double(number) * M_PI / 180
                         }
                     }
-                    self.initStage3()
                     classes.isInForeground = true
                 }))
                 alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
