@@ -66,8 +66,10 @@ public class Waypoint : UIView {
     }
     
     public func updatePersonPossition() {
-        self.line = Line(startingXPos: classes.manage.personX, startingYPos: classes.manage.personY, startingZPos: classes.manage.personZ, endingXPos: line.end.xPos, endingYPos: line.end.yPos, endingZPos: line.end.zPos)
-        drawRect(CGRect(x: 0, y: 0, width: 300, height: 300))
+        self.line.start.xPos = classes.manage.personX
+        self.line.start.yPos = classes.manage.personY
+        self.line.start.zPos = classes.manage.personZ
+        //drawRect(CGRect(x: 0, y: 0, width: 300, height: 300))
     }
     
     public func updateDistance() {

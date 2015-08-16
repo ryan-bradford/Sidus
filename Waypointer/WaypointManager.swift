@@ -94,7 +94,6 @@ public class WaypointManager {
                 }
             }
             if(!found) {
-                println("hi")
                 drawnWaypoints[i].removeFromSuperview()
             }
         }
