@@ -1,0 +1,5 @@
+//Format: //(Exclamation Point)(comma)GroupName(comma)Latitude(comma)Longitude(comma)Altitude(comma)redVal(comma)greenVal(comma)blueVal
+@App Mtns
+!Chocorua,43.954167,-71.273333,3480,-1,-1,-1,
+!
+@
