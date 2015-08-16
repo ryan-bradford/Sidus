@@ -81,8 +81,24 @@ public class WaypointManager {
             newWaypoints.append(allWaypoints[heighestID])
             allWaypoints.removeAtIndex(heighestID)
         }
-        drawnWaypoints = newWaypoints
+        processNewGroup(newWaypoints)
         allWaypoints = start
+    }
+    
+    func processNewGroup(newGroup : Array<Waypoint>) {
+        for var i = 0; i < drawnWaypoints.count; i++ {
+            var found = false
+            for var x = 0; x < newGroup.count; x++ {
+                if((newGroup[x].name as NSString).isEqualToString(drawnWaypoints[i].name)) {
+                    found = true
+                }
+            }
+            if(!found) {
+                println("hi")
+                drawnWaypoints[i].removeFromSuperview()
+            }
+        }
+        drawnWaypoints = newGroup
     }
     
 }

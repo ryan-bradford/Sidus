@@ -52,17 +52,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(self.shouldContinue) {
-                usleep(60000)
-                if(classes.isInForeground) {
-                    classes.manage.orderWaypoints()
-                }
-            }
-        }
-        
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            while(self.shouldContinue) {
                 usleep(20000)
                 if(classes.isInForeground) {
+                    classes.manage.orderWaypoints()
                     self.updateVars()
                     dispatch_async(dispatch_get_main_queue()) {
                         self.manageGroupScreen()
