@@ -20,21 +20,23 @@ public class WaypointManager {
     var vertAngle = 0.0
     var horAngleScaler = 1
     var vertAngleScaler = 1
-    var personLeftRightRotation = 0.0  // <--> //Left is Positive, Right is Negative
-    var personUpDownRotation = 0.0  //Up is Positive, Down is Negative
+    var cameraAngle : Double
+    var groups : Array<WaypointGroup>
+    var startFromNorth : Double
     
-    init(x : Double, y : Double, z : Double, personLeftRightAngle : Double, personUpDownAngle : Double) {
+    init(x : Double, y : Double, z : Double, cameraAngle : Double, groups : Array<WaypointGroup>, startFromNorth : Double) {
+        self.startFromNorth = startFromNorth
+        self.groups = groups
+        self.cameraAngle = cameraAngle
         allWaypoints = Array<Waypoint>()
         drawnWaypoints = Array<Waypoint>()
         personX = x
         personY = y
         personZ = z
-        personLeftRightRotation = personLeftRightAngle
-        personUpDownRotation = personUpDownAngle
     }
     
     public func addWaypoint(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
-        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name))
+        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name, cameraAngle : cameraAngle, manage: self, startFromNorth: startFromNorth))
     }
     
     public func addWaypoint(toAdd : Waypoint) {
@@ -57,10 +59,10 @@ public class WaypointManager {
     
     public func orderWaypoints() { //Correct Ordering and Add Limit
         let start = allWaypoints
-        for var i = 0; i < classes.groups.count; i++ {
-            if(classes.groups[i].active) {
-                for var z = 0; z < classes.groups[i].waypoints.count; z++ {
-                    allWaypoints.append(classes.groups[i].waypoints[z])
+        for var i = 0; i < self.groups.count; i++ {
+            if(self.groups[i].active) {
+                for var z = 0; z < self.groups[i].waypoints.count; z++ {
+                    allWaypoints.append(self.groups[i].waypoints[z])
                 }
             }
         }
@@ -86,9 +88,14 @@ public class WaypointManager {
     }
     
     func processNewGroup(newGroup : Array<Waypoint>) {
+        var drawnWaypoints = Array<Waypoint>()
+        for var i = 0; i < self.drawnWaypoints.count; i++ {
+            drawnWaypoints.append(self.drawnWaypoints[i])
+        }
         for var i = 0; i < drawnWaypoints.count; i++ {
             var found = false
             for var x = 0; x < newGroup.count; x++ {
+                //print(drawnWaypoints.count)
                 if((newGroup[x].name as NSString).isEqualToString(drawnWaypoints[i].name)) {
                     found = true
                 }
@@ -97,7 +104,26 @@ public class WaypointManager {
                 drawnWaypoints[i].removeFromSuperview()
             }
         }
-        drawnWaypoints = newGroup
+        self.drawnWaypoints = newGroup
+    }
+    
+    func generateVars() {
+        for var i = 0; i < drawnWaypoints.count; i++ {
+            drawnWaypoints[i].generateVars()
+        }
+        for var i = 0; i < drawnWaypoints.count; i++ { //This may be reverse
+            let count = 0.0
+            for var x = i; x < drawnWaypoints.count; x++ {//Change to checking if both boxes overlap, not just point and box
+                let realXSize = drawnWaypoints[x].xSize * 5/2
+                let realYSize = drawnWaypoints[x].ySize * 5/3
+                if(drawnWaypoints[i].y < drawnWaypoints[x].y && drawnWaypoints[i].y < drawnWaypoints[x].y - realYSize) {
+                    if(drawnWaypoints[i].x > drawnWaypoints[x].x - realXSize / 2 && drawnWaypoints[i].x < drawnWaypoints[x].x + realXSize / 2) {
+                        drawnWaypoints[i].y += drawnWaypoints[x].ySize
+                    }
+                }
+            }
+            drawnWaypoints[i].yShift = count
+        }
     }
     
 }

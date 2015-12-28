@@ -27,18 +27,18 @@ public class CannotRunScreen : UIView {
     
     func drawMessage(message2 : String, X : CGFloat, Y : CGFloat) {
         
-        var message1  = message2
-        var message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
+        let message1  = message2
+        let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
         
         let fieldColor: UIColor = UIColor.blackColor()
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
-        var paraStyle = NSMutableParagraphStyle()
+        let paraStyle = NSMutableParagraphStyle()
         paraStyle.alignment = NSTextAlignment.Center
         paraStyle.lineSpacing = 6.0
-        var skew = 0.1
+        let skew = 0.1
         message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 5, length: 2))
         
-        var attributes: NSDictionary = [
+        let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
             NSParagraphStyleAttributeName: paraStyle,
             NSObliquenessAttributeName: skew,
@@ -46,14 +46,14 @@ public class CannotRunScreen : UIView {
         ]
         let countString = (message.length)
         message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
-        message.addAttributes(attributes as [NSObject : AnyObject], range: NSRange(location: 0, length: countString) )
-        let toSubtract = CGFloat(countString / 2 * 7)
+        message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
+        //let toSubtract = CGFloat(countString / 2 * 7)
         //classes.screenWidth / 2) - toSubtract) + 10
         message.drawInRect(CGRectMake(X, Y, 300.0, 60.0))
         
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

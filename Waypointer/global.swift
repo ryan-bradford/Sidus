@@ -14,20 +14,15 @@ import CoreLocation
 public struct classes {
     
     //System Derived
-    
-    static public var manage = WaypointManager(x: 0, y: 0, z: 0, personLeftRightAngle: 0, personUpDownAngle: 0) //Global
     static public var screenWidth = Double(UIScreen.mainScreen().bounds.width) //Final
     static public var screenHeight = Double(UIScreen.mainScreen().bounds.height) //Final
-    static public var cameraAngle = (0.0) //Global
-    static public var canContinue = false //Global
-    static public var startFromNorth = 0.0 //Final
-    static public var groups = Array<WaypointGroup>() //Final
-    static public var groupScreen = GroupScreen() //Global
-    static public var goAwayGroupScreen = false //Global
-    static public var showGroupScreen = false //Global
-    static public var shouldRecalibrate = false //Global
-    static public var isInForeground = false //Global
-    static public var inInit = true
+   
+    //AppDelegate to ViewController
+    static public var shouldRecalibrate = false
+    static public var shouldRemove = false
+    static public var isInForeground = false
+    static public var cantRecal = true
+    
     
     
     //Preferences

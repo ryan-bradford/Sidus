@@ -12,15 +12,18 @@ import SceneKit
 
 public class Waypoint : UIView {
     
+    //xWidth = xSize * 10/4
+    //yWidth = ySize * 34/24
+    
     public var line  = Line(startingXPos: 1.0, startingYPos: 1.0, startingZPos: 1.0, endingXPos: 1.0, endingYPos: 1.0, endingZPos: 1.0)
     public var red = 0, blue = 0, green = 0
     public var name = ""
     public var added = false
     var stringDraw = UILabel()
-    var xWidth : Double = 0.0
-    var yWidth : Double = 0.0
-    var x : Double = 0.0
-    var y : Double = 0.0
+    var xSize : Double = 0.0
+    var ySize : Double = 0.0
+    public var x : Double = 0.0
+    public var y : Double = 0.0
     var scaler : Double = 0.0
     var circleDiameter : Double = 0.0
     public var orderNum = 0
@@ -28,26 +31,38 @@ public class Waypoint : UIView {
     var circle = CAShapeLayer()
     var rightArrowShape = CAShapeLayer()
     var leftArrowShape = CAShapeLayer()
+    public var yShift = 0.0
     var myID = random()
+    var cameraAngle : Double
+    var myMath : MyMath
+    var manage : WaypointManager
+    var startFromNorth : Double
     
-    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
+    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String, cameraAngle : Double, manage : WaypointManager, startFromNorth : Double) {
+        self.startFromNorth = startFromNorth
+        self.manage = manage
         self.red = red
         self.name = name
         self.blue = blue
         self.green = green
-        self.line = Line(startingXPos: classes.manage.personX, startingYPos: classes.manage.personY, startingZPos: classes.manage.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
+        self.line = Line(startingXPos: self.manage.personX, startingYPos: self.manage.personY, startingZPos: self.manage.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
+        self.cameraAngle = cameraAngle
+        myMath = MyMath(cameraAngle: cameraAngle)
         super.init(frame : CGRect(x: 0, y: 0, width: 20, height: 20))
         self.drawText()
         self.initGraphics()
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
+        self.cameraAngle = 1.0
+        myMath = MyMath(cameraAngle: cameraAngle)
+        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
+        startFromNorth = 0.0
         super.init(coder: aDecoder)
     }
     
     override public func drawRect(rect: CGRect) {
-        var yShift = Double(orderNum * 10)
         if(x > classes.screenWidth) {
             stringDraw.removeFromSuperview()
             drawRightArrow(yShift)
@@ -66,38 +81,38 @@ public class Waypoint : UIView {
     }
     
     public func updatePersonPossition() {
-        self.line.start.xPos = classes.manage.personX
-        self.line.start.yPos = classes.manage.personY
-        self.line.start.zPos = classes.manage.personZ
+        self.line.start.xPos = self.manage.personX
+        self.line.start.yPos = self.manage.personY
+        self.line.start.zPos = self.manage.personZ
         //drawRect(CGRect(x: 0, y: 0, width: 300, height: 300))
     }
     
     public func updateDistance() {
-        line = Line(startingXPos: classes.manage.personX, startingYPos: classes.manage.personY, startingZPos: classes.manage.personZ, endingXPos: line.end.xPos, endingYPos: line.end.yPos, endingZPos: line.end.zPos)
+        line = Line(startingXPos: self.manage.personX, startingYPos: self.manage.personY, startingZPos: self.manage.personZ, endingXPos: line.end.xPos, endingYPos: line.end.yPos, endingZPos: line.end.zPos)
     }
     
     public func getScreenX() -> Double {
-        var x1 = CGFloat(classes.manage.horAngle - MyMath.findSmallestAngle(classes.startFromNorth))
-        var realFOV = classes.cameraAngle * (classes.screenWidth / classes.screenHeight)
+        let x1 = CGFloat(self.manage.horAngle - myMath.findSmallestAngle(self.startFromNorth))
+        let realFOV = cameraAngle * (classes.screenWidth / classes.screenHeight)
         var horAngle = line.getLineHorizontalAngle()
         horAngle = (horAngle + Double(x1))
-        horAngle = MyMath.findSmallestAngle(horAngle)
-        var perInstanceIncrease = Double(classes.cameraAngle) * (classes.screenWidth / classes.screenHeight) / classes.screenWidth
+        horAngle = myMath.findSmallestAngle(horAngle)
+        let perInstanceIncrease = Double(cameraAngle) * (classes.screenWidth / classes.screenHeight) / classes.screenWidth
         return (horAngle + realFOV) / (perInstanceIncrease)
     }
     
     public func getScreenY() -> Double {
-        var y1 = CGFloat(-classes.manage.vertAngle)
+        let y1 = CGFloat(-self.manage.vertAngle)
         var vertAngle = line.getLineVerticalAngle()
         vertAngle = vertAngle + Double(y1)
-        vertAngle = MyMath.findSmallestAngle(vertAngle)
-        var perInstanceIncrease = Double(classes.cameraAngle) / classes.screenHeight
-        return (-vertAngle + classes.cameraAngle) / (perInstanceIncrease)
+        vertAngle = myMath.findSmallestAngle(vertAngle)
+        let perInstanceIncrease = Double(cameraAngle) / classes.screenHeight
+        return (-vertAngle + cameraAngle) / (perInstanceIncrease)
     }
     
     public func getScreenScaller() -> Double {
-        var length = line.length
-        var multiplier = 0.000005
+        let length = line.length
+        let multiplier = 0.000005
         var scaler : Double
         scaler = 1 - (length * multiplier)
         if(scaler < 0.2) {
@@ -112,13 +127,13 @@ public class Waypoint : UIView {
         x = getScreenX()
         y = getScreenY()
         scaler = getScreenScaller()
-        xWidth = (20 * scaler)
-        yWidth = (70 * scaler)
-        circleDiameter = ((xWidth / 2.5))
+        xSize = (20 * scaler)
+        ySize = (70 * scaler)
+        circleDiameter = ((xSize / 2.5))
     }
     
     func drawText() {
-        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(count(name)) * 2.0), y: CGFloat(-yWidth - 17), width: 50, height: 20))
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(name.characters.count) * 2.0), y: CGFloat(-ySize - 17), width: 50, height: 20))
         stringDraw.text = name
         stringDraw.textColor = UIColor.greenColor()
         stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(9))
@@ -126,7 +141,7 @@ public class Waypoint : UIView {
     }
     
     func updateText() {
-        stringDraw.frame = CGRect(x: CGFloat(-Double(count(name)) * 2.0), y: CGFloat(-yWidth - 17), width: 50, height: 20)
+        stringDraw.frame = CGRect(x: CGFloat(-Double(name.characters.count) * 2.0), y: CGFloat(-ySize - 17), width: 50, height: 20)
     }
     
     func initGraphics() {
@@ -156,9 +171,9 @@ public class Waypoint : UIView {
     
     func drawLeftArrow(yShift : Double) {
         x = 0
-        var arrowWidth = 80 * scaler
-        var arrowHeight = yWidth/3
-        var middleWidth = 10.0
+        let arrowWidth = 80 * scaler
+        let arrowHeight = ySize/3
+        let middleWidth = 10.0
         self.layer.addSublayer(leftArrowShape)
         rightArrowShape.removeFromSuperlayer()
         background.removeFromSuperlayer()
@@ -178,9 +193,9 @@ public class Waypoint : UIView {
     
     func drawRightArrow(yShift : Double) {
         x = classes.screenWidth
-        var arrowWidth = -80 * scaler
-        var arrowHeight = yWidth/3
-        var middleWidth = 10.0
+        let arrowWidth = -80 * scaler
+        let arrowHeight = ySize/3
+        let middleWidth = 10.0
         self.layer.addSublayer(rightArrowShape)
         leftArrowShape.removeFromSuperlayer()
         background.removeFromSuperlayer()
@@ -204,13 +219,13 @@ public class Waypoint : UIView {
         leftArrowShape.removeFromSuperlayer()
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-yWidth * 13/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth * 5 / 4), CGFloat(-yWidth * 17/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(xWidth/2), CGFloat(-yWidth * 17/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(0), CGFloat(-yWidth)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-yWidth * 17/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth * 5 / 4), CGFloat(-yWidth * 17/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xWidth/2), CGFloat(-yWidth * 13/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(xSize/2), CGFloat(-ySize * 13/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(xSize * 5 / 4), CGFloat(-ySize * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(xSize/2), CGFloat(-ySize * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(0), CGFloat(-ySize)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xSize/2), CGFloat(-ySize * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xSize * 5 / 4), CGFloat(-ySize * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xSize/2), CGFloat(-ySize * 13/24)))
         path.closePath()
         background.path = path.CGPath
     }
@@ -219,7 +234,12 @@ public class Waypoint : UIView {
         self.layer.addSublayer(circle)
         rightArrowShape.removeFromSuperlayer()
         leftArrowShape.removeFromSuperlayer()
-        var ovalPath = UIBezierPath(ovalInRect: CGRectMake(CGFloat(-circleDiameter/2), CGFloat(-yWidth * 16/24 - circleDiameter/2), CGFloat(circleDiameter), CGFloat(circleDiameter)))
+        let one = CGFloat(-circleDiameter/2)
+        let twoFirst = CGFloat(-ySize * 16/24)
+        let twoSecond = CGFloat(-circleDiameter/2)
+        let two = twoFirst + twoSecond
+        let box = CGRectMake(one, two, CGFloat(circleDiameter), CGFloat(circleDiameter))
+        let ovalPath = UIBezierPath(ovalInRect : box)
         ovalPath.closePath()
         circle.path = ovalPath.CGPath
     }

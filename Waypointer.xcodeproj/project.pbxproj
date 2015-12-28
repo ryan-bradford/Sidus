@@ -12,6 +12,7 @@
 		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
 		943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */; };
 		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
+		947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947146E61C29FEEB00397A99 /* WaypointReader.swift */; };
 		9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1E81AE54BAB007F45BE /* AppDelegate.swift */; };
 		9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1EA1AE54BAB007F45BE /* ViewController.swift */; };
 		9480A1EE1AE54BAB007F45BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1EC1AE54BAB007F45BE /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
 		943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressButton.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
+		947146E61C29FEEB00397A99 /* WaypointReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointReader.swift; sourceTree = "<group>"; };
 		9480A1E31AE54BAB007F45BE /* Waypointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waypointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1E81AE54BAB007F45BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				9480A20C1AE54BED007F45BE /* Waypoint.swift */,
 				9480A20E1AE54C08007F45BE /* WaypointManager.swift */,
 				941DAC611AE7110E0089EF3B /* WaypointGroup.swift */,
+				947146E61C29FEEB00397A99 /* WaypointReader.swift */,
 			);
 			name = "Waypoint System";
 			sourceTree = "<group>";
@@ -258,7 +261,9 @@
 		9480A1DB1AE54BAB007F45BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Ryan;
 				TargetAttributes = {
 					9480A1E21AE54BAB007F45BE = {
@@ -325,6 +330,7 @@
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
+				947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */,
 				9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,
@@ -397,6 +403,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -412,7 +419,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -451,7 +458,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -467,6 +474,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Waypointer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -480,6 +488,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Waypointer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -499,6 +508,7 @@
 				);
 				INFOPLIST_FILE = WaypointerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waypointer.app/Waypointer";
 			};
@@ -514,6 +524,7 @@
 				);
 				INFOPLIST_FILE = WaypointerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waypointer.app/Waypointer";
 			};

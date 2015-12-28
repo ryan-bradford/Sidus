@@ -11,12 +11,18 @@ import Darwin
 
 public class MyMath {
     
-    class func findSmallestAngle(angle : Double) -> Double {
+    var cameraAngle = 0.0
+    
+    public init(cameraAngle : Double) {
+        self.cameraAngle = cameraAngle
+    }
+    
+    func findSmallestAngle(angle : Double) -> Double {
         var calc = angle
-        if(calc > M_PI - classes.cameraAngle) {
+        if(calc > M_PI - self.cameraAngle) {
             calc = calc -  M_PI * 2
             return findSmallestAngle(calc)
-        } else if(calc < (-classes.cameraAngle - M_PI)) {
+        } else if(calc < (-self.cameraAngle - M_PI)) {
             calc = calc + M_PI * 2
             return findSmallestAngle(calc)
         } else {
@@ -24,15 +30,15 @@ public class MyMath {
         }
     }
     
-    class func degreesToFeet(angle : Double) -> Double {
-        var kiloScaler = Double(10000/90)
-        var kilos = angle * kiloScaler
-        var feetScaler = 3280.84
-        var feet = kilos * feetScaler
+    func degreesToFeet(angle : Double) -> Double {
+        let kiloScaler = Double(10000/90)
+        let kilos = angle * kiloScaler
+        let feetScaler = 3280.84
+        let feet = kilos * feetScaler
         return feet
     }
     
-    class func getMyAverage(nums : Array<Double>, placeToRoundTo : Double) -> Double {
+    func getMyAverage(nums : Array<Double>, placeToRoundTo : Double) -> Double {
         var heighestCount = 0.0
         var heighestID = 0.0
         var currentCount = 0.0

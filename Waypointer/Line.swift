@@ -28,9 +28,9 @@ public class Line {
     }
     
     func getLineHorizontalAngle() -> Double {
-        var opposite = getXLength()
-        var adjcent = getYLength()
-        var tanValue = atan(abs(opposite) / abs(adjcent));//Expands upon the java trig functions
+        let opposite = getXLength()
+        let adjcent = getYLength()
+        let tanValue = atan(abs(opposite) / abs(adjcent));//Expands upon the java trig functions
         if(opposite < 0 && adjcent < 0) {									//Allows for more accurate
             return M_PI + tanValue;
         }
@@ -44,8 +44,8 @@ public class Line {
     }
     
     func getLineVerticalAngle() -> Double {
-        var adjcent = sqrt(pow(getZLength(), 2) + pow(getYLength(), 2));
-        var newAngle = atan(abs(getZLength()) / adjcent)
+        let adjcent = sqrt(pow(getZLength(), 2) + pow(getYLength(), 2));
+        let newAngle = atan(abs(getZLength()) / adjcent)
         if(getZLength() < 0) {
             return M_PI * 2 - newAngle
         } else {

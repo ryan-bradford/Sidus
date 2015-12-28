@@ -24,7 +24,7 @@ public class StandardAddButton : UIButton {
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -37,9 +37,9 @@ public class StandardAddButton : UIButton {
         shape.lineJoin = kCALineJoinMiter
         shape.fillColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: CGFloat(0.5)).CGColor
         let path = UIBezierPath()
-        var width = classes.buttonWidth
-        var start = classes.buttonStart
-        var sideLength = classes.buttonLength
+        let width = classes.buttonWidth
+        let start = classes.buttonStart
+        let sideLength = classes.buttonLength
         path.moveToPoint(CGPoint(x: start, y: start + sideLength))
         path.addLineToPoint(CGPoint(x: start + sideLength, y: start + sideLength))
         path.addLineToPoint(CGPoint(x: start + sideLength, y: start))
@@ -55,24 +55,24 @@ public class StandardAddButton : UIButton {
         path.closePath()
         shape.path = path.CGPath
         
-        var name = myLetter
+        let name = myLetter
         let fieldColor: UIColor = UIColor.darkGrayColor()
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(9))
-        var paraStyle = NSMutableParagraphStyle()
+        let paraStyle = NSMutableParagraphStyle()
         paraStyle.lineSpacing = 6.0
-        var skew = 0.1
-        var attributes: NSDictionary = [
+        let skew = 0.1
+        let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
             NSParagraphStyleAttributeName: paraStyle,
             NSObliquenessAttributeName: skew,
             NSFontAttributeName: fieldFont!
         ]
-        name.drawInRect(CGRectMake(5, 0, 10, 10), withAttributes: attributes as [NSObject : AnyObject])
+        name.drawInRect(CGRectMake(5, 0, 10, 10), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
     }
     
     func removeAllGraphics() {
         if(self.layer.sublayers != nil) {
-            for v in self.layer.sublayers {
+            for v in self.layer.sublayers! {
                 v.removeFromSuperlayer()
             }
         }
