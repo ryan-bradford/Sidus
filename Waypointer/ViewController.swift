@@ -89,9 +89,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             while(self.shouldContinue) {
                 usleep(20000)
                 if(self.isInForeground && self.buttonsAreGood()) {
+                    self.manage.orderWaypoints()
+                    self.updateVars()
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.manage.orderWaypoints()
-                        self.updateVars()
                         self.manageGroupScreen()
                         self.removeWaypoints()
                         self.updateWaypoints()

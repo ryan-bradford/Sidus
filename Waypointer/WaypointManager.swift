@@ -95,7 +95,6 @@ public class WaypointManager {
         for var i = 0; i < drawnWaypoints.count; i++ {
             var found = false
             for var x = 0; x < newGroup.count; x++ {
-                //print(drawnWaypoints.count)
                 if((newGroup[x].name as NSString).isEqualToString(drawnWaypoints[i].name)) {
                     found = true
                 }
@@ -108,22 +107,54 @@ public class WaypointManager {
     }
     
     func generateVars() {
+        var drawnWaypoints = self.drawnWaypoints
         for var i = 0; i < drawnWaypoints.count; i++ {
             drawnWaypoints[i].generateVars()
         }
         for var i = 0; i < drawnWaypoints.count; i++ { //This may be reverse
-            let count = 0.0
+            var count = 0.0
             for var x = i; x < drawnWaypoints.count; x++ {//Change to checking if both boxes overlap, not just point and box
-                let realXSize = drawnWaypoints[x].xSize * 5/2
-                let realYSize = drawnWaypoints[x].ySize * 5/3
-                if(drawnWaypoints[i].y < drawnWaypoints[x].y && drawnWaypoints[i].y < drawnWaypoints[x].y - realYSize) {
-                    if(drawnWaypoints[i].x > drawnWaypoints[x].x - realXSize / 2 && drawnWaypoints[i].x < drawnWaypoints[x].x + realXSize / 2) {
-                        drawnWaypoints[i].y += drawnWaypoints[x].ySize
+                if self.checkY(i, x: x) {
+                    if self.checkX(i, x: x) {
+                        count += drawnWaypoints[x].ySize
                     }
                 }
             }
             drawnWaypoints[i].yShift = count
         }
+        self.drawnWaypoints = drawnWaypoints
+    }
+    
+    func checkY(i : Int, x : Int) -> Bool {
+        //xmax1 >= xmin2 and xmax2 >= xmin1
+        let realYSizeX = drawnWaypoints[x].ySize// * 5/3
+        let realYSizeI = drawnWaypoints[i].ySize// * 5/3
+        let iMax = drawnWaypoints[i].y
+        let iMin = drawnWaypoints[i].y - realYSizeI
+        let xMax = drawnWaypoints[x].y
+        let xMin = drawnWaypoints[x].y - realYSizeX
+        if iMax >= xMin {
+            if xMax >= iMin {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func checkX(i : Int, x : Int) -> Bool {
+        //xmax1 >= xmin2 and xmax2 >= xmin1
+        let realXSizeX = drawnWaypoints[x].xSize // * 5/2
+        let realXSizeI = drawnWaypoints[i].xSize // * 5/2
+        let iMax = drawnWaypoints[i].x + realXSizeI / 2
+        let iMin = drawnWaypoints[i].x - realXSizeI / 2
+        let xMax = drawnWaypoints[x].x + realXSizeX / 2
+        let xMin = drawnWaypoints[x].x - realXSizeX / 2
+        if iMax >= xMin {
+            if xMax >= iMin {
+                return true
+            }
+        }
+        return false
     }
     
 }
