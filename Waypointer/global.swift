@@ -14,10 +14,12 @@ import CoreLocation
 public struct classes {
     
     //System Derived
+    
     static public var screenWidth = Double(UIScreen.mainScreen().bounds.width) //Final
     static public var screenHeight = Double(UIScreen.mainScreen().bounds.height) //Final
    
     //AppDelegate to ViewController
+    
     static public var shouldRecalibrate = false
     static public var shouldRemove = false
     static public var isInForeground = false
@@ -34,6 +36,8 @@ public struct classes {
     static public var buttonLength = 13 //Final
     static public var buttonOutlineWidth = 40 //Final
     static public var buttonGap = 10 //Final
+    static public var timeInbetweenResets = 5.0 //Final //In Millis
+    static public var acceptableRecalRange = 0.1
 
     
 }

@@ -38,17 +38,15 @@ public class AddAddressButton : StandardAddButton {
             let address = textf.text
             let geocoder = CLGeocoder()
             geocoder.geocodeAddressString(address!, completionHandler: {(placemarks, error) -> Void in
-                    let placemark = placemarks![0] as CLPlacemark
+                if let buffer = placemarks?[0] {
+                    let placemark = buffer as! CLPlacemark
                     let location = placemark.location;
                     let coordinate = location!.coordinate;
                     let alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Name of the Waypoint", preferredStyle: UIAlertControllerStyle.Alert)
                     alert2.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
                         let textf1 = alert2.textFields![0] as UITextField
                         self.manage.addWaypoint(self.myMath.degreesToFeet(coordinate.longitude) , yPos : self.myMath.degreesToFeet(coordinate.latitude), zPos: self.manage.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: textf1.text!)
-                        self.redVal = 0.5
-                        self.blueVal = 0.5
-                        self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
-                        classes.cantRecal = false
+                        self.finish()
 
                     }))
                     alert2.addTextFieldWithConfigurationHandler({(textField: UITextField) in
@@ -56,6 +54,9 @@ public class AddAddressButton : StandardAddButton {
                             textField.secureTextEntry = false
                     })
                     UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert2, animated: true, completion: nil)
+                } else {
+                    self.finish()
+                }
             })
         }))
         alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
@@ -64,6 +65,13 @@ public class AddAddressButton : StandardAddButton {
         })
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
         
+    }
+    
+    func finish() {
+        self.redVal = 0.5
+        self.blueVal = 0.5
+        self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
+        classes.cantRecal = false
     }
 
 
