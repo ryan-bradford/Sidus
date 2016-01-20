@@ -60,12 +60,12 @@ public class WaypointReader {
         if(!(parts[6] as NSString).isEqualToString("-1")) {
             blueValue = (parts[6] as NSString).integerValue
         }
-        return Waypoint(xPos: myMath.degreesToFeet((parts[2] as NSString).doubleValue), yPos: myMath.degreesToFeet((parts[1] as NSString).doubleValue), zPos: (parts[3] as NSString).doubleValue, red: redValue, green: greenValue, blue: blueValue, name: parts[0], cameraAngle : cameraAngle, manage : manage, startFromNorth :startFromNorth)
+        return Waypoint(xPos: myMath.degreesToFeet((parts[2] as NSString).doubleValue), yPos: myMath.degreesToFeet((parts[1] as NSString).doubleValue), zPos: (parts[3] as NSString).doubleValue, red: redValue, green: greenValue, blue: blueValue, name: parts[0], cameraAngle : cameraAngle, manage : manage)
     }
     
     func addMountainGroup() {
         let group = WaypointGroup(name: "App Mtns")
-        let waypoint  = Waypoint(xPos: myMath.degreesToFeet(-71.273333), yPos: myMath.degreesToFeet(43.954167), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua", cameraAngle : cameraAngle, manage : manage, startFromNorth :startFromNorth)
+        let waypoint  = Waypoint(xPos: myMath.degreesToFeet(-71.273333), yPos: myMath.degreesToFeet(43.954167), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua", cameraAngle : cameraAngle, manage : manage)
         group.addWaypoint(waypoint)
         self.groups.append(group)
     }

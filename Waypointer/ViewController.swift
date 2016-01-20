@@ -299,6 +299,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.view.addSubview(cannotRun)
             } else if(self.startFromNorth == -1.0) {
                 self.startFromNorth = h2 * M_PI / 180 //To Reverse
+                self.manage.startFromNorth = self.startFromNorth
+                self.reader.manage = self.manage
+                self.manage.updateStartFromNorth()
                 if !classes.isInForeground {
                     self.initStage3()
                     //self.startFromNorth = 0.0

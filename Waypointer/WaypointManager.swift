@@ -36,7 +36,7 @@ public class WaypointManager {
     }
     
     public func addWaypoint(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
-        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name, cameraAngle : cameraAngle, manage: self, startFromNorth: startFromNorth))
+        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name, cameraAngle : cameraAngle, manage: self))
     }
     
     public func addWaypoint(toAdd : Waypoint) {
@@ -155,6 +155,12 @@ public class WaypointManager {
             }
         }
         return false
+    }
+    
+    func updateStartFromNorth() {
+        for var i = 0; i < allWaypoints.count; i++ {
+            allWaypoints[i].manage = self
+        }
     }
     
 }

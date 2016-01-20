@@ -36,10 +36,8 @@ public class Waypoint : UIView {
     var cameraAngle : Double
     var myMath : MyMath
     var manage : WaypointManager
-    var startFromNorth : Double
     
-    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String, cameraAngle : Double, manage : WaypointManager, startFromNorth : Double) {
-        self.startFromNorth = startFromNorth
+    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String, cameraAngle : Double, manage : WaypointManager) {
         self.manage = manage
         self.red = red
         self.name = name
@@ -58,7 +56,6 @@ public class Waypoint : UIView {
         self.cameraAngle = 1.0
         myMath = MyMath(cameraAngle: cameraAngle)
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
-        startFromNorth = 0.0
         super.init(coder: aDecoder)
     }
     
@@ -92,7 +89,7 @@ public class Waypoint : UIView {
     }
     
     public func getScreenX() -> Double {
-        let x1 = CGFloat(self.manage.horAngle - myMath.findSmallestAngle(self.startFromNorth))
+        let x1 = CGFloat(self.manage.horAngle - myMath.findSmallestAngle(manage.startFromNorth))
         let realFOV = cameraAngle * (classes.screenWidth / classes.screenHeight)
         var horAngle = line.getLineHorizontalAngle()
         horAngle = (horAngle + Double(x1))
