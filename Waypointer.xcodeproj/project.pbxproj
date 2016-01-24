@@ -32,6 +32,7 @@
 		94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF40441B507A020052E347 /* GreyTintScreen.swift */; };
 		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
 		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
+		94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		94AF40441B507A020052E347 /* GreyTintScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyTintScreen.swift; sourceTree = "<group>"; };
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
+		94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMotionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		9480A1E51AE54BAB007F45BE /* Waypointer */ = {
 			isa = PBXGroup;
 			children = (
+				94EFD5681C5477BB00879519 /* System Utils */,
 				949CA03A1B803A92006BA3EA /* groups.txt */,
 				9480A2131AE54C4E007F45BE /* Geometry */,
 				9480A2101AE54C24007F45BE /* math */,
@@ -215,6 +218,14 @@
 				9480A2161AE54C65007F45BE /* Line.swift */,
 			);
 			name = Geometry;
+			sourceTree = "<group>";
+		};
+		94EFD5681C5477BB00879519 /* System Utils */ = {
+			isa = PBXGroup;
+			children = (
+				94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */,
+			);
+			name = "System Utils";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +342,7 @@
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
 				947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */,
+				94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */,
 				9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,

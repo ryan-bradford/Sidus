@@ -15,10 +15,9 @@ public class WaypointReader {
     var cameraAngle : Double
     var startFromNorth : Double
     var manage : WaypointManager
-    var alreadyRead = false
     
-    init(cameraAngle : Double, groups : Array<WaypointGroup>, startFromNorth : Double, manage : WaypointManager) {
-        self.groups = groups
+    init(cameraAngle : Double, startFromNorth : Double, manage : WaypointManager) {
+        self.groups = Array<WaypointGroup>()
         self.cameraAngle = cameraAngle
         myMath = MyMath(cameraAngle: cameraAngle)
         self.manage = manage
@@ -26,14 +25,11 @@ public class WaypointReader {
     }
     
     func readGroups() {
-        if !alreadyRead {
-            let path = NSBundle.mainBundle().pathForResource("groups", ofType: "txt")
-            let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
-            var groupTexts = text.characters.split {$0 == "@"}.map { String($0) }
-            for var i = 1; i < groupTexts.count; i++ {
-                processGroup(groupTexts[i])
-            }
-            alreadyRead = true
+        let path = NSBundle.mainBundle().pathForResource("groups", ofType: "txt")
+        let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+        var groupTexts = text.characters.split {$0 == "@"}.map { String($0) }
+        for var i = 1; i < groupTexts.count; i++ {
+            processGroup(groupTexts[i])
         }
     }
     

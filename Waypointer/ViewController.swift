@@ -18,13 +18,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var startFromNorth = -1.0 //The heading of the person
     var locationManager: CLLocationManager! //The thing that manages the persons locaion
     var timesLocationRecorded = 0 //Init stage 2 will only run when this is 0
-    var gyroBaseImageSet = false //The gyro needs to set a base image once
-    var startAttitude = CMAttitude() //The gyros base image
-    var motionManager = CMMotionManager() //The gyroscope
     var cannotRun = CannotRunScreen() //The screen that is displayed if the app cannot run
+    var motionManager : MyMotionManager?
     var activeLine = CenterLine() //The line that moves in initStage1
     var centerLine = CenterLine() //The line that stays in initStage1
-    var motionStage1Or2 = true //True is 1, false is 2
     var tint = GreyTintScreen() //The grey tint that is displayed in initStage1
     var isAbleToRun = true //Set to false if the phone is too old or does not allocate the proper permissions
     var cameraAngle = (1.0) //The FOV of the camera
@@ -33,37 +30,39 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //These Are Kinda In Order
     var groups : Array<WaypointGroup> //Just Blank
     var manage : WaypointManager
-    var groupScreen : GroupScreen
-    var addButton : AddButton
+    var groupScreen : GroupScreen?
+    var addButton : AddButton?
     var addGroupButton : AddGroup
     var verifyButton : VerifyButton
-    var addressButton : AddAddressButton
-    var myMath : MyMath
-    var reader : WaypointReader
+    var addressButton : AddAddressButton?
+    var myMath : MyMath?
+    var reader : WaypointReader?
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
-        groupScreen = GroupScreen(groups: groups, manage: manage)
-        addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
+        groupScreen = nil
+        addButton = nil
         addGroupButton = AddGroup()
         verifyButton = VerifyButton()
-        addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
-        myMath = MyMath(cameraAngle: cameraAngle)
-        reader = WaypointReader(cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth, manage: manage)
+        addressButton = nil
+        myMath = nil
+        reader = nil
+        motionManager = nil
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
-        groupScreen = GroupScreen(groups: groups, manage: manage)
-        addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
+        groupScreen = nil
+        addButton = nil
         addGroupButton = AddGroup()
         verifyButton = VerifyButton()
-        addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
+        addressButton = nil
         myMath = MyMath(cameraAngle: cameraAngle)
-        reader = WaypointReader(cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth, manage: manage)
+        reader = nil
+        motionManager = nil
         super.init(coder: aDecoder)
     }
     
@@ -119,8 +118,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func buttonsAreGood() -> Bool {
-        for var i = 0; i < groupScreen.buttons.count; i++ {
-            if !groupScreen.buttons[i].shouldRedraw {
+        for var i = 0; i < groupScreen!.buttons.count; i++ {
+            if !groupScreen!.buttons[i].shouldRedraw {
                 return false
             }
         }
@@ -133,14 +132,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func manageGroupScreen() {
         if(addGroupButton.showGroupScreen) {
-            self.view.addSubview(self.groupScreen)
+            self.view.addSubview(self.groupScreen!)
             addGroupButton.showGroupScreen = false
             self.hideAllButtons()
         }
-        if(groupScreen.goAwayGroupScreen) {
+        if(groupScreen!.goAwayGroupScreen) {
             self.showAllButtons()
-            self.groupScreen.removeFromSuperview()
-            groupScreen.goAwayGroupScreen = false
+            self.groupScreen!.removeFromSuperview()
+            groupScreen!.goAwayGroupScreen = false
         }
     }
     
@@ -162,14 +161,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func showAllButtons() {
-        self.view.addSubview(addButton)
-        self.view.addSubview(addressButton)
+        self.view.addSubview(addButton!)
+        self.view.addSubview(addressButton!)
         self.view.addSubview(addGroupButton)
     }
     
     func hideAllButtons() {
-        addButton.removeFromSuperview()
-        addressButton.removeFromSuperview()
+        addButton!.removeFromSuperview()
+        addressButton!.removeFromSuperview()
         addGroupButton.removeFromSuperview()
     }
     
@@ -199,7 +198,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func initStage2()  {
         if(isAbleToRun) {
             tint.removeFromSuperview()
-            initMotionManager()
+            motionManager = MyMotionManager(myView: self, manage: manage)
         }
         if(isAbleToRun) {
             self.centerLine.setY(Int(classes.screenHeight / 2))
@@ -212,9 +211,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage3() {
         if(isAbleToRun) {
-            reader.readGroups()
-            reInitGroups()
-            self.motionStage1Or2 = false
+            reader = WaypointReader(cameraAngle: cameraAngle, startFromNorth: startFromNorth, manage: manage)
+            reader!.readGroups()
+            groups.removeAll()
+            for var i = 0; i < reader!.groups.count; i++ {
+                groups.append(reader!.groups[i])
+            }
+            groupScreen = GroupScreen(groups: groups, manage: manage)
+            addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
+            addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
+            motionManager!.motionStage1Or2 = false
             verifyButton.removeFromSuperview()
             showAllButtons()
             self.activeLine.removeFromSuperview()
@@ -235,6 +241,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
             cameraAngle = Double(videoDevice.activeFormat.videoFieldOfView)
             cameraAngle *= M_PI / 180
+            myMath = MyMath(cameraAngle: cameraAngle)
             let videoIn : AVCaptureDeviceInput?
             do {
                 videoIn = try AVCaptureDeviceInput(device: videoDevice)
@@ -252,27 +259,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.view.layer.addSublayer(previewLayer)
     }
     
-    func initMotionManager() {
-        if motionManager.gyroAvailable {
-            if motionManager.gyroActive == false {
-                motionManager.deviceMotionUpdateInterval = 0.02;
-                motionManager.startDeviceMotionUpdates()
-                motionManager.gyroUpdateInterval = 0.02
-                self.setMotionManagerThread(motionManager)
-            } else {
-                removeAllGraphics()
-                isAbleToRun = false
-                print("Gyro is already active")
-                self.view.addSubview(cannotRun)
-            }
-        } else {
-            removeAllGraphics()
-            isAbleToRun = false
-            print("Gyro isn't available")
-            self.view.addSubview(cannotRun)
-        }
-    }
-    
     //<- Device Parts Init
     
     //Device Parts Update Threads ->
@@ -283,7 +269,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let longitude = Double(manager.location!.coordinate.longitude)
         let altitude = manager.location!.altitude
         let feetZ = altitude * 3.28084
-        self.manage.changePersonLocation(myMath.degreesToFeet(longitude), yPos: myMath.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+        self.manage.changePersonLocation(myMath!.degreesToFeet(longitude), yPos: myMath!.degreesToFeet(latitude), zPos: feetZ) //To Reverse
         if(timesLocationRecorded == 0) {
             self.initStage2()
         }
@@ -300,7 +286,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             } else if(self.startFromNorth == -1.0) {
                 self.startFromNorth = h2 * M_PI / 180 //To Reverse
                 self.manage.startFromNorth = self.startFromNorth
-                self.reader.manage = self.manage
                 self.manage.updateStartFromNorth()
                 if !classes.isInForeground {
                     self.initStage3()
@@ -329,25 +314,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func setMotionManagerThread(motionManager : CMMotionManager) {
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!) {
-            [weak self] (motion, error) in
-            if(self!.motionStage1Or2) {
-                self!.activeLine.setY(Int(classes.screenHeight / 2 - classes.screenHeight / 2 * cos(motion!.attitude.pitch)))
-            } else {
-                if(!self!.gyroBaseImageSet) {
-                    self!.gyroBaseImageSet = true
-                    self!.startAttitude = motion!.attitude
-                } else {
-                    motion!.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
-                    self!.manage.horAngle = motion!.attitude.roll - ((self!.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
-                    let realVertAngle = cos(motion!.attitude.roll) * motion!.attitude.pitch - sin(motion!.attitude.roll) * motion!.attitude.yaw
-                    self!.manage.vertAngle = realVertAngle - self!.cameraAngle / 2
-                }
-            }
-        }
-    }
-    
     //<-- Device Parts Update Threads
     
     
@@ -369,7 +335,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         classes.cantRecal = true
         self.initIsFinished = false
         self.startFromNorth = -1.0
-        self.gyroBaseImageSet = false
         locationManager.startUpdatingHeading()
     }
     
@@ -377,28 +342,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         classes.cantRecal = true
         self.initIsFinished = false
         classes.shouldRecalibrate = false
-        self.motionStage1Or2 = true
+        motionManager!.motionStage1Or2 = true
         self.startFromNorth = -1.0
-        self.gyroBaseImageSet = false
         self.verifyButton = VerifyButton()
         addGroupButton.removeFromSuperview()
-        addressButton.removeFromSuperview()
-        addButton.removeFromSuperview()
+        addressButton!.removeFromSuperview()
+        addButton!.removeFromSuperview()
     }
     
     //<- Recalibrate Stuff
     
-    func reInitGroups() {
-        groups = reader.groups
-        manage.groups = groups
-        groupScreen = GroupScreen(groups: groups, manage: manage)
-        addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
-        addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
-        reader = WaypointReader(cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth, manage: manage)
-    }
-    
     func removeScreens() {
-        groupScreen.removeFromSuperview()
+        groupScreen!.removeFromSuperview()
     }
     
     
