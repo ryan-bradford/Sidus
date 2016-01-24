@@ -11,13 +11,11 @@ import Foundation
 public class WaypointReader {
     
     var myMath : MyMath
-    var groups : Array<WaypointGroup>
     var cameraAngle : Double
     var startFromNorth : Double
     var manage : WaypointManager
     
     init(cameraAngle : Double, startFromNorth : Double, manage : WaypointManager) {
-        self.groups = Array<WaypointGroup>()
         self.cameraAngle = cameraAngle
         myMath = MyMath(cameraAngle: cameraAngle)
         self.manage = manage
@@ -39,7 +37,15 @@ public class WaypointReader {
         for var i = 1; i < waypointTexts.count - 1; i++ {
             group.addWaypoint(processWaypoint(waypointTexts[i]))
         }
-        self.groups.append(group)
+        var found = false
+        for var i = 0; i < manage.groups.count; i++ {
+            if manage.groups[i].name == group.name {
+                found = true
+            }
+        }
+        if !found {
+            manage.groups.append(group)
+        }
     }
     
     func processWaypoint(waypoint : String) -> Waypoint {
@@ -63,6 +69,6 @@ public class WaypointReader {
         let group = WaypointGroup(name: "App Mtns")
         let waypoint  = Waypoint(xPos: myMath.degreesToFeet(-71.273333), yPos: myMath.degreesToFeet(43.954167), zPos: 3480, red: 255, green: 0, blue: 0, name: "Chocorua", cameraAngle : cameraAngle, manage : manage)
         group.addWaypoint(waypoint)
-        self.groups.append(group)
+        manage.groups.append(group)
     }
 }

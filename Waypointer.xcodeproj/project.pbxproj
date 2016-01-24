@@ -33,6 +33,7 @@
 		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
 		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
 		94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */; };
+		94D5E8E41C5482680080C61B /* MyLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D5E8E31C5482680080C61B /* MyLocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
 		94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMotionManager.swift; sourceTree = "<group>"; };
+		94D5E8E31C5482680080C61B /* MyLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */,
+				94D5E8E31C5482680080C61B /* MyLocationManager.swift */,
 			);
 			name = "System Utils";
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */,
 				9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */,
 				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
+				94D5E8E41C5482680080C61B /* MyLocationManager.swift in Sources */,
 				94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,

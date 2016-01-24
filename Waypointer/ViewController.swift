@@ -16,9 +16,8 @@ import CoreLocation //Longitude is X, Latitude is Y
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var startFromNorth = -1.0 //The heading of the person
-    var locationManager: CLLocationManager! //The thing that manages the persons locaion
-    var timesLocationRecorded = 0 //Init stage 2 will only run when this is 0
     var cannotRun = CannotRunScreen() //The screen that is displayed if the app cannot run
+    var locationManager : MyLocationManager?
     var motionManager : MyMotionManager?
     var activeLine = CenterLine() //The line that moves in initStage1
     var centerLine = CenterLine() //The line that stays in initStage1
@@ -49,6 +48,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMath = nil
         reader = nil
         motionManager = nil
+        locationManager = nil
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -60,9 +60,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         addGroupButton = AddGroup()
         verifyButton = VerifyButton()
         addressButton = nil
-        myMath = MyMath(cameraAngle: cameraAngle)
+        myMath = nil
         reader = nil
         motionManager = nil
+        locationManager = nil
         super.init(coder: aDecoder)
     }
     
@@ -185,13 +186,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         initCameraFeed()
         if(isAbleToRun) {
             self.view.addSubview(tint)
-            locationManager = CLLocationManager()
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-            locationManager.headingFilter = kCLHeadingFilterNone
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
+            locationManager = MyLocationManager(myView: self)
         }
     }
     
@@ -213,11 +208,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if(isAbleToRun) {
             reader = WaypointReader(cameraAngle: cameraAngle, startFromNorth: startFromNorth, manage: manage)
             reader!.readGroups()
-            groups.removeAll()
-            for var i = 0; i < reader!.groups.count; i++ {
-                groups.append(reader!.groups[i])
-            }
-            groupScreen = GroupScreen(groups: groups, manage: manage)
+            groupScreen = GroupScreen( manage: manage)
             addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
             addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
             motionManager!.motionStage1Or2 = false
@@ -225,7 +216,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             showAllButtons()
             self.activeLine.removeFromSuperview()
             self.centerLine.removeFromSuperview()
-            locationManager.stopUpdatingHeading()
+            locationManager?.locationManager?.stopUpdatingHeading()
             
         }
     }
@@ -261,67 +252,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //<- Device Parts Init
     
-    //Device Parts Update Threads ->
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        manager.location!.course
-        let latitude = Double(manager.location!.coordinate.latitude)
-        let longitude = Double(manager.location!.coordinate.longitude)
-        let altitude = manager.location!.altitude
-        let feetZ = altitude * 3.28084
-        self.manage.changePersonLocation(myMath!.degreesToFeet(longitude), yPos: myMath!.degreesToFeet(latitude), zPos: feetZ) //To Reverse
-        if(timesLocationRecorded == 0) {
-            self.initStage2()
-        }
-        timesLocationRecorded++
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        if(verifyButton.canContinue) {
-            if(h2 == -1) {
-                isAbleToRun = false
-                removeAllGraphics()
-                self.view.addSubview(cannotRun)
-            } else if(self.startFromNorth == -1.0) {
-                self.startFromNorth = h2 * M_PI / 180 //To Reverse
-                self.manage.startFromNorth = self.startFromNorth
-                self.manage.updateStartFromNorth()
-                if !classes.isInForeground {
-                    self.initStage3()
-                    //self.startFromNorth = 0.0
-                    let message = "We Have Detected You Are "  + Int(round(self.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
-                    let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
-                        let text: AnyObject? = alert.textFields?[0]
-                        if let textf = text as? UITextField {
-                            if let number = NSNumberFormatter().numberFromString(textf.text!) {
-                                self.startFromNorth = Double(number) * M_PI / 180
-                            }
-                        }
-                        self.initIsFinished = true
-                        classes.isInForeground = true
-                        classes.cantRecal = false
-                        self.lastTimeInAppReset = CACurrentMediaTime()
-                    }))
-                    alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
-                        textField.placeholder = "Name"
-                        textField.secureTextEntry = false
-                    })
-                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
-    //<-- Device Parts Update Threads
-    
     
     //Recalibrate Stuff ->
     
     func fullRecalibrate() {
         self.resetVars()
-        locationManager.startUpdatingHeading()
+        locationManager!.locationManager!.startUpdatingHeading()
         self.centerLine.setY(Int(classes.screenHeight / 2))
         self.view.addSubview(activeLine)
         activeLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
@@ -335,7 +271,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         classes.cantRecal = true
         self.initIsFinished = false
         self.startFromNorth = -1.0
-        locationManager.startUpdatingHeading()
+        locationManager!.locationManager!.startUpdatingHeading()
     }
     
     func resetVars() {

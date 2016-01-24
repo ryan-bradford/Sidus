@@ -17,23 +17,20 @@ class GroupButton : UIButton {
     var numPerCollom = 15
     var numPerRow = 3
     var spaceNeeded = 80.0
-    var groups : Array<WaypointGroup>
     var manage : WaypointManager
     var goAwayGroupScreen : Bool
     var shouldRedraw = true
 
     // #1
     required init?(coder: NSCoder) {
-        groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
         goAwayGroupScreen = false
         super.init(coder: coder);
     }
     
     // #2
-    init(group : WaypointGroup, order : Int,  groups : Array<WaypointGroup>, manage : WaypointManager, goAwayGroupScreen : Bool) {
+    init(group : WaypointGroup, order : Int, manage : WaypointManager, goAwayGroupScreen : Bool) {
         self.manage = manage
-        self.groups = groups
         self.goAwayGroupScreen = goAwayGroupScreen
         myID = order
         let xPos = order % numPerRow
@@ -50,20 +47,20 @@ class GroupButton : UIButton {
     
     func pressed(sender: UIButton!) {
         shouldRedraw = false
-        self.groups[myID].active = !self.groups[myID].active
-        if(!self.groups[myID].active) {
+        self.manage.groups[myID].active = !self.manage.groups[myID].active
+        if(!self.manage.groups[myID].active) {
             self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
-            for var i = 0; i < self.groups[myID].waypoints.count; i++ {
+            for var i = 0; i < self.manage.groups[myID].waypoints.count; i++ {
                 for var x = 0; x < self.manage.drawnWaypoints.count; x++ {
-                    if(self.groups[myID].waypoints[i].myID == self.manage.drawnWaypoints[x].myID) {
+                    if(self.manage.groups[myID].waypoints[i].myID == self.manage.drawnWaypoints[x].myID) {
                         self.manage.drawnWaypoints[x].removeFromSuperview()
                         self.manage.drawnWaypoints.removeAtIndex(x)
-                        self.groups[myID].waypoints[i].removeFromSuperview()
+                        self.manage.groups[myID].waypoints[i].removeFromSuperview()
                     }
                 }
             }
         }
-        if(self.groups[myID].active) {
+        if(self.manage.groups[myID].active) {
             self.backgroundColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.8)
         }
         self.goAwayGroupScreen = true
@@ -73,7 +70,7 @@ class GroupButton : UIButton {
     override func drawRect(rect: CGRect) {
         let width = CGFloat(classes.screenWidth - 80) / CGFloat(numPerRow)
         let stringDraw = UILabel(frame: CGRect(x: 2, y: CGFloat(1), width: width, height: 20))
-        stringDraw.text = self.groups[myID].name
+        stringDraw.text = self.manage.groups[myID].name
         stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(12))
         self.addSubview(stringDraw)
     }

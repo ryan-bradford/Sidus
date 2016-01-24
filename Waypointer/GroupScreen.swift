@@ -11,27 +11,24 @@ import UIKit
 
 public class GroupScreen : UIButton {
     
-    var groups : Array<WaypointGroup>
     var buttons : Array<GroupButton>
     var manage : WaypointManager
     var goAwayGroupScreen = false
 
     required public init?(coder aDecoder: NSCoder) {
-        groups = Array<WaypointGroup>()
         buttons = Array<GroupButton>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
         goAwayGroupScreen = false
         super.init(coder: aDecoder)
     }
     
-    public init(groups : Array<WaypointGroup>, manage : WaypointManager) {
+    public init(manage : WaypointManager) {
         self.manage = manage
-        self.groups = groups
         buttons = Array<GroupButton>()
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.addTarget(self, action: "pressed:", forControlEvents: UIControlEvents.TouchUpInside);
-        for var i = 0; i < self.groups.count; i++ {
-            buttons.append(GroupButton(group: groups[i], order: i, groups : groups, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
+        for var i = 0; i < self.manage.groups.count; i++ {
+            buttons.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
             self.addSubview(buttons[buttons.count - 1])
             
         }
