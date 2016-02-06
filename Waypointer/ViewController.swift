@@ -38,6 +38,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var reader : WaypointReader?
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        classes.screenDiameter = Double(sqrt(pow(UIScreen.mainScreen().bounds.width,2) + pow(UIScreen.mainScreen().bounds.height,2)))
         groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
@@ -53,6 +54,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        classes.screenDiameter = Double(sqrt(pow(UIScreen.mainScreen().bounds.width,2) + pow(UIScreen.mainScreen().bounds.height,2)))
         groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil

@@ -90,7 +90,7 @@ public class Waypoint : UIView {
     
     public func getScreenX() -> Double {
         let x1 = CGFloat(self.manage.horAngle - myMath.findSmallestAngle(manage.startFromNorth))
-        let realFOV = cameraAngle * (classes.screenWidth / classes.screenHeight)
+        let realFOV = cameraAngle * (classes.screenWidth / classes.screenDiameter)
         var horAngle = line.getLineHorizontalAngle()
         horAngle = (horAngle + Double(x1))
         horAngle = myMath.findSmallestAngle(horAngle)
