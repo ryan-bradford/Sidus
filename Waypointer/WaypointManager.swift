@@ -23,6 +23,7 @@ public class WaypointManager {
     var cameraAngle : Double
     var groups : Array<WaypointGroup>
     var startFromNorth : Double
+    var waitCount = 6
     
     init(x : Double, y : Double, z : Double, cameraAngle : Double, groups : Array<WaypointGroup>, startFromNorth : Double) {
         self.startFromNorth = startFromNorth
@@ -58,33 +59,38 @@ public class WaypointManager {
     }
     
     public func orderWaypoints() { //Correct Ordering and Add Limit
-        let start = allWaypoints
-        for var i = 0; i < self.groups.count; i++ {
-            if(self.groups[i].active) {
-                for var z = 0; z < self.groups[i].waypoints.count; z++ {
-                    allWaypoints.append(self.groups[i].waypoints[z])
+        if(waitCount > 5) {
+            let start = allWaypoints
+            for var i = 0; i < self.groups.count; i++ {
+                if(self.groups[i].active) {
+                    for var z = 0; z < self.groups[i].waypoints.count; z++ {
+                        allWaypoints.append(self.groups[i].waypoints[z])
+                    }
                 }
             }
-        }
-        var newWaypoints = Array<Waypoint>()
-        var heighestID = 0
-        var numToAdd = classes.numWaypoints
-        if(allWaypoints.count < classes.numWaypoints) {
-            numToAdd = allWaypoints.count
-        }
-        for var x = 0; x < numToAdd; x++ {
-            heighestID = 0
-            for var i = 0; i < allWaypoints.count; i++ {
-                if(allWaypoints[i].line.length < allWaypoints[heighestID].line.length) {
-                    heighestID = i
-                }
+            var newWaypoints = Array<Waypoint>()
+            var heighestID = 0
+            var numToAdd = classes.numWaypoints
+            if(allWaypoints.count < classes.numWaypoints) {
+                numToAdd = allWaypoints.count
             }
-            allWaypoints[heighestID].orderNum = newWaypoints.count
-            newWaypoints.append(allWaypoints[heighestID])
-            allWaypoints.removeAtIndex(heighestID)
+            for var x = 0; x < numToAdd; x++ {
+                heighestID = 0
+                for var i = 0; i < allWaypoints.count; i++ {
+                    if(allWaypoints[i].line.length < allWaypoints[heighestID].line.length) {
+                        heighestID = i
+                    }
+                }
+                allWaypoints[heighestID].orderNum = newWaypoints.count
+                newWaypoints.append(allWaypoints[heighestID])
+                allWaypoints.removeAtIndex(heighestID)
+            }
+            processNewGroup(newWaypoints)
+            allWaypoints = start
+            waitCount = 0
+        } else {
+            waitCount++
         }
-        processNewGroup(newWaypoints)
-        allWaypoints = start
     }
     
     func processNewGroup(newGroup : Array<Waypoint>) {

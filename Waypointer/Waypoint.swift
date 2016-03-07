@@ -36,6 +36,7 @@ public class Waypoint : UIView {
     var cameraAngle : Double
     var myMath : MyMath
     var manage : WaypointManager
+    var drawn = false
     
     public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String, cameraAngle : Double, manage : WaypointManager) {
         self.manage = manage

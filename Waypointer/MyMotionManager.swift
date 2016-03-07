@@ -58,13 +58,27 @@ public class MyMotionManager {
                     self!.gyroBaseImageSet = true
                     self!.startAttitude = motion!.attitude
                 } else {
-                    motion!.attitude.multiplyByInverseOfAttitude(self!.startAttitude)
-                    self!.manage!.horAngle = motion!.attitude.roll - ((self!.myView!.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
-                    let realVertAngle = cos(motion!.attitude.roll) * motion!.attitude.pitch - sin(motion!.attitude.roll) * motion!.attitude.yaw
-                    self!.manage!.vertAngle = realVertAngle - self!.myView!.cameraAngle / 2
+                    self!.manageMotion(motion!.attitude)
                 }
             }
         }
+    }
+    
+    func manageMotion(attitude : CMAttitude) {
+        /*
+        let insideRoll = 2*(attitude.quaternion.w*attitude.quaternion.x + attitude.quaternion.z*attitude.quaternion.y) / (attitude.quaternion.w * attitude.quaternion.w - attitude.quaternion.x * attitude.quaternion.x - attitude.quaternion.y * attitude.quaternion.y - attitude.quaternion.z * attitude.quaternion.z)
+        let roll = atan(insideRoll)
+        let pitch = -sin(2 * (attitude.quaternion.x * attitude.quaternion.z - attitude.quaternion.w * attitude.quaternion.y))
+        let insideYaw = 2 * (attitude.quaternion.w * attitude.quaternion.z + attitude.quaternion.x * attitude.quaternion.y) / (attitude.quaternion.w * attitude.quaternion.w + attitude.quaternion.x * attitude.quaternion.x + attitude.quaternion.y * attitude.quaternion.y + attitude.quaternion.z * attitude.quaternion.z)
+        let yaw = atan(insideYaw)
+        print(String(yaw) + " Yaw")
+        print(String(roll) + " Roll")
+        print(String(pitch) + " Pitch")
+        */
+        attitude.multiplyByInverseOfAttitude(startAttitude)
+        manage!.horAngle = attitude.roll - ((myView!.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+        let realVertAngle = cos(attitude.roll) * attitude.pitch - sin(attitude.roll) * attitude.yaw
+        manage!.vertAngle = realVertAngle - myView!.cameraAngle / 2
     }
     
 }

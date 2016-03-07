@@ -89,11 +89,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             while(self.isAbleToRun) {
                 usleep(20000)
                 if(classes.isInForeground && self.initIsFinished && self.buttonsAreGood()) {
-                    self.manage.orderWaypoints()
-                    self.updateVars()
                     dispatch_async(dispatch_get_main_queue()) {
+                        self.updateVars()
+                        self.manage.orderWaypoints()
                         self.manageGroupScreen()
-                        self.removeWaypoints()
+                        //self.removeWaypoints()
                         self.updateWaypoints()
                         if(classes.shouldRecalibrate) {
                             self.fullRecalibrate()
@@ -150,7 +150,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func updateWaypoints() {
         for var i = self.manage.drawnWaypoints.count - 1; i >= 0; i-- {
             self.manage.drawnWaypoints[i].drawRect(self.view.frame)
+            if(!self.manage.drawnWaypoints[i].drawn) {
             self.view.addSubview(self.manage.drawnWaypoints[i])
+            self.manage.drawnWaypoints[i].drawn = true
+            }
         }
     }
     
@@ -159,6 +162,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func removeWaypoints() {
         for var i = 0; i < self.manage.drawnWaypoints.count; i++ {
             self.manage.drawnWaypoints[i].removeFromSuperview()
+            self.manage.drawnWaypoints[i].drawn = false
         }
     }
     

@@ -54,6 +54,7 @@ class GroupButton : UIButton {
                 for var x = 0; x < self.manage.drawnWaypoints.count; x++ {
                     if(self.manage.groups[myID].waypoints[i].myID == self.manage.drawnWaypoints[x].myID) {
                         self.manage.drawnWaypoints[x].removeFromSuperview()
+                        self.manage.drawnWaypoints[x].drawn = false
                         self.manage.drawnWaypoints.removeAtIndex(x)
                         self.manage.groups[myID].waypoints[i].removeFromSuperview()
                     }
