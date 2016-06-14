@@ -44,10 +44,10 @@ public class MyMath {
         var currentCount = 0.0
         var currentID = 0.0
         var currentID1 = 0.0
-        for var i = 0; i < nums.count; i++ {
+        for i in 0 ..< nums.count {
             currentCount = 0
             currentID = round(nums[i] / placeToRoundTo) * placeToRoundTo
-            for var x = 0; x < nums.count; x++ {
+            for x in 0 ..< nums.count {
                 currentID1 = round(nums[x] / placeToRoundTo) * placeToRoundTo
                 if(currentID == currentID1) {
                     currentCount += 1
@@ -59,7 +59,7 @@ public class MyMath {
             }
         }
         var total = 0.0
-        for var i = 0; i < nums.count; i++ {
+        for i in 0 ..< nums.count {
             currentID = round(nums[i] / placeToRoundTo) * placeToRoundTo
             if( currentID == heighestID) {
                 total += nums[i]

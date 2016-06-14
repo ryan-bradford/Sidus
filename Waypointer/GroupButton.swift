@@ -41,7 +41,7 @@ class GroupButton : UIButton {
         width = (Int(classes.screenWidth)) / numPerRow - 25
         height = (Int(screenHeight) / numPerCollom - 12)
         super.init(frame: CGRect(x: xCord, y: yCord, width: width, height: height));
-        self.addTarget(self, action: "pressed:", forControlEvents: UIControlEvents.TouchUpInside);
+        self.addTarget(self, action: #selector(GroupButton.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
     }
     
@@ -50,8 +50,8 @@ class GroupButton : UIButton {
         self.manage.groups[myID].active = !self.manage.groups[myID].active
         if(!self.manage.groups[myID].active) {
             self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
-            for var i = 0; i < self.manage.groups[myID].waypoints.count; i++ {
-                for var x = 0; x < self.manage.drawnWaypoints.count; x++ {
+            for i in 0 ..< self.manage.groups[myID].waypoints.count {
+                for x in 0 ..< self.manage.drawnWaypoints.count {
                     if(self.manage.groups[myID].waypoints[i].myID == self.manage.drawnWaypoints[x].myID) {
                         self.manage.drawnWaypoints[x].removeFromSuperview()
                         self.manage.drawnWaypoints[x].drawn = false

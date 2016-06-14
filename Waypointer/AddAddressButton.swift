@@ -19,7 +19,7 @@ public class AddAddressButton : StandardAddButton {
         self.manage = manager
         super.init(myLetter: "A", orderNum: 3)
         myMath = MyMath(cameraAngle : cameraAngle)
-        self.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(AddAddressButton.pressed(_:)), forControlEvents: .TouchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -39,7 +39,7 @@ public class AddAddressButton : StandardAddButton {
             let geocoder = CLGeocoder()
             geocoder.geocodeAddressString(address!, completionHandler: {(placemarks, error) -> Void in
                 if let buffer = placemarks?[0] {
-                    let placemark = buffer as! CLPlacemark
+                    let placemark = buffer 
                     let location = placemark.location;
                     let coordinate = location!.coordinate;
                     let alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Name of the Waypoint", preferredStyle: UIAlertControllerStyle.Alert)

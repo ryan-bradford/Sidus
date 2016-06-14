@@ -121,7 +121,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func buttonsAreGood() -> Bool {
-        for var i = 0; i < groupScreen!.buttons.count; i++ {
+        for i in 0 ..< groupScreen!.buttons.count {
             if !groupScreen!.buttons[i].shouldRedraw {
                 return false
             }
@@ -148,7 +148,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func updateWaypoints() {
-        for var i = self.manage.drawnWaypoints.count - 1; i >= 0; i-- {
+        /*
+        for i in (self.manage.drawnWaypoints.reverse()) {
+            i.drawRect(self.view.frame)
+            if(!i.drawn) {
+                self.view.addSubview(i)
+                i.drawn = true
+            }
+        }
+        */
+        for var i = self.manage.drawnWaypoints.count - 1; i >= 0; i -= 1 {
             self.manage.drawnWaypoints[i].drawRect(self.view.frame)
             if(!self.manage.drawnWaypoints[i].drawn) {
             self.view.addSubview(self.manage.drawnWaypoints[i])
@@ -160,7 +169,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //<- Periodic Graphics
     
     func removeWaypoints() {
-        for var i = 0; i < self.manage.drawnWaypoints.count; i++ {
+        for i in 0 ..< self.manage.drawnWaypoints.count {
             self.manage.drawnWaypoints[i].removeFromSuperview()
             self.manage.drawnWaypoints[i].drawn = false
         }
@@ -250,6 +259,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 isAbleToRun = false
                 self.view.addSubview(cannotRun)
             }
+        } else {
+            removeAllGraphics()
+            isAbleToRun = false
+            self.view.addSubview(cannotRun)
         }
         captureSession.startRunning()
         previewLayer.frame = self.view.bounds

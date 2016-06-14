@@ -26,8 +26,8 @@ public class GroupScreen : UIButton {
         self.manage = manage
         buttons = Array<GroupButton>()
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
-        self.addTarget(self, action: "pressed:", forControlEvents: UIControlEvents.TouchUpInside);
-        for var i = 0; i < self.manage.groups.count; i++ {
+        self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
+        for i in 0 ..< self.manage.groups.count {
             buttons.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
             self.addSubview(buttons[buttons.count - 1])
             

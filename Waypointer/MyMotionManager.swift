@@ -51,9 +51,12 @@ public class MyMotionManager {
     func setMotionManagerThread(motionManager : CMMotionManager) {
         motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!) {
             [weak self] (motion, error) in
+            
             if(self!.motionStage1Or2) {
                 self!.myView!.activeLine.setY(Int(classes.screenHeight / 2 - classes.screenHeight / 2 * cos(motion!.attitude.pitch)))
             } else {
+                print("Hi")
+                
                 if(!self!.gyroBaseImageSet) {
                     self!.gyroBaseImageSet = true
                     self!.startAttitude = motion!.attitude

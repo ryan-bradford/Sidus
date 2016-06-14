@@ -38,7 +38,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         if(timesLocationRecorded == 0) {
             myView!.initStage2()
         }
-        timesLocationRecorded++
+        timesLocationRecorded += 1
     }
     
     public func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {

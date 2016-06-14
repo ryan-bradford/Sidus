@@ -12,12 +12,12 @@ import UIKit
 public class CannotRunScreen : UIView {
     
     var redVal = 1.0
-    var blueVal = 1.0
-    var alphaVal = 0.3
+    var blueVal = 0.0
+    var alphaVal = 0.6
     
     public init() {
         super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
-        self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: 0.0, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
     override public func drawRect(rect: CGRect) {

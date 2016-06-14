@@ -26,7 +26,7 @@ public class WaypointReader {
         let path = NSBundle.mainBundle().pathForResource("groups", ofType: "txt")
         let text = try! String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
         var groupTexts = text.characters.split {$0 == "@"}.map { String($0) }
-        for var i = 1; i < groupTexts.count; i++ {
+        for i in 1 ..< groupTexts.count {
             processGroup(groupTexts[i])
         }
     }
@@ -34,11 +34,11 @@ public class WaypointReader {
     func processGroup(group : String) {
         var waypointTexts = group.characters.split {$0 == "!"}.map { String($0) }
         let group = WaypointGroup(name: waypointTexts[0])
-        for var i = 1; i < waypointTexts.count - 1; i++ {
+        for i in 1 ..< waypointTexts.count - 1 {
             group.addWaypoint(processWaypoint(waypointTexts[i]))
         }
         var found = false
-        for var i = 0; i < manage.groups.count; i++ {
+        for i in 0 ..< manage.groups.count {
             if manage.groups[i].name == group.name {
                 found = true
             }

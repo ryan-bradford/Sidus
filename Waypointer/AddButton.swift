@@ -18,7 +18,7 @@ public class AddButton : StandardAddButton {
     public init(cameraAngle : Double, manager : WaypointManager) {
         self.manage = manager
         super.init(myLetter: "W", orderNum: 1)
-        self.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(AddButton.pressed(_:)), forControlEvents: .TouchUpInside)
         myMath = MyMath(cameraAngle: cameraAngle)
     }
     

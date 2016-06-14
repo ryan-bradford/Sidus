@@ -18,7 +18,7 @@ public class VerifyButton : UIButton {
     
     public init() {
         super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
-        self.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(VerifyButton.pressed(_:)), forControlEvents: .TouchUpInside)
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
