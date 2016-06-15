@@ -48,7 +48,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 myView!.isAbleToRun = false
                 myView!.removeAllGraphics()
                 myView!.view.addSubview(myView!.cannotRun)
-            } else if(myView!.startFromNorth == -1.0) {
+            } else if(myView!.startFromNorth == -1.0 && newHeading.headingAccuracy > 0.0) {
                 myView!.startFromNorth = h2 * M_PI / 180 //To Reverse
                 myView!.manage.startFromNorth = myView!.startFromNorth
                 myView!.manage.updateStartFromNorth()

@@ -50,13 +50,14 @@ class GroupButton : UIButton {
         self.manage.groups[myID].active = !self.manage.groups[myID].active
         if(!self.manage.groups[myID].active) {
             self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
-            for i in 0 ..< self.manage.groups[myID].waypoints.count {
+            for i in self.manage.groups[myID].waypoints {
                 for x in 0 ..< self.manage.drawnWaypoints.count {
-                    if(self.manage.groups[myID].waypoints[i].myID == self.manage.drawnWaypoints[x].myID) {
+                    if(i.myID == self.manage.drawnWaypoints[x].myID) {
                         self.manage.drawnWaypoints[x].removeFromSuperview()
                         self.manage.drawnWaypoints[x].drawn = false
                         self.manage.drawnWaypoints.removeAtIndex(x)
-                        self.manage.groups[myID].waypoints[i].removeFromSuperview()
+                        i.removeFromSuperview()
+                        break
                     }
                 }
             }

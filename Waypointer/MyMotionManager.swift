@@ -55,7 +55,6 @@ public class MyMotionManager {
             if(self!.motionStage1Or2) {
                 self!.myView!.activeLine.setY(Int(classes.screenHeight / 2 - classes.screenHeight / 2 * cos(motion!.attitude.pitch)))
             } else {
-                print("Hi")
                 
                 if(!self!.gyroBaseImageSet) {
                     self!.gyroBaseImageSet = true
@@ -68,16 +67,6 @@ public class MyMotionManager {
     }
     
     func manageMotion(attitude : CMAttitude) {
-        /*
-        let insideRoll = 2*(attitude.quaternion.w*attitude.quaternion.x + attitude.quaternion.z*attitude.quaternion.y) / (attitude.quaternion.w * attitude.quaternion.w - attitude.quaternion.x * attitude.quaternion.x - attitude.quaternion.y * attitude.quaternion.y - attitude.quaternion.z * attitude.quaternion.z)
-        let roll = atan(insideRoll)
-        let pitch = -sin(2 * (attitude.quaternion.x * attitude.quaternion.z - attitude.quaternion.w * attitude.quaternion.y))
-        let insideYaw = 2 * (attitude.quaternion.w * attitude.quaternion.z + attitude.quaternion.x * attitude.quaternion.y) / (attitude.quaternion.w * attitude.quaternion.w + attitude.quaternion.x * attitude.quaternion.x + attitude.quaternion.y * attitude.quaternion.y + attitude.quaternion.z * attitude.quaternion.z)
-        let yaw = atan(insideYaw)
-        print(String(yaw) + " Yaw")
-        print(String(roll) + " Roll")
-        print(String(pitch) + " Pitch")
-        */
         attitude.multiplyByInverseOfAttitude(startAttitude)
         manage!.horAngle = attitude.roll - ((myView!.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
         let realVertAngle = cos(attitude.roll) * attitude.pitch - sin(attitude.roll) * attitude.yaw
