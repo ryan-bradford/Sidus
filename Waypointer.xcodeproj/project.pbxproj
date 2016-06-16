@@ -28,6 +28,7 @@
 		9480A2191AE54C7D007F45BE /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2181AE54C7D007F45BE /* global.swift */; };
 		9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2741B5058730038D3B6 /* CannotRunScreen.swift */; };
 		9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9494B2761B505F1D0038D3B6 /* CenterLine.swift */; };
+		949772BE1D11FDE800DF9331 /* CurrentLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */; };
 		949CA03B1B803A92006BA3EA /* groups.txt in Resources */ = {isa = PBXBuildFile; fileRef = 949CA03A1B803A92006BA3EA /* groups.txt */; };
 		94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF40441B507A020052E347 /* GreyTintScreen.swift */; };
 		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
@@ -72,6 +73,7 @@
 		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		9494B2741B5058730038D3B6 /* CannotRunScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannotRunScreen.swift; sourceTree = "<group>"; };
 		9494B2761B505F1D0038D3B6 /* CenterLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterLine.swift; sourceTree = "<group>"; };
+		949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationButton.swift; sourceTree = "<group>"; };
 		949CA03A1B803A92006BA3EA /* groups.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = groups.txt; sourceTree = "<group>"; };
 		94AF40441B507A020052E347 /* GreyTintScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyTintScreen.swift; sourceTree = "<group>"; };
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */,
 				94C6E1011B38C08E00F6FA08 /* GroupButton.swift */,
+				949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */,
 			);
 			name = SecondaryButtons;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
+				949772BE1D11FDE800DF9331 /* CurrentLocationButton.swift in Sources */,
 				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
 				947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */,
 				94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */,

@@ -32,7 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var groupScreen : GroupScreen?
     var addButton : AddButton?
     var addGroupButton : AddGroup
-    var verifyButton : VerifyButton
+    var verifyButton : VerifyButton?
     var addressButton : AddAddressButton?
     var myMath : MyMath?
     var reader : WaypointReader?
@@ -44,7 +44,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         groupScreen = nil
         addButton = nil
         addGroupButton = AddGroup()
-        verifyButton = VerifyButton()
+        self.verifyButton = nil
         addressButton = nil
         myMath = nil
         reader = nil
@@ -60,7 +60,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         groupScreen = nil
         addButton = nil
         addGroupButton = AddGroup()
-        verifyButton = VerifyButton()
+        self.verifyButton = nil
         addressButton = nil
         myMath = nil
         reader = nil
@@ -121,8 +121,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func buttonsAreGood() -> Bool {
-        for i in 0 ..< groupScreen!.buttons.count {
-            if !groupScreen!.buttons[i].shouldRedraw {
+        for i in 0 ..< groupScreen!.buttons!.count {
+            if !groupScreen!.buttons![i].shouldRedraw {
                 return false
             }
         }
@@ -202,6 +202,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if(isAbleToRun) {
             self.view.addSubview(tint)
             locationManager = MyLocationManager(myView: self)
+            self.verifyButton = VerifyButton()
         }
     }
     
@@ -215,7 +216,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.view.addSubview(activeLine)
             self.view.addSubview(centerLine)
             sleep(2)
-            self.view.addSubview(verifyButton)
+            self.view.addSubview(verifyButton!)
         }
     }
     
@@ -227,7 +228,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
             addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
             motionManager!.motionStage1Or2 = false
-            verifyButton.removeFromSuperview()
+            verifyButton!.removeFromSuperview()
             showAllButtons()
             self.activeLine.removeFromSuperview()
             self.centerLine.removeFromSuperview()
@@ -282,8 +283,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         activeLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.view.addSubview(centerLine)
         centerLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
-        self.view.addSubview(verifyButton)
-        verifyButton.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        self.view.addSubview(verifyButton!)
+        verifyButton!.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
     }
     
     func inAppRecalibrate() {

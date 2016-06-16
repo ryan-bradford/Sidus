@@ -16,15 +16,13 @@ public class AddGroup : StandardAddButton {
     
     public init() {
         super.init(myLetter: "G", orderNum: 2)
-        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        showGroupScreen = false
         super.init(coder: aDecoder)
     }
     
-    func pressed(sender: UIButton!) {
+    override func pressed(sender: UIButton!) {
         self.showGroupScreen = true
     }
 }

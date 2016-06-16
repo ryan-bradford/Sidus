@@ -16,12 +16,13 @@ public class StandardAddButton : UIButton {
     var blueVal = 0.5
     var greenVal = 0.5
     var alphaVal = 0.3
-    var myLetter = "A"
+    var myLetter : String?
     
     public init(myLetter : String, orderNum : Int) {
         super.init(frame: CGRectMake(5, CGFloat(orderNum * (classes.buttonOutlineWidth + classes.buttonGap)), 40, 40))
         self.myLetter = myLetter
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -67,7 +68,7 @@ public class StandardAddButton : UIButton {
             NSObliquenessAttributeName: skew,
             NSFontAttributeName: fieldFont!
         ]
-        name.drawInRect(CGRectMake(5, 0, 10, 10), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
+        name!.drawInRect(CGRectMake(5, 0, 10, 10), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
     }
     
     func removeAllGraphics() {
@@ -78,4 +79,16 @@ public class StandardAddButton : UIButton {
         }
     }
     
+    func pressed(sender: UIButton!) {
+        redVal = 0
+        blueVal = 0
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+    }
+    
+    func finish() {
+        self.redVal = 0.5
+        self.blueVal = 0.5
+        self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
+        classes.cantRecal = false
+    }
 }

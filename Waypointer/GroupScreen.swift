@@ -11,28 +11,55 @@ import UIKit
 
 public class GroupScreen : UIButton {
     
-    var buttons : Array<GroupButton>
-    var manage : WaypointManager
+    var buttons : Array<GroupButton>?
+    var manage : WaypointManager?
     var goAwayGroupScreen = false
-
+    var cameraAngle: Double?
+    var currentLocButton: CurrentLocationButton?
+    
     required public init?(coder aDecoder: NSCoder) {
-        buttons = Array<GroupButton>()
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
-        goAwayGroupScreen = false
         super.init(coder: aDecoder)
     }
     
     public init(manage : WaypointManager) {
         self.manage = manage
+        cameraAngle = manage.cameraAngle
         buttons = Array<GroupButton>()
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
-        for i in 0 ..< self.manage.groups.count {
-            buttons.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
-            self.addSubview(buttons[buttons.count - 1])
+        for i in 0 ..< self.manage!.groups.count {
+            buttons!.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
+            self.addSubview(buttons![buttons!.count - 1])
             
         }
+        currentLocButton = CurrentLocationButton(groups: self)
+        self.addSubview(currentLocButton!)
         self.backgroundColor = (UIColor(red: 1, green: 1, blue: 1, alpha: 0.3))
+    }
+    
+    func addGroup(toAdd: WaypointGroup) {
+        manage!.groups.append(toAdd)
+        let id = manage!.groups.count - 1
+        buttons!.append(GroupButton(group: manage!.groups[id], order: id, manage: manage!, goAwayGroupScreen: goAwayGroupScreen))
+        self.addSubview(buttons![buttons!.count - 1])
+    }
+    
+    func currentLocationGroup() {
+        let alert = UIAlertController(title: "Current Location Name", message: "What do you want to call your current location?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+            let textf1 = alert.textFields![0] as UITextField
+            let name = textf1.text
+            let currentWaypoint = Waypoint(xPos: self.manage!.personX, yPos: self.manage!.personY, zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: name!, cameraAngle: self.cameraAngle!, manage: self.manage!)
+            let group = WaypointGroup(name: name!)
+            group.addWaypoint(currentWaypoint)
+            self.addGroup(group)
+            self.currentLocButton?.finish()
+        }))
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+                textField.placeholder = "My Car"
+                textField.secureTextEntry = false
+        })
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
     
     override public func drawRect(rect: CGRect) {

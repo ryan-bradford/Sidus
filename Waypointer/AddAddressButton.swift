@@ -13,21 +13,20 @@ import CoreLocation
 public class AddAddressButton : StandardAddButton {
     
     var myMath = MyMath(cameraAngle: 0.0)
-    var manage : WaypointManager
+    var manage : WaypointManager?
     
     public init(cameraAngle : Double, manager : WaypointManager) {
         self.manage = manager
         super.init(myLetter: "A", orderNum: 3)
         myMath = MyMath(cameraAngle : cameraAngle)
-        self.addTarget(self, action: #selector(AddAddressButton.pressed(_:)), forControlEvents: .TouchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
         super.init(coder: aDecoder)
     }
     
-    func pressed(sender: UIButton!) {
+    override func pressed(sender: UIButton!) {
+        super.pressed(sender)
         classes.cantRecal = true
         redVal = 0
         blueVal = 0
@@ -45,12 +44,12 @@ public class AddAddressButton : StandardAddButton {
                     let alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Name of the Waypoint", preferredStyle: UIAlertControllerStyle.Alert)
                     alert2.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
                         let textf1 = alert2.textFields![0] as UITextField
-                        self.manage.addWaypoint(self.myMath.degreesToFeet(coordinate.longitude) , yPos : self.myMath.degreesToFeet(coordinate.latitude), zPos: self.manage.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: textf1.text!)
+                        self.manage!.addWaypoint(self.myMath.degreesToFeet(coordinate.longitude) , yPos : self.myMath.degreesToFeet(coordinate.latitude), zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: textf1.text!)
                         self.finish()
 
                     }))
                     alert2.addTextFieldWithConfigurationHandler({(textField: UITextField) in
-                            textField.placeholder = "Name"
+                            textField.placeholder = "Home"
                             textField.secureTextEntry = false
                     })
                     UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert2, animated: true, completion: nil)
@@ -60,19 +59,10 @@ public class AddAddressButton : StandardAddButton {
             })
         }))
         alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
-            textField.placeholder = "Name"
+            textField.placeholder = "52 Wood Ave"
             textField.secureTextEntry = false
         })
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
         
     }
-    
-    func finish() {
-        self.redVal = 0.5
-        self.blueVal = 0.5
-        self.backgroundColor = UIColor(red: CGFloat(self.redVal), green: CGFloat(self.greenVal), blue: CGFloat(self.blueVal), alpha: CGFloat(self.alphaVal))
-        classes.cantRecal = false
-    }
-
-
 }

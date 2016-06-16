@@ -77,7 +77,7 @@ public class WaypointManager {
             for _ in 0 ..< numToAdd {
                 heighestID = 0
                 for i in 0 ..< allWaypoints.count {
-                    if(allWaypoints[i].line.length < allWaypoints[heighestID].line.length) {
+                    if(allWaypoints[i].line!.length < allWaypoints[heighestID].line!.length) {
                         heighestID = i
                     }
                 }
@@ -101,7 +101,7 @@ public class WaypointManager {
         for i in 0 ..< drawnWaypoints.count {
             var found = false
             for x in 0 ..< newGroup.count {
-                if((newGroup[x].name as NSString).isEqualToString(drawnWaypoints[i].name)) {
+                if(((newGroup[x].name! as NSString)).isEqualToString(drawnWaypoints[i].name!)) {
                     found = true
                 }
             }
@@ -122,7 +122,7 @@ public class WaypointManager {
             for x in i ..< drawnWaypoints.count {//Change to checking if both boxes overlap, not just point and box
                 if self.checkY(i, x: x) {
                     if self.checkX(i, x: x) {
-                        count += drawnWaypoints[x].ySize
+                        count += drawnWaypoints[x].ySize!
                     }
                 }
             }
@@ -136,9 +136,9 @@ public class WaypointManager {
         let realYSizeX = drawnWaypoints[x].ySize// * 5/3
         let realYSizeI = drawnWaypoints[i].ySize// * 5/3
         let iMax = drawnWaypoints[i].y
-        let iMin = drawnWaypoints[i].y - realYSizeI
+        let iMin = drawnWaypoints[i].y! - realYSizeI!
         let xMax = drawnWaypoints[x].y
-        let xMin = drawnWaypoints[x].y - realYSizeX
+        let xMin = drawnWaypoints[x].y! - realYSizeX!
         if iMax >= xMin {
             if xMax >= iMin {
                 return true
@@ -151,10 +151,10 @@ public class WaypointManager {
         //xmax1 >= xmin2 and xmax2 >= xmin1
         let realXSizeX = drawnWaypoints[x].xSize // * 5/2
         let realXSizeI = drawnWaypoints[i].xSize // * 5/2
-        let iMax = drawnWaypoints[i].x + realXSizeI / 2
-        let iMin = drawnWaypoints[i].x - realXSizeI / 2
-        let xMax = drawnWaypoints[x].x + realXSizeX / 2
-        let xMin = drawnWaypoints[x].x - realXSizeX / 2
+        let iMax = drawnWaypoints[i].x! + realXSizeI! / 2
+        let iMin = drawnWaypoints[i].x! - realXSizeI! / 2
+        let xMax = drawnWaypoints[x].x! + realXSizeX! / 2
+        let xMin = drawnWaypoints[x].x! - realXSizeX! / 2
         if iMax >= xMin {
             if xMax >= iMin {
                 return true

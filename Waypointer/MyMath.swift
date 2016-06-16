@@ -11,7 +11,7 @@ import Darwin
 
 public class MyMath {
     
-    var cameraAngle = 0.0
+    var cameraAngle :Double
     
     public init(cameraAngle : Double) {
         self.cameraAngle = cameraAngle
