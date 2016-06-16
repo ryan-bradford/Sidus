@@ -43,7 +43,7 @@ public class CurrentLocationButton: UIButton {
             NSObliquenessAttributeName: skew,
             NSFontAttributeName: fieldFont!
         ]
-        name.drawInRect(CGRectMake(0, 0, rect.width, rect.height), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
+        name.drawInRect(CGRectMake(0, 3, rect.width, rect.height), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
     }
     
     func pressed(sender: UIButton!) {
