@@ -14,8 +14,8 @@ class GroupButton : UIButton {
     var width = 0
     var height = 0
     var myID = 0
-    var numPerCollom = 15
-    var numPerRow = 3
+    var numPerCollom = classes.groupsPerCollum
+    var numPerRow = classes.groupsPerRow
     var spaceNeeded = 80.0
     var manage : WaypointManager
     var goAwayGroupScreen : Bool
@@ -33,13 +33,13 @@ class GroupButton : UIButton {
         self.manage = manage
         self.goAwayGroupScreen = goAwayGroupScreen
         myID = order
-        let xPos = order % numPerRow
-        let yPos = order / numPerRow
+        let xPos = order % Int(numPerRow)
+        let yPos = order / Int(numPerRow)
         let screenHeight = classes.screenHeight - spaceNeeded
-        let xCord = 20 + (xPos * (Int(classes.screenWidth - 20)) / numPerRow)
-        let yCord = 20 + yPos * (Int(screenHeight - 20)) / numPerCollom
-        width = (Int(classes.screenWidth)) / numPerRow - 25
-        height = (Int(screenHeight) / numPerCollom - 12)
+        let xCord = 20 + (xPos * (Int(classes.screenWidth - 20)) / Int(numPerRow))
+        let yCord = 20 + yPos * (Int(screenHeight - 20)) / Int(numPerCollom)
+        width = (Int(classes.screenWidth)) / Int(numPerRow) - 25
+        height = (Int(screenHeight) / Int(numPerCollom) - 12)
         super.init(frame: CGRect(x: xCord, y: yCord, width: width, height: height));
         self.addTarget(self, action: #selector(GroupButton.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)

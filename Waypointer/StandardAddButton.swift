@@ -19,7 +19,14 @@ public class StandardAddButton : UIButton {
     var myLetter : String?
     
     public init(myLetter : String, orderNum : Int) {
-        super.init(frame: CGRectMake(5, CGFloat(orderNum * (classes.buttonOutlineWidth + classes.buttonGap)), 40, 40))
+        super.init(frame: CGRectMake(5, CGFloat(orderNum * (classes.buttonOutlineWidth + classes.buttonGap)), classes.addButtonDimension, classes.addButtonDimension))
+        self.myLetter = myLetter
+        self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
+    }
+    
+    public init(myLetter : String, y : CGFloat, width: CGFloat, height: CGFloat) {
+        super.init(frame: CGRectMake(5, y, width, height))
         self.myLetter = myLetter
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
         self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
@@ -38,21 +45,23 @@ public class StandardAddButton : UIButton {
         shape.lineJoin = kCALineJoinMiter
         shape.fillColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: CGFloat(0.5)).CGColor
         let path = UIBezierPath()
-        let width = classes.buttonWidth
-        let start = classes.buttonStart
-        let sideLength = classes.buttonLength
-        path.moveToPoint(CGPoint(x: start, y: start + sideLength))
-        path.addLineToPoint(CGPoint(x: start + sideLength, y: start + sideLength))
-        path.addLineToPoint(CGPoint(x: start + sideLength, y: start))
-        path.addLineToPoint(CGPoint(x: start + sideLength + width, y: start))
-        path.addLineToPoint(CGPoint(x: start + sideLength + width, y: start + sideLength))
-        path.addLineToPoint(CGPoint(x: start + 2 * sideLength + width, y: start + sideLength))
-        path.addLineToPoint(CGPoint(x: start + 2 * sideLength + width, y: start + sideLength + width))
-        path.addLineToPoint(CGPoint(x: start + sideLength + width, y: start + sideLength + width))
-        path.addLineToPoint(CGPoint(x: start + sideLength + width, y: start + 2 * sideLength + width))
-        path.addLineToPoint(CGPoint(x: start + sideLength, y: start + 2 * sideLength + width))
-        path.addLineToPoint(CGPoint(x: start + sideLength, y: start + sideLength + width))
-        path.addLineToPoint(CGPoint(x: start, y: start + sideLength + width))
+        let width = CGFloat(classes.buttonWidth)
+        let startX = CGFloat(classes.buttonStart) * rect.width / classes.addButtonDimension
+        let startY = CGFloat(classes.buttonStart) * rect.height / classes.addButtonDimension
+        let sideLengthW = CGFloat(classes.buttonLength) * rect.width / classes.addButtonDimension
+        let sideLengthH = CGFloat(classes.buttonLength) * rect.height / classes.addButtonDimension
+        path.moveToPoint(CGPoint(x: startX, y: startY + sideLengthH))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY + sideLengthH))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY + sideLengthH))
+        path.addLineToPoint(CGPoint(x: startX + 2 * sideLengthW + width, y: startY + sideLengthH))
+        path.addLineToPoint(CGPoint(x: startX + 2 * sideLengthW + width, y: startY + sideLengthH + width))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY + sideLengthH + width))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY + 2 * sideLengthH + width))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY + 2 * sideLengthH + width))
+        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY + sideLengthH + width))
+        path.addLineToPoint(CGPoint(x: startX, y: startY + sideLengthH + width))
         path.closePath()
         shape.path = path.CGPath
         

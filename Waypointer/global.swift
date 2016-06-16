@@ -39,5 +39,8 @@ public struct classes {
     static public var timeInbetweenResets = 5.0 //Final //In Millis
     static public var acceptableRecalRange = 0.1
 
+    static public var addButtonDimension = CGFloat(40.0) //Final
     
+    static public var groupsPerCollum = CGFloat(15.0) //Final
+    static public var groupsPerRow = CGFloat(3.0) //Final
 }

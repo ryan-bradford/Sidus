@@ -79,7 +79,6 @@ public class VerifyButton : UIButton {
     }
     
     func redraw() {
-        print(accuracy)
         if(accuracy < 20 && accuracy > 0) {
             continueLable!.text = "You are Set to Advance"
         } else {

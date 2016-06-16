@@ -16,6 +16,7 @@ public class GroupScreen : UIButton {
     var goAwayGroupScreen = false
     var cameraAngle: Double?
     var currentLocButton: CurrentLocationButton?
+    var buttonLimit: Int?
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -27,6 +28,7 @@ public class GroupScreen : UIButton {
         buttons = Array<GroupButton>()
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
+        buttonLimit = Int(floor((self.frame.height / 2) - 20) / ((CGFloat(self.frame.height - 20.0)) / classes.groupsPerCollum)) * Int(classes.groupsPerRow)
         for i in 0 ..< self.manage!.groups.count {
             buttons!.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
             self.addSubview(buttons![buttons!.count - 1])
@@ -38,10 +40,12 @@ public class GroupScreen : UIButton {
     }
     
     func addGroup(toAdd: WaypointGroup) {
-        manage!.groups.append(toAdd)
-        let id = manage!.groups.count - 1
-        buttons!.append(GroupButton(group: manage!.groups[id], order: id, manage: manage!, goAwayGroupScreen: goAwayGroupScreen))
-        self.addSubview(buttons![buttons!.count - 1])
+        if(manage!.groups.count < buttonLimit!) {
+            manage!.groups.append(toAdd)
+            let id = manage!.groups.count - 1
+            buttons!.append(GroupButton(group: manage!.groups[id], order: id, manage: manage!, goAwayGroupScreen: goAwayGroupScreen))
+            self.addSubview(buttons![buttons!.count - 1])
+        }
     }
     
     func currentLocationGroup() {

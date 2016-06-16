@@ -148,7 +148,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func updateWaypoints() {
-        /*
         for i in (self.manage.drawnWaypoints.reverse()) {
             i.drawRect(self.view.frame)
             if(!i.drawn) {
@@ -156,14 +155,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 i.drawn = true
             }
         }
-        */
-        for var i = self.manage.drawnWaypoints.count - 1; i >= 0; i -= 1 {
+/*        for var i = self.manage.drawnWaypoints.count - 1; i >= 0; i -= 1 {
             self.manage.drawnWaypoints[i].drawRect(self.view.frame)
             if(!self.manage.drawnWaypoints[i].drawn) {
             self.view.addSubview(self.manage.drawnWaypoints[i])
             self.manage.drawnWaypoints[i].drawn = true
             }
         }
+ */
     }
     
     //<- Periodic Graphics
