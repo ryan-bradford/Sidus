@@ -17,15 +17,17 @@ public class GroupScreen : UIButton {
     var cameraAngle: Double?
     var currentLocButton: CurrentLocationButton?
     var buttonLimit: Int?
+    var viewController: ViewController?
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    public init(manage : WaypointManager) {
+    init(manage : WaypointManager, viewController: ViewController) {
         self.manage = manage
         cameraAngle = manage.cameraAngle
         buttons = Array<GroupButton>()
+        self.viewController = viewController
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         buttonLimit = Int(floor((self.frame.height / 2) - 20) / ((CGFloat(self.frame.height - 20.0)) / classes.groupsPerCollum)) * Int(classes.groupsPerRow)
@@ -94,7 +96,7 @@ public class GroupScreen : UIButton {
     }
     
     func pressed(sender: UIButton!) {
-        self.goAwayGroupScreen = true
+        viewController?.hideGroupScreen()
     }
     
 }

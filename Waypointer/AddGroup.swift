@@ -12,9 +12,11 @@ import UIKit
 
 public class AddGroup : StandardAddButton {
     
+    var viewController: ViewController?
     var showGroupScreen = false
     
-    public init() {
+    init(viewController: ViewController) {
+        self.viewController = viewController
         super.init(myLetter: "G", orderNum: 2)
     }
     
@@ -23,6 +25,6 @@ public class AddGroup : StandardAddButton {
     }
     
     override func pressed(sender: UIButton!) {
-        self.showGroupScreen = true
+        viewController?.showGroupScreen()
     }
 }

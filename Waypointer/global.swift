@@ -20,8 +20,6 @@ public struct classes {
     static public var screenDiameter = 0.0
     //AppDelegate to ViewController
     
-    static public var shouldRecalibrate = false
-    static public var shouldRemove = false
     static public var isInForeground = false
     static public var cantRecal = true
     

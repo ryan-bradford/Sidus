@@ -31,7 +31,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var manage : WaypointManager
     var groupScreen : GroupScreen?
     var addButton : AddButton?
-    var addGroupButton : AddGroup
+    var addGroupButton : AddGroup?
     var verifyButton : VerifyButton?
     var addressButton : AddAddressButton?
     var myMath : MyMath?
@@ -43,7 +43,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
         addButton = nil
-        addGroupButton = AddGroup()
         self.verifyButton = nil
         addressButton = nil
         myMath = nil
@@ -51,6 +50,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         motionManager = nil
         locationManager = nil
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        addGroupButton = AddGroup(viewController: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,7 +59,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
         addButton = nil
-        addGroupButton = AddGroup()
         self.verifyButton = nil
         addressButton = nil
         myMath = nil
@@ -67,6 +66,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         motionManager = nil
         locationManager = nil
         super.init(coder: aDecoder)
+        addGroupButton = AddGroup(viewController: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,23 +92,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     dispatch_async(dispatch_get_main_queue()) {
                         self.updateVars()
                         self.manage.orderWaypoints()
-                        self.manageGroupScreen()
-                        //self.removeWaypoints()
                         self.updateWaypoints()
-                        if(classes.shouldRecalibrate) {
-                            self.fullRecalibrate()
-                        }
-                    }
-                } else {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if(classes.shouldRecalibrate) {
-                            self.fullRecalibrate()
-                        }
-                        if(classes.shouldRemove) {
-                            self.removeWaypoints()
-                            self.removeScreens()
-                            classes.shouldRemove = false
-                        }
                     }
                 }
             }
@@ -133,10 +117,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //Periodic Graphics ->
     
+    func showGroupScreen() {
+        self.view.addSubview(self.groupScreen!)
+        addGroupButton!.showGroupScreen = false
+        self.hideAllButtons()
+    }
+    
+    func hideGroupScreen() {
+        self.showAllButtons()
+        self.groupScreen!.removeFromSuperview()
+        groupScreen!.goAwayGroupScreen = false
+    }
+    
     func manageGroupScreen() {
-        if(addGroupButton.showGroupScreen) {
+        if(addGroupButton!.showGroupScreen) {
             self.view.addSubview(self.groupScreen!)
-            addGroupButton.showGroupScreen = false
+            addGroupButton!.showGroupScreen = false
             self.hideAllButtons()
         }
         if(groupScreen!.goAwayGroupScreen) {
@@ -178,13 +174,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func showAllButtons() {
         self.view.addSubview(addButton!)
         self.view.addSubview(addressButton!)
-        self.view.addSubview(addGroupButton)
+        self.view.addSubview(addGroupButton!)
     }
     
     func hideAllButtons() {
         addButton!.removeFromSuperview()
         addressButton!.removeFromSuperview()
-        addGroupButton.removeFromSuperview()
+        addGroupButton!.removeFromSuperview()
     }
     
     func removeAllGraphics() {
@@ -223,7 +219,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if(isAbleToRun) {
             reader = WaypointReader(cameraAngle: cameraAngle, startFromNorth: startFromNorth, manage: manage)
             reader!.readGroups()
-            groupScreen = GroupScreen( manage: manage)
+            groupScreen = GroupScreen( manage: manage, viewController: self)
             addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
             addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
             motionManager!.motionStage1Or2 = false
@@ -274,6 +270,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //Recalibrate Stuff ->
     
+    func removeStuff() {
+        self.removeWaypoints()
+        self.removeScreens()
+    }
+    
     func fullRecalibrate() {
         self.resetVars()
         locationManager!.locationManager!.startUpdatingHeading()
@@ -296,11 +297,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func resetVars() {
         classes.cantRecal = true
         self.initIsFinished = false
-        classes.shouldRecalibrate = false
         motionManager!.motionStage1Or2 = true
         self.startFromNorth = -1.0
         self.verifyButton = VerifyButton()
-        addGroupButton.removeFromSuperview()
+        addGroupButton!.removeFromSuperview()
         addressButton!.removeFromSuperview()
         addButton!.removeFromSuperview()
     }
