@@ -217,11 +217,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage3() {
         if(isAbleToRun) {
-            reader = WaypointReader(cameraAngle: cameraAngle, startFromNorth: startFromNorth, manage: manage)
-            reader!.readGroups()
-            groupScreen = GroupScreen( manage: manage, viewController: self)
+            if(groupScreen == nil) {
+                reader = WaypointReader(cameraAngle: cameraAngle, startFromNorth: startFromNorth, manage: manage)
+                reader!.readGroups()
+                groupScreen = GroupScreen( manage: manage, viewController: self)
             addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
             addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
+            }
             motionManager!.motionStage1Or2 = false
             verifyButton!.removeFromSuperview()
             showAllButtons()
