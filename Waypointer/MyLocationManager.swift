@@ -15,6 +15,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     var locationManager: CLLocationManager? //The thing that manages the persons locaion
     var myView : ViewController?
     var timesLocationRecorded = 0 //Init stage 2 will only run when this is 0
+    var stageOne = true
     
     init(myView : ViewController) {
         locationManager = CLLocationManager()
@@ -43,39 +44,44 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     
     public func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        if(myView!.verifyButton!.canContinue) {
-            if(h2 == -1) {
-                myView!.isAbleToRun = false
-                myView!.removeAllGraphics()
-                myView!.view.addSubview(myView!.cannotRun)
-            } else if(myView!.startFromNorth == -1.0 && newHeading.headingAccuracy > 0.0) {
-                myView!.startFromNorth = h2 * M_PI / 180 //To Reverse
-                myView!.manage.startFromNorth = myView!.startFromNorth
-                myView!.manage.updateStartFromNorth()
-                if !classes.isInForeground {
-                    myView!.initStage3()
-                    //self.startFromNorth = 0.0
-                    let message = "We Have Detected You Are "  + Int(round(myView!.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
-                    let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
-                        let text: AnyObject? = alert.textFields?[0]
-                        if let textf = text as? UITextField {
-                            if let number = NSNumberFormatter().numberFromString(textf.text!) {
-                                self.myView!.startFromNorth = Double(number) * M_PI / 180
+        if(stageOne) {
+            if(myView!.verifyButton!.canContinue) {
+                if(h2 == -1) {
+                    myView!.isAbleToRun = false
+                    myView!.removeAllGraphics()
+                    myView!.view.addSubview(myView!.cannotRun)
+                } else if(myView!.startFromNorth == -1.0 && newHeading.headingAccuracy > 0.0) {
+                    myView!.startFromNorth = h2 * M_PI / 180 //To Reverse
+                    myView!.manage.startFromNorth = myView!.startFromNorth
+                    myView!.manage.updateStartFromNorth()
+                    if !classes.isInForeground {
+                        myView!.initStage3()
+                        //self.startFromNorth = 0.0
+                        let message = "We Have Detected You Are "  + Int(round(myView!.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
+                        let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+                            let text: AnyObject? = alert.textFields?[0]
+                            if let textf = text as? UITextField {
+                                if let number = NSNumberFormatter().numberFromString(textf.text!) {
+                                    self.myView!.startFromNorth = Double(number) * M_PI / 180
+                                }
                             }
-                        }
-                        self.myView!.initIsFinished = true
-                        classes.isInForeground = true
-                        classes.cantRecal = false
-                        self.myView!.lastTimeInAppReset = CACurrentMediaTime()
-                    }))
-                    alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
-                        textField.placeholder = ""
-                        textField.secureTextEntry = false
-                    })
-                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                            self.myView!.initIsFinished = true
+                            classes.isInForeground = true
+                            classes.cantRecal = false
+                            self.myView!.lastTimeInAppReset = CACurrentMediaTime()
+                            self.stageOne = false
+                        }))
+                        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+                            textField.placeholder = ""
+                            textField.secureTextEntry = false
+                        })
+                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                    }
                 }
             }
+        } else {
+            
         }
     }
     

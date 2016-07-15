@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,14 +11,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Screen" translatesAutoresizingMaskIntoConstraints="NO" id="pji-LI-Ozb">
-                    <rect key="frame" x="59" y="150" width="256" height="256"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Launch Screen" translatesAutoresizingMaskIntoConstraints="NO" id="pji-LI-Ozb">
+                    <rect key="frame" x="-69" y="78" width="512" height="512"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="pji-LI-Ozb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Yp9-53-oBc"/>
-                <constraint firstItem="pji-LI-Ozb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="150" id="Zdf-KK-0kh"/>
+                <constraint firstAttribute="bottom" secondItem="pji-LI-Ozb" secondAttribute="bottom" id="56Y-Zd-x0z"/>
+                <constraint firstItem="pji-LI-Ozb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9WU-De-PNE"/>
+                <constraint firstItem="pji-LI-Ozb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Hts-y9-zC8"/>
+                <constraint firstAttribute="trailing" secondItem="pji-LI-Ozb" secondAttribute="trailing" id="QG8-G1-MEm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -26,6 +29,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Launch Screen" width="256" height="256"/>
+        <image name="Launch Screen" width="1400" height="1867"/>
     </resources>
 </document>

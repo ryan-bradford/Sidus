@@ -223,11 +223,11 @@ public class Waypoint : UIView {
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
         path.addLineToPoint(CGPointMake(CGFloat(xSize!/2), CGFloat(-ySize! * 13/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(xSize! * 5 / 4), CGFloat(-ySize! * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(xSize! * 5 / 4), CGFloat(-ySize! * 15/24)))
         path.addLineToPoint(CGPointMake(CGFloat(xSize!/2), CGFloat(-ySize! * 17/24)))
         path.addLineToPoint(CGPointMake(CGFloat(0), CGFloat(-ySize!)))
         path.addLineToPoint(CGPointMake(CGFloat(-xSize!/2), CGFloat(-ySize! * 17/24)))
-        path.addLineToPoint(CGPointMake(CGFloat(-xSize! * 5 / 4), CGFloat(-ySize! * 17/24)))
+        path.addLineToPoint(CGPointMake(CGFloat(-xSize! * 5 / 4), CGFloat(-ySize! * 15/24)))
         path.addLineToPoint(CGPointMake(CGFloat(-xSize!/2), CGFloat(-ySize! * 13/24)))
         path.closePath()
         background!.path = path.CGPath

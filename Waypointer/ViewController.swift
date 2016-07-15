@@ -79,6 +79,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(anim : Bool) {
+        //sleep(1)
         initStage1()
         startThread()
     }
@@ -293,6 +294,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         classes.cantRecal = true
         self.initIsFinished = false
         self.startFromNorth = -1.0
+        locationManager!.stageOne = true
         locationManager!.locationManager!.startUpdatingHeading()
     }
     
@@ -301,6 +303,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.initIsFinished = false
         motionManager!.motionStage1Or2 = true
         self.startFromNorth = -1.0
+        locationManager!.stageOne = true
         self.verifyButton = VerifyButton()
         addGroupButton!.removeFromSuperview()
         addressButton!.removeFromSuperview()
@@ -310,7 +313,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //<- Recalibrate Stuff
     
     func removeScreens() {
-        groupScreen!.removeFromSuperview()
+        if(groupScreen != nil) {
+            groupScreen!.removeFromSuperview()
+        }
     }
     
     

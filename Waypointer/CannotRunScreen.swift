@@ -25,36 +25,42 @@ public class CannotRunScreen : UIView {
         
     }
     
-    func drawMessage(message2 : String, X : CGFloat, Y : CGFloat) {
+    func drawMessage(message : String, X : CGFloat, Y : CGFloat) {
         
-        let message1  = message2
-        let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
-        
-        let fieldColor: UIColor = UIColor.blackColor()
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
-        let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.Center
-        paraStyle.lineSpacing = 6.0
-        let skew = 0.1
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 5, length: 2))
-        
-        let attributes: NSDictionary = [
-            NSForegroundColorAttributeName: fieldColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            NSObliquenessAttributeName: skew,
-            NSFontAttributeName: fieldFont!
-        ]
-        let countString = (message.length)
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
-        message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
-        //let toSubtract = CGFloat(countString / 2 * 7)
-        //classes.screenWidth / 2) - toSubtract) + 10
-        message.drawInRect(CGRectMake(X, Y, 300.0, 60.0))
+        drawTextWithNoBox(X, y: Y, width: CGFloat(classes.screenWidth), toDraw: message, fontSize: 25)
         
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func drawTextWithNoBox(x: CGFloat, y: CGFloat, width: CGFloat, toDraw: String, fontSize: CGFloat) -> CGFloat {
+        let message: NSMutableAttributedString = NSMutableAttributedString(string: toDraw)
+        
+        let fieldColor: UIColor = UIColor.blackColor()
+        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(fontSize))
+        let paraStyle = NSMutableParagraphStyle()
+        paraStyle.alignment = NSTextAlignment.Center
+        
+        let attributes: NSDictionary = [
+            NSForegroundColorAttributeName: fieldColor,
+            NSParagraphStyleAttributeName: paraStyle,
+            NSFontAttributeName: fieldFont!
+        ]
+        let countString = (message.length)
+        message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
+        let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFontOfSize(25), toGet: toDraw)
+        message.drawInRect(CGRectMake(x, y, width, textHeight))
+        return textHeight
+    }
+    
+    func heightWithConstrainedWidth(width: CGFloat, font: UIFont, toGet: String) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.max)
+        
+        let boundingBox = toGet.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        
+        return boundingBox.height
     }
     
 }
