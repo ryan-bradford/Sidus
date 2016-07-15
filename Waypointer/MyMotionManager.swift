@@ -17,6 +17,7 @@ public class MyMotionManager {
     var motionStage1Or2 = true //True is 1, false is 2
     var startAttitude = CMAttitude() //The gyros base image
     var gyroBaseImageSet = false
+    var lastPitch = 0.0
     
     init(myView : ViewController, manage : WaypointManager) {
         motionManager = CMMotionManager()
@@ -51,7 +52,7 @@ public class MyMotionManager {
     func setMotionManagerThread(motionManager : CMMotionManager) {
         motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!) {
             [weak self] (motion, error) in
-            
+            self!.lastPitch = motion!.attitude.pitch
             if(self!.motionStage1Or2) {
                 self!.myView!.activeLine.setY(Int(classes.screenHeight / 2 - classes.screenHeight / 2 * cos(motion!.attitude.pitch)))
             } else {
@@ -64,6 +65,14 @@ public class MyMotionManager {
                 }
             }
         }
+    }
+    
+    func isDeviceVert() -> Bool {
+        let cosVal = cos(lastPitch)
+        if(cosVal < 0.03 && cosVal > -0.03) {
+            return true
+        }
+        return false
     }
     
     func manageMotion(attitude : CMAttitude) {

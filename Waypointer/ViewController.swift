@@ -18,7 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var startFromNorth = -1.0 //The heading of the person
     var cannotRun = CannotRunScreen() //The screen that is displayed if the app cannot run
     var locationManager : MyLocationManager?
-    var motionManager : MyMotionManager?
+    public var motionManager : MyMotionManager?
     var activeLine = CenterLine() //The line that moves in initStage1
     var centerLine = CenterLine() //The line that stays in initStage1
     var tint = GreyTintScreen() //The grey tint that is displayed in initStage1
@@ -230,7 +230,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             showAllButtons()
             self.activeLine.removeFromSuperview()
             self.centerLine.removeFromSuperview()
-            locationManager?.locationManager?.stopUpdatingHeading()
+            //locationManager?.locationManager?.stopUpdatingHeading()
             
         }
     }

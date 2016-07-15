@@ -16,6 +16,8 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     var myView : ViewController?
     var timesLocationRecorded = 0 //Init stage 2 will only run when this is 0
     var stageOne = true
+    var lastHeadings = Array<Double>()
+    var timesCorrected = 0
     
     init(myView : ViewController) {
         locationManager = CLLocationManager()
@@ -69,8 +71,8 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                             self.myView!.initIsFinished = true
                             classes.isInForeground = true
                             classes.cantRecal = false
-                            self.myView!.lastTimeInAppReset = CACurrentMediaTime()
                             self.stageOne = false
+                            self.myView!.lastTimeInAppReset = CACurrentMediaTime()
                         }))
                         alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
                             textField.placeholder = ""
@@ -81,9 +83,43 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 }
             }
         } else {
-            
+            if(myView!.motionManager != nil && myView!.motionManager!.isDeviceVert() == true) {
+                self.lastHeadings.append(h2)
+                if(self.lastHeadings.count > 3) {
+                    self.lastHeadings.removeFirst()
+                    if(headingsAgree() && abs(myView!.startFromNorth * 180 / M_PI - h2) > 10) {
+                        var toSet = (myView!.startFromNorth * Double(timesCorrected))
+                        toSet += h2 * M_PI / 180
+                        toSet /= Double(timesCorrected + 1)
+                        timesCorrected += 1
+                        myView!.startFromNorth = toSet
+                        print("Yo" + String(myView!.startFromNorth))
+                        myView!.manage.startFromNorth = myView!.startFromNorth
+                        myView!.manage.updateStartFromNorth()
+                        self.lastHeadings.removeAll()
+                    }
+                }
+            }
         }
     }
+    
+    func headingsAgree() -> Bool {
+        var smallest = 5000.0
+        var biggest = 0.0
+        for x in self.lastHeadings {
+            if x < smallest {
+                smallest = x
+            }
+            if x > biggest {
+                biggest = x
+            }
+        }
+        if(biggest - smallest < 3) {
+            return true
+        }
+        return false
+    }
+    
     
     
     public func locationManagerShouldDisplayHeadingCalibration(manager: CLLocationManager) -> Bool {
@@ -92,6 +128,6 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 return (h.headingAccuracy < 0 || h.headingAccuracy > 10)
             }
         }
-        return true
+        return false
     }
 }
