@@ -84,12 +84,13 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
             }
         } else {
             if(myView!.motionManager != nil && myView!.motionManager!.isDeviceVert() == true) {
-                self.lastHeadings.append(h2)
+                let currentHeading = h2 * M_PI / 180 + myView!.manage.horAngle
+                self.lastHeadings.append(currentHeading)
                 if(self.lastHeadings.count > 3) {
                     self.lastHeadings.removeFirst()
-                    if(headingsAgree() && abs(myView!.startFromNorth * 180 / M_PI - h2) > 10) {
+                    if(headingsAgree() && abs(myView!.startFromNorth - currentHeading) > 0.17453) {
                         var toSet = (myView!.startFromNorth * Double(timesCorrected))
-                        toSet += h2 * M_PI / 180
+                        toSet += currentHeading
                         toSet /= Double(timesCorrected + 1)
                         timesCorrected += 1
                         myView!.startFromNorth = toSet
@@ -114,7 +115,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 biggest = x
             }
         }
-        if(biggest - smallest < 3) {
+        if(biggest - smallest < 0.05235) {
             return true
         }
         return false

@@ -18,7 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var startFromNorth = -1.0 //The heading of the person
     var cannotRun = CannotRunScreen() //The screen that is displayed if the app cannot run
     var locationManager : MyLocationManager?
-    public var motionManager : MyMotionManager?
+    internal var motionManager : MyMotionManager?
     var activeLine = CenterLine() //The line that moves in initStage1
     var centerLine = CenterLine() //The line that stays in initStage1
     var tint = GreyTintScreen() //The grey tint that is displayed in initStage1
@@ -28,7 +28,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var lastTimeInAppReset = CACurrentMediaTime()
     //These Are Kinda In Order
     var groups : Array<WaypointGroup> //Just Blank
-    var manage : WaypointManager
+    internal var manage : WaypointManager
     var groupScreen : GroupScreen?
     var addButton : AddButton?
     var addGroupButton : AddGroup?
