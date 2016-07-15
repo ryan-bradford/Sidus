@@ -15,9 +15,6 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     var locationManager: CLLocationManager? //The thing that manages the persons locaion
     var myView : ViewController?
     var timesLocationRecorded = 0 //Init stage 2 will only run when this is 0
-    var accuracy = 0.0
-    var lastAccuracy = -100.0
-    var drawn = false
     
     init(myView : ViewController) {
         locationManager = CLLocationManager()
@@ -46,13 +43,6 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     
     public func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        accuracy = newHeading.headingAccuracy
-        if(myView?.verifyButton != nil && (accuracy != lastAccuracy || !drawn)) {
-            myView?.verifyButton?.accuracy = accuracy
-            myView?.verifyButton!.redraw()
-            drawn = true
-            lastAccuracy = accuracy
-        }
         if(myView!.verifyButton!.canContinue) {
             if(h2 == -1) {
                 myView!.isAbleToRun = false
@@ -89,4 +79,13 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         }
     }
     
+    
+    public func locationManagerShouldDisplayHeadingCalibration(manager: CLLocationManager) -> Bool {
+        if(myView!.isAbleToRun && myView!.startFromNorth == -1.0) {
+            if let h = manager.heading {
+                return (h.headingAccuracy < 0 || h.headingAccuracy > 10)
+            }
+        }
+        return true
+    }
 }

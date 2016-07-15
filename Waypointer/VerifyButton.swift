@@ -15,19 +15,11 @@ public class VerifyButton : UIButton {
     var blueVal = 1.0
     var alphaVal = 0.3
     var canContinue = false
-    var accuracy = -1.0
-    var continueLable: UILabel?
     
     public init() {
         super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
         self.addTarget(self, action: #selector(VerifyButton.pressed(_:)), forControlEvents: .TouchUpInside)
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        continueLable = UILabel(frame: CGRect(x: CGFloat(0), y: CGFloat(classes.screenHeight / 2.0) + 200, width: 300, height: 60))
-        continueLable!.font = UIFont(name: "Helvetica Neue", size: CGFloat(25))
-        continueLable!.text = "You Need to Calibrate More"
-        continueLable!.textAlignment = NSTextAlignment.Center
-        continueLable!.numberOfLines = 2
-        self.addSubview(continueLable!)
     }
     
     override public func drawRect(rect: CGRect) {
@@ -70,20 +62,12 @@ public class VerifyButton : UIButton {
     }
     
     func pressed(sender: UIButton!) {
-        if(accuracy < 20 && accuracy > 0) {
+
             self.canContinue = true
             redVal = 0
             blueVal = 0.4
             self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
         }
-    }
     
-    func redraw() {
-        if(accuracy < 20 && accuracy > 0) {
-            continueLable!.text = "You are Set to Advance"
-        } else {
-            continueLable!.text = "You Need to Calibrate More"
-        }
-    }
     
 }
