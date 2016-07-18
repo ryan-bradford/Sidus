@@ -55,7 +55,7 @@ public class GroupScreen : UIButton {
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
             let textf1 = alert.textFields![0] as UITextField
             let name = textf1.text
-            let currentWaypoint = Waypoint(xPos: self.manage!.personX, yPos: self.manage!.personY, zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: name!, cameraAngle: self.cameraAngle!, manage: self.manage!)
+            let currentWaypoint = Waypoint(xPos: self.manage!.personX, yPos: self.manage!.personY, zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), displayName: name!, cameraAngle: self.cameraAngle!, manage: self.manage!)
             let group = WaypointGroup(name: name!)
             group.addWaypoint(currentWaypoint)
             self.addGroup(group)

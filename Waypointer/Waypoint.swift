@@ -17,7 +17,8 @@ public class Waypoint : UIView {
 
     public var line: Line?
     public var red, blue, green : Int?
-    public var name: String?
+    public var displayName: String?
+    public var idName: String?
     public var added = false
     var stringDraw:UILabel?
     var xSize : Double?
@@ -38,10 +39,20 @@ public class Waypoint : UIView {
     var manage: WaypointManager!?
     var drawn = false
     
-    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String, cameraAngle : Double, manage : WaypointManager) {
+    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, displayName : String, cameraAngle : Double, manage : WaypointManager) {
         self.manage = manage
         self.red = red
-        self.name = name
+        self.displayName = displayName
+        self.idName = displayName
+        if(idName == "y651") {
+            self.displayName = "North"
+        } else if(idName == "y652") {
+            self.displayName = "South"
+        } else if(idName == "y653") {
+            self.displayName = "East"
+        } else if(idName == "y654") {
+            self.displayName = "West"
+        }
         self.blue = blue
         self.green = green
         self.line = Line(startingXPos: self.manage!.personX, startingYPos: self.manage!.personY, startingZPos: self.manage!.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
@@ -127,6 +138,7 @@ public class Waypoint : UIView {
     //Different Graphic Stuff From Here Down
     
     public func generateVars() {
+        checkForSpecial()
         x = getScreenX()
         y = getScreenY()
         scaler = getScreenScaller()
@@ -136,15 +148,15 @@ public class Waypoint : UIView {
     }
     
     func drawText() {
-        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(name!.characters.count) * 2.0), y: CGFloat(-ySize! - 17), width: 50, height: 20))
-        stringDraw!.text = name
+        stringDraw = UILabel(frame: CGRect(x: CGFloat(-Double(displayName!.characters.count) * 2.0), y: CGFloat(-ySize! - 17), width: 50, height: 20))
+        stringDraw!.text = displayName
         stringDraw!.textColor = UIColor.greenColor()
         stringDraw!.font = UIFont(name: "Times New Roman", size: CGFloat(9))
         self.addSubview(stringDraw!)
     }
     
     func updateText() {
-        stringDraw!.frame = CGRect(x: CGFloat(-Double(name!.characters.count) * 2.0), y: CGFloat(-ySize! - 17), width: 50, height: 20)
+        stringDraw!.frame = CGRect(x: CGFloat(-Double(displayName!.characters.count) * 2.0), y: CGFloat(-ySize! - 17), width: 50, height: 20)
     }
     
     func initGraphics() {
@@ -245,6 +257,18 @@ public class Waypoint : UIView {
         let ovalPath = UIBezierPath(ovalInRect : box)
         ovalPath.closePath()
         circle.path = ovalPath.CGPath
+    }
+    
+    func checkForSpecial() {
+        if(idName == "y651") {
+            line!.end = Point3D(xPos1: manage!.personX, yPos1: manage!.personY + 0.00000001, zPos1: manage!.personZ)
+        } else if(idName == "y652") {
+            line!.end = Point3D(xPos1: manage!.personX, yPos1: manage!.personY - 0.00000001, zPos1: manage!.personZ)
+        } else if(idName == "y653") {
+            line!.end = Point3D(xPos1: manage!.personX + 0.00000001, yPos1: manage!.personY, zPos1: manage!.personZ)
+        } else if(idName == "y654") {
+            line!.end = Point3D(xPos1: manage!.personX - 0.00000001, yPos1: manage!.personY, zPos1: manage!.personZ)
+        }
     }
     
 }

@@ -37,7 +37,7 @@ public class WaypointManager {
     }
     
     public func addWaypoint(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
-        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, name : name, cameraAngle : cameraAngle, manage: self))
+        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, displayName : name, cameraAngle : cameraAngle, manage: self))
     }
     
     public func addWaypoint(toAdd : Waypoint) {
@@ -101,7 +101,7 @@ public class WaypointManager {
         for i in 0 ..< drawnWaypoints.count {
             var found = false
             for x in 0 ..< newGroup.count {
-                if(((newGroup[x].name! as NSString)).isEqualToString(drawnWaypoints[i].name!)) {
+                if(((newGroup[x].idName! as NSString)).isEqualToString(drawnWaypoints[i].idName!)) {
                     found = true
                 }
             }
