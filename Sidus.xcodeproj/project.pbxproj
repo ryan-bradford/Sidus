@@ -54,14 +54,14 @@
 		943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressButton.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
 		947146E61C29FEEB00397A99 /* WaypointReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointReader.swift; sourceTree = "<group>"; };
-		9480A1E31AE54BAB007F45BE /* Waypointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waypointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9480A1E31AE54BAB007F45BE /* Sidus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sidus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1E81AE54BAB007F45BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9480A1EA1AE54BAB007F45BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9480A1ED1AE54BAB007F45BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9480A1EF1AE54BAB007F45BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9480A1F21AE54BAB007F45BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9480A1F81AE54BAB007F45BE /* WaypointerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaypointerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9480A1F81AE54BAB007F45BE /* Sidus.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sidus.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1FD1AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1FE1AE54BAB007F45BE /* WaypointerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointerTests.swift; sourceTree = "<group>"; };
 		9480A2091AE54BC9007F45BE /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		9480A1DA1AE54BAB007F45BE = {
 			isa = PBXGroup;
 			children = (
-				9480A1E51AE54BAB007F45BE /* Waypointer */,
+				9480A1E51AE54BAB007F45BE /* Sidus */,
 				9480A1FB1AE54BAB007F45BE /* WaypointerTests */,
 				9480A1E41AE54BAB007F45BE /* Products */,
 			);
@@ -133,13 +133,13 @@
 		9480A1E41AE54BAB007F45BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9480A1E31AE54BAB007F45BE /* Waypointer.app */,
-				9480A1F81AE54BAB007F45BE /* WaypointerTests.xctest */,
+				9480A1E31AE54BAB007F45BE /* Sidus.app */,
+				9480A1F81AE54BAB007F45BE /* Sidus.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9480A1E51AE54BAB007F45BE /* Waypointer */ = {
+		9480A1E51AE54BAB007F45BE /* Sidus */ = {
 			isa = PBXGroup;
 			children = (
 				94EFD5681C5477BB00879519 /* System Utils */,
@@ -156,6 +156,7 @@
 				9480A1E61AE54BAB007F45BE /* Supporting Files */,
 				9480A2181AE54C7D007F45BE /* global.swift */,
 			);
+			name = Sidus;
 			path = Waypointer;
 			sourceTree = "<group>";
 		};
@@ -237,9 +238,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9480A1E21AE54BAB007F45BE /* Waypointer */ = {
+		9480A1E21AE54BAB007F45BE /* Sidus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "Waypointer" */;
+			buildConfigurationList = 9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "Sidus" */;
 			buildPhases = (
 				9480A1DF1AE54BAB007F45BE /* Sources */,
 				9480A1E01AE54BAB007F45BE /* Frameworks */,
@@ -249,14 +250,14 @@
 			);
 			dependencies = (
 			);
-			name = Waypointer;
+			name = Sidus;
 			productName = Waypointer;
-			productReference = 9480A1E31AE54BAB007F45BE /* Waypointer.app */;
+			productReference = 9480A1E31AE54BAB007F45BE /* Sidus.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9480A1F71AE54BAB007F45BE /* WaypointerTests */ = {
+		9480A1F71AE54BAB007F45BE /* SidusTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "WaypointerTests" */;
+			buildConfigurationList = 9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "SidusTests" */;
 			buildPhases = (
 				9480A1F41AE54BAB007F45BE /* Sources */,
 				9480A1F51AE54BAB007F45BE /* Frameworks */,
@@ -267,9 +268,9 @@
 			dependencies = (
 				9480A1FA1AE54BAB007F45BE /* PBXTargetDependency */,
 			);
-			name = WaypointerTests;
+			name = SidusTests;
 			productName = WaypointerTests;
-			productReference = 9480A1F81AE54BAB007F45BE /* WaypointerTests.xctest */;
+			productReference = 9480A1F81AE54BAB007F45BE /* Sidus.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -293,7 +294,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "Waypointer" */;
+			buildConfigurationList = 9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "Sidus" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -306,8 +307,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9480A1E21AE54BAB007F45BE /* Waypointer */,
-				9480A1F71AE54BAB007F45BE /* WaypointerTests */,
+				9480A1E21AE54BAB007F45BE /* Sidus */,
+				9480A1F71AE54BAB007F45BE /* SidusTests */,
 			);
 		};
 /* End PBXProject section */
@@ -377,7 +378,7 @@
 /* Begin PBXTargetDependency section */
 		9480A1FA1AE54BAB007F45BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9480A1E21AE54BAB007F45BE /* Waypointer */;
+			target = 9480A1E21AE54BAB007F45BE /* Sidus */;
 			targetProxy = 9480A1F91AE54BAB007F45BE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -495,8 +496,8 @@
 				INFOPLIST_FILE = Waypointer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ryanb3.Sidus;
+				PRODUCT_NAME = Sidus;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -510,8 +511,8 @@
 				INFOPLIST_FILE = Waypointer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ryanb3.Sidus;
+				PRODUCT_NAME = Sidus;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -531,8 +532,8 @@
 				INFOPLIST_FILE = WaypointerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waypointer.app/Waypointer";
+				PRODUCT_NAME = Sidus;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sidus.app/Sidus";
 			};
 			name = Debug;
 		};
@@ -547,15 +548,15 @@
 				INFOPLIST_FILE = WaypointerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waypointer.app/Waypointer";
+				PRODUCT_NAME = Sidus;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sidus.app/Sidus";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "Waypointer" */ = {
+		9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "Sidus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9480A2001AE54BAB007F45BE /* Debug */,
@@ -564,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "Waypointer" */ = {
+		9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "Sidus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9480A2031AE54BAB007F45BE /* Debug */,
@@ -573,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "WaypointerTests" */ = {
+		9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "SidusTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9480A2061AE54BAB007F45BE /* Debug */,

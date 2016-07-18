@@ -85,7 +85,9 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         } else {
             if(myView!.motionManager != nil && myView!.motionManager!.isDeviceVert() == true) {
                 let currentHeading = h2 * M_PI / 180 + myView!.manage.horAngle
-                self.lastHeadings.append(currentHeading)
+                if(newHeading.headingAccuracy < 6) {
+                    self.lastHeadings.append(currentHeading)
+                }
                 if(self.lastHeadings.count > 3) {
                     self.lastHeadings.removeFirst()
                     if(headingsAgree() && abs(myView!.startFromNorth - currentHeading) > 0.17453) {
