@@ -230,7 +230,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             showAllButtons()
             self.activeLine.removeFromSuperview()
             self.centerLine.removeFromSuperview()
-            //locationManager?.locationManager?.stopUpdatingHeading()
+            locationManager?.locationManager?.stopUpdatingHeading()
             
         }
     }

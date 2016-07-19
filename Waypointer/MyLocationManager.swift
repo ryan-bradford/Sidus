@@ -82,10 +82,11 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                     }
                 }
             }
-        } else {
+        }/* else {
+            print(h2 * M_PI / 180 + myView!.manage.horAngle)
             if(myView!.motionManager != nil && myView!.motionManager!.isDeviceVert() == true) {
                 let currentHeading = h2 * M_PI / 180 + myView!.manage.horAngle
-                if(newHeading.headingAccuracy < 6) {
+                if(newHeading.headingAccuracy < 11) {
                     self.lastHeadings.append(currentHeading)
                 }
                 if(self.lastHeadings.count > 3) {
@@ -96,7 +97,6 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                         toSet /= Double(timesCorrected + 1)
                         timesCorrected += 1
                         myView!.startFromNorth = toSet
-                        print("Yo" + String(myView!.startFromNorth))
                         myView!.manage.startFromNorth = myView!.startFromNorth
                         myView!.manage.updateStartFromNorth()
                         self.lastHeadings.removeAll()
@@ -104,6 +104,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 }
             }
         }
+ */
     }
     
     func headingsAgree() -> Bool {
