@@ -124,7 +124,7 @@
 		9480A1DA1AE54BAB007F45BE = {
 			isa = PBXGroup;
 			children = (
-				9480A1E51AE54BAB007F45BE /* Sidus */,
+				9480A1E51AE54BAB007F45BE /* Waypointer */,
 				9480A1FB1AE54BAB007F45BE /* WaypointerTests */,
 				9480A1E41AE54BAB007F45BE /* Products */,
 			);
@@ -139,7 +139,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9480A1E51AE54BAB007F45BE /* Sidus */ = {
+		9480A1E51AE54BAB007F45BE /* Waypointer */ = {
 			isa = PBXGroup;
 			children = (
 				94EFD5681C5477BB00879519 /* System Utils */,
@@ -156,7 +156,6 @@
 				9480A1E61AE54BAB007F45BE /* Supporting Files */,
 				9480A2181AE54C7D007F45BE /* global.swift */,
 			);
-			name = Sidus;
 			path = Waypointer;
 			sourceTree = "<group>";
 		};
