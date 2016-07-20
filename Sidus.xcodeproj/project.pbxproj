@@ -18,7 +18,7 @@
 		9480A1EE1AE54BAB007F45BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1EC1AE54BAB007F45BE /* Main.storyboard */; };
 		9480A1F01AE54BAB007F45BE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1EF1AE54BAB007F45BE /* Images.xcassets */; };
 		9480A1F31AE54BAB007F45BE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9480A1F11AE54BAB007F45BE /* LaunchScreen.xib */; };
-		9480A1FF1AE54BAB007F45BE /* WaypointerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1FE1AE54BAB007F45BE /* WaypointerTests.swift */; };
+		9480A1FF1AE54BAB007F45BE /* SidusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1FE1AE54BAB007F45BE /* SidusTests.swift */; };
 		9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A2091AE54BC9007F45BE /* AddButton.swift */; };
 		9480A20D1AE54BED007F45BE /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A20C1AE54BED007F45BE /* Waypoint.swift */; };
 		9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A20E1AE54C08007F45BE /* WaypointManager.swift */; };
@@ -56,25 +56,25 @@
 		947146E61C29FEEB00397A99 /* WaypointReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointReader.swift; sourceTree = "<group>"; };
 		9480A1E31AE54BAB007F45BE /* Sidus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sidus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9480A1E81AE54BAB007F45BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9480A1EA1AE54BAB007F45BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9480A1E81AE54BAB007F45BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Waypointer/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		9480A1EA1AE54BAB007F45BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Waypointer/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		9480A1ED1AE54BAB007F45BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9480A1EF1AE54BAB007F45BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9480A1EF1AE54BAB007F45BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Waypointer/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		9480A1F21AE54BAB007F45BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9480A1F81AE54BAB007F45BE /* Sidus.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sidus.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1FD1AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9480A1FE1AE54BAB007F45BE /* WaypointerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointerTests.swift; sourceTree = "<group>"; };
+		9480A1FE1AE54BAB007F45BE /* SidusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SidusTests.swift; path = WaypointerTests/SidusTests.swift; sourceTree = SOURCE_ROOT; };
 		9480A2091AE54BC9007F45BE /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		9480A20C1AE54BED007F45BE /* Waypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		9480A20E1AE54C08007F45BE /* WaypointManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointManager.swift; sourceTree = "<group>"; };
 		9480A2111AE54C30007F45BE /* MyMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMath.swift; sourceTree = "<group>"; };
 		9480A2141AE54C58007F45BE /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
 		9480A2161AE54C65007F45BE /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
-		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
+		9480A2181AE54C7D007F45BE /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = global.swift; path = Waypointer/global.swift; sourceTree = SOURCE_ROOT; };
 		9494B2741B5058730038D3B6 /* CannotRunScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannotRunScreen.swift; sourceTree = "<group>"; };
 		9494B2761B505F1D0038D3B6 /* CenterLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterLine.swift; sourceTree = "<group>"; };
 		949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationButton.swift; sourceTree = "<group>"; };
-		949CA03A1B803A92006BA3EA /* groups.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = groups.txt; sourceTree = "<group>"; };
+		949CA03A1B803A92006BA3EA /* groups.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = groups.txt; path = Waypointer/groups.txt; sourceTree = SOURCE_ROOT; };
 		94AF40441B507A020052E347 /* GreyTintScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyTintScreen.swift; sourceTree = "<group>"; };
 		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
@@ -124,8 +124,8 @@
 		9480A1DA1AE54BAB007F45BE = {
 			isa = PBXGroup;
 			children = (
-				9480A1E51AE54BAB007F45BE /* Waypointer */,
-				9480A1FB1AE54BAB007F45BE /* WaypointerTests */,
+				9480A1E51AE54BAB007F45BE /* Sidus */,
+				9480A1FB1AE54BAB007F45BE /* SidusTests */,
 				9480A1E41AE54BAB007F45BE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -137,9 +137,9 @@
 				9480A1F81AE54BAB007F45BE /* Sidus.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
-		9480A1E51AE54BAB007F45BE /* Waypointer */ = {
+		9480A1E51AE54BAB007F45BE /* Sidus */ = {
 			isa = PBXGroup;
 			children = (
 				94EFD5681C5477BB00879519 /* System Utils */,
@@ -156,8 +156,9 @@
 				9480A1E61AE54BAB007F45BE /* Supporting Files */,
 				9480A2181AE54C7D007F45BE /* global.swift */,
 			);
+			name = Sidus;
 			path = Waypointer;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A1E61AE54BAB007F45BE /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -165,16 +166,18 @@
 				9480A1E71AE54BAB007F45BE /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
-		9480A1FB1AE54BAB007F45BE /* WaypointerTests */ = {
+		9480A1FB1AE54BAB007F45BE /* SidusTests */ = {
 			isa = PBXGroup;
 			children = (
-				9480A1FE1AE54BAB007F45BE /* WaypointerTests.swift */,
+				9480A1FE1AE54BAB007F45BE /* SidusTests.swift */,
 				9480A1FC1AE54BAB007F45BE /* Supporting Files */,
 			);
+			name = SidusTests;
 			path = WaypointerTests;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A1FC1AE54BAB007F45BE /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -182,7 +185,8 @@
 				9480A1FD1AE54BAB007F45BE /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
+			path = WaypointerTests;
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A2081AE54BC0007F45BE /* UIStuff */ = {
 			isa = PBXGroup;
@@ -195,7 +199,8 @@
 				94AF40441B507A020052E347 /* GreyTintScreen.swift */,
 			);
 			name = UIStuff;
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A20B1AE54BDE007F45BE /* Waypoint System */ = {
 			isa = PBXGroup;
@@ -206,7 +211,8 @@
 				947146E61C29FEEB00397A99 /* WaypointReader.swift */,
 			);
 			name = "Waypoint System";
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A2101AE54C24007F45BE /* math */ = {
 			isa = PBXGroup;
@@ -214,7 +220,8 @@
 				9480A2111AE54C30007F45BE /* MyMath.swift */,
 			);
 			name = math;
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A2131AE54C4E007F45BE /* Geometry */ = {
 			isa = PBXGroup;
@@ -223,7 +230,8 @@
 				9480A2161AE54C65007F45BE /* Line.swift */,
 			);
 			name = Geometry;
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 		94EFD5681C5477BB00879519 /* System Utils */ = {
 			isa = PBXGroup;
@@ -232,7 +240,8 @@
 				94D5E8E31C5482680080C61B /* MyLocationManager.swift */,
 			);
 			name = "System Utils";
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -368,7 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9480A1FF1AE54BAB007F45BE /* WaypointerTests.swift in Sources */,
+				9480A1FF1AE54BAB007F45BE /* SidusTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,7 +398,8 @@
 				9480A1ED1AE54BAB007F45BE /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 		9480A1F11AE54BAB007F45BE /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
@@ -397,7 +407,8 @@
 				9480A1F21AE54BAB007F45BE /* Base */,
 			);
 			name = LaunchScreen.xib;
-			sourceTree = "<group>";
+			path = Waypointer;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 

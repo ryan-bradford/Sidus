@@ -1,6 +1,6 @@
 //
-//  WaypointerTests.swift
-//  WaypointerTests
+//  SidusTests.swift
+//  SidusTests
 //
 //  Created by Ryan on 4/20/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class WaypointerTests: XCTestCase {
+class SidusTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

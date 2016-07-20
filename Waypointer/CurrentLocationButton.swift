@@ -1,6 +1,6 @@
 //
 //  CurrentLocationButton.swift
-//  Waypointer
+//  Sidus
 //
 //  Created by Ryan on 6/15/16.
 //  Copyright © 2016 Ryan. All rights reserved.

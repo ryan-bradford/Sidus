@@ -1,6 +1,6 @@
 //
 //  GroupButton.swift
-//  Waypointer
+//  Sidus
 //
 //  Created by Ryan on 6/22/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.

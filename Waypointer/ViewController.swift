@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Waypointer
+//  Sidus
 //
 //  Created by Ryan on 4/20/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.
@@ -152,14 +152,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 i.drawn = true
             }
         }
-/*        for var i = self.manage.drawnWaypoints.count - 1; i >= 0; i -= 1 {
-            self.manage.drawnWaypoints[i].drawRect(self.view.frame)
-            if(!self.manage.drawnWaypoints[i].drawn) {
-            self.view.addSubview(self.manage.drawnWaypoints[i])
-            self.manage.drawnWaypoints[i].drawn = true
-            }
-        }
- */
     }
     
     //<- Periodic Graphics

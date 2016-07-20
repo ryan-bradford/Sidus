@@ -1,6 +1,6 @@
 //
 //  GreyTintScreen.swift
-//  Waypointer
+//  Sidus
 //
 //  Created by Ryan on 7/10/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.

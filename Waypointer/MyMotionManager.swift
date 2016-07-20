@@ -1,6 +1,6 @@
 //
 //  MyMotionManager.swift
-//  Waypointer
+//  Sidus
 //
 //  Created by Ryan on 1/23/16.
 //  Copyright © 2016 Ryan. All rights reserved.

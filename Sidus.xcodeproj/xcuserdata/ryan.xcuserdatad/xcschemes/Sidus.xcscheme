@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-               BuildableName = "Wayward.app"
+               BuildableName = "Sidus.app"
                BlueprintName = "Sidus"
                ReferencedContainer = "container:Sidus.xcodeproj">
             </BuildableReference>
@@ -28,22 +28,12 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9480A1F71AE54BAB007F45BE"
-               BuildableName = "Sidus.xctest"
-               BlueprintName = "SidusTests"
-               ReferencedContainer = "container:Sidus.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-            BuildableName = "Wayward.app"
+            BuildableName = "Sidus.app"
             BlueprintName = "Sidus"
             ReferencedContainer = "container:Sidus.xcodeproj">
          </BuildableReference>
@@ -66,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-            BuildableName = "Wayward.app"
+            BuildableName = "Sidus.app"
             BlueprintName = "Sidus"
             ReferencedContainer = "container:Sidus.xcodeproj">
          </BuildableReference>
@@ -85,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-            BuildableName = "Wayward.app"
+            BuildableName = "Sidus.app"
             BlueprintName = "Sidus"
             ReferencedContainer = "container:Sidus.xcodeproj">
          </BuildableReference>

@@ -1,6 +1,6 @@
 //
 //  MyLocationManager.swift
-//  Waypointer
+//  Sidus
 //
 //  Created by Ryan on 1/23/16.
 //  Copyright © 2016 Ryan. All rights reserved.
@@ -124,7 +124,10 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         return false
     }
     
-    
+    public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {               myView!.removeAllGraphics()
+        myView!.isAbleToRun = false
+        myView!.view.addSubview(myView!.cannotRun)
+    }
     
     public func locationManagerShouldDisplayHeadingCalibration(manager: CLLocationManager) -> Bool {
         if(myView!.isAbleToRun && myView!.startFromNorth == -1.0) {
