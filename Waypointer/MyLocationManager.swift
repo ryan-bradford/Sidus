@@ -18,8 +18,10 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     var stageOne = true
     var lastHeadings = Array<Double>()
     var timesCorrected = 0
+    var horSubtract: Double
     
     init(myView : ViewController) {
+        horSubtract = ((myView.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
         locationManager = CLLocationManager()
         self.myView = myView
         super.init()
@@ -53,19 +55,18 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                     myView!.removeAllGraphics()
                     myView!.view.addSubview(myView!.cannotRun)
                 } else if(myView!.startFromNorth == -1.0 && newHeading.headingAccuracy > 0.0) {
-                    myView!.startFromNorth = h2 * M_PI / 180 //To Reverse
+                    myView!.startFromNorth = 0
                     myView!.manage.startFromNorth = myView!.startFromNorth
                     myView!.manage.updateStartFromNorth()
                     if !classes.isInForeground {
                         myView!.initStage3()
-                        //self.startFromNorth = 0.0
-                        let message = "We Have Detected You Are "  + Int(round(myView!.startFromNorth * 180 / M_PI)).description + " Degrees From North, Press OK You Agree, or Override"
+                        let message = "We Have Detected You Are "  + Int(round(h2)).description + " Degrees From North, Press OK You Agree, or Override"
                         let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
                             let text: AnyObject? = alert.textFields?[0]
                             if let textf = text as? UITextField {
                                 if let number = NSNumberFormatter().numberFromString(textf.text!) {
-                                    self.myView!.startFromNorth = Double(number) * M_PI / 180
+                                    self.myView!.startFromNorth = (Double(number) - h2) * M_PI / 180
                                 }
                             }
                             self.myView!.initIsFinished = true
@@ -73,6 +74,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                             classes.cantRecal = false
                             self.stageOne = false
                             self.myView!.lastTimeInAppReset = CACurrentMediaTime()
+                            //self.locationManager!.headingFilter = 1.0
                         }))
                         alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
                             textField.placeholder = ""
@@ -82,29 +84,12 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                     }
                 }
             }
-        }/* else {
-            print(h2 * M_PI / 180 + myView!.manage.horAngle)
-            if(myView!.motionManager != nil && myView!.motionManager!.isDeviceVert() == true) {
-                let currentHeading = h2 * M_PI / 180 + myView!.manage.horAngle
-                if(newHeading.headingAccuracy < 11) {
-                    self.lastHeadings.append(currentHeading)
-                }
-                if(self.lastHeadings.count > 3) {
-                    self.lastHeadings.removeFirst()
-                    if(headingsAgree() && abs(myView!.startFromNorth - currentHeading) > 0.17453) {
-                        var toSet = (myView!.startFromNorth * Double(timesCorrected))
-                        toSet += currentHeading
-                        toSet /= Double(timesCorrected + 1)
-                        timesCorrected += 1
-                        myView!.startFromNorth = toSet
-                        myView!.manage.startFromNorth = myView!.startFromNorth
-                        myView!.manage.updateStartFromNorth()
-                        self.lastHeadings.removeAll()
-                    }
-                }
-            }
+        } else {
+            print(h2)
+            myView!.manage.horAngle = -h2 * M_PI / 180 - horSubtract
+           // myView!.manage.horAngle = (myView!.manage.horAngle + (-h2 * M_PI / 180 - horSubtract)) / 2
+
         }
- */
     }
     
     func headingsAgree() -> Bool {

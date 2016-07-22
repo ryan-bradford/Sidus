@@ -18,8 +18,10 @@ public class MyMotionManager {
     var startAttitude = CMAttitude() //The gyros base image
     var gyroBaseImageSet = false
     var lastPitch = 0.0
+    var vertSubtract: Double?
     
     init(myView : ViewController, manage : WaypointManager) {
+        vertSubtract = (myView.cameraAngle / 2)
         motionManager = CMMotionManager()
         self.myView = myView
         self.manage = manage
@@ -77,9 +79,8 @@ public class MyMotionManager {
     
     func manageMotion(attitude : CMAttitude) {
         attitude.multiplyByInverseOfAttitude(startAttitude)
-        manage!.horAngle = attitude.roll - ((myView!.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
         let realVertAngle = cos(attitude.roll) * attitude.pitch - sin(attitude.roll) * attitude.yaw
-        manage!.vertAngle = realVertAngle - myView!.cameraAngle / 2
+        manage!.vertAngle = realVertAngle - vertSubtract!
     }
     
 }

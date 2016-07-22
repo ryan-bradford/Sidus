@@ -70,7 +70,7 @@ public class GroupScreen : UIButton {
     
     override public func drawRect(rect: CGRect) {
 
-        let message1  = "Press Which Group You Want to Add or Remove"
+        let message1  = "Press Which Group You Want to Add or Remove" + "\n" + "(tap screen to dismiss)"
         let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
         
         let fieldColor: UIColor = UIColor.blackColor()
@@ -91,7 +91,7 @@ public class GroupScreen : UIButton {
         message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
         message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
         //let toSubtract = CGFloat(countString / 2 * 7)
-        message.drawInRect(CGRectMake(CGFloat(0), CGFloat(classes.screenHeight - 80.0), 300.0, 60.0))
+        message.drawInRect(CGRectMake(CGFloat(0), CGFloat(classes.screenHeight - 120.0), 300.0, 120.0))
         
     }
     
