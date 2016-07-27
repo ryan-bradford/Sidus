@@ -239,19 +239,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
             //videoDevice.activeFormat.highResolutionStillImageDimensions
             var cameraRatio = 1.0
+            var cameraHeight = 1.0
+            var cameraWidth = 1.0
             if let formatDescription = videoDevice.activeFormat.formatDescription {
                 let dimensions = CMVideoFormatDescriptionGetDimensions(formatDescription)
                 cameraRatio = Double(dimensions.height) / Double(dimensions.width)
+                cameraWidth = Double(dimensions.height)
+                cameraHeight = Double(dimensions.width)
             }
             videoDevice.activeFormat.highResolutionStillImageDimensions
             cameraAngleX = Double(videoDevice.activeFormat.videoFieldOfView)
             cameraAngleY = Double(videoDevice.activeFormat.videoFieldOfView) * cameraRatio
-            print(String(cameraRatio) + " Camera")
-            print(classes.screenWidth)
-            print(classes.screenHeight)
             let screenRatio = classes.screenWidth / classes.screenHeight
-            
-            print(classes.screenWidth)
+            if(screenRatio > cameraRatio) {
+                let scaleFactor = 1 - (((classes.screenWidth * cameraHeight / classes.screenHeight) - cameraWidth) / cameraWidth)
+                cameraAngleX *= scaleFactor
+            } else if(screenRatio < cameraRatio) {
+                let scaleFactor = 1 - (((classes.screenHeight * cameraWidth / classes.screenWidth) - cameraHeight) / cameraHeight)
+                cameraAngleY *= scaleFactor
+            }
             cameraAngleX *= (M_PI / 180)
             cameraAngleY *= (M_PI / 180)
             myMath = MyMath()
@@ -310,6 +316,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         classes.cantRecal = true
         self.initIsFinished = false
         motionManager!.motionStage1Or2 = true
+        motionManager!.gyroBaseImageSet = false
         self.startFromNorth = -1.0
         locationManager!.stageOne = true
         self.verifyButton = VerifyButton()
