@@ -23,7 +23,7 @@ class GroupButton : UIButton {
 
     // #1
     required init?(coder: NSCoder) {
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
+        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: 1.0, cameraAngleY: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
         goAwayGroupScreen = false
         super.init(coder: coder);
     }

@@ -23,7 +23,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var centerLine = CenterLine() //The line that stays in initStage1
     var tint = GreyTintScreen() //The grey tint that is displayed in initStage1
     var isAbleToRun = true //Set to false if the phone is too old or does not allocate the proper permissions
-    var cameraAngle = (1.0) //The FOV of the camera
+    var cameraAngleX = (1.0) //The FOV of the camera
+    var cameraAngleY = (1.0) //The FOV of the camera
     var initIsFinished = false //Set to true when the heading is set
     var lastTimeInAppReset = CACurrentMediaTime()
     //These Are Kinda In Order
@@ -40,7 +41,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         classes.screenDiameter = Double(sqrt(pow(UIScreen.mainScreen().bounds.width,2) + pow(UIScreen.mainScreen().bounds.height,2)))
         groups = Array<WaypointGroup>()
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
+        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
         addButton = nil
         self.verifyButton = nil
@@ -56,7 +57,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     required init?(coder aDecoder: NSCoder) {
         classes.screenDiameter = Double(sqrt(pow(UIScreen.mainScreen().bounds.width,2) + pow(UIScreen.mainScreen().bounds.height,2)))
         groups = Array<WaypointGroup>()
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngle: cameraAngle, groups: groups, startFromNorth: startFromNorth)
+        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
         addButton = nil
         self.verifyButton = nil
@@ -211,11 +212,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func initStage3() {
         if(isAbleToRun) {
             if(groupScreen == nil) {
-                reader = WaypointReader(cameraAngle: cameraAngle, startFromNorth: startFromNorth, manage: manage)
+                reader = WaypointReader(cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, startFromNorth: startFromNorth, manage: manage)
                 reader!.readGroups()
                 groupScreen = GroupScreen( manage: manage, viewController: self)
-            addButton = AddButton(cameraAngle: cameraAngle, manager: manage)
-            addressButton = AddAddressButton(cameraAngle: cameraAngle, manager: manage)
+                addButton = AddButton(manager: manage)
+                addressButton = AddAddressButton(manager: manage)
             }
             motionManager!.motionStage1Or2 = false
             verifyButton!.removeFromSuperview()
@@ -231,14 +232,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //Device Parts Init ->
     
-    func initCameraFeed() {
+    func initCameraFeed() { //TO STUDY
         let captureSession = AVCaptureSession()
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspect //TO STUDY
         if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
-            cameraAngle = Double(videoDevice.activeFormat.videoFieldOfView)
-            cameraAngle *= M_PI / 180
-            myMath = MyMath(cameraAngle: cameraAngle)
+            //videoDevice.activeFormat.highResolutionStillImageDimensions
+            var cameraRatio = 1.0
+            if let formatDescription = videoDevice.activeFormat.formatDescription {
+                let dimensions = CMVideoFormatDescriptionGetDimensions(formatDescription)
+                cameraRatio = Double(dimensions.height) / Double(dimensions.width)
+            }
+            videoDevice.activeFormat.highResolutionStillImageDimensions
+            cameraAngleX = Double(videoDevice.activeFormat.videoFieldOfView)
+            cameraAngleY = Double(videoDevice.activeFormat.videoFieldOfView) * cameraRatio
+            print(String(cameraRatio) + " Camera")
+            print(classes.screenWidth)
+            print(classes.screenHeight)
+            let screenRatio = classes.screenWidth / classes.screenHeight
+            
+            print(classes.screenWidth)
+            cameraAngleX *= (M_PI / 180)
+            cameraAngleY *= (M_PI / 180)
+            myMath = MyMath()
             let videoIn : AVCaptureDeviceInput?
             do {
                 videoIn = try AVCaptureDeviceInput(device: videoDevice)

@@ -21,7 +21,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     var horSubtract: Double
     
     init(myView : ViewController) {
-        horSubtract = ((myView.cameraAngle / 2) * (classes.screenWidth / classes.screenHeight))
+        horSubtract = ((myView.cameraAngleX / 2) * (classes.screenWidth / classes.screenHeight))
         locationManager = CLLocationManager()
         self.myView = myView
         super.init()

@@ -12,13 +12,13 @@ import CoreLocation
 
 public class AddAddressButton : StandardAddButton {
     
-    var myMath = MyMath(cameraAngle: 0.0)
+    var myMath = MyMath()
     var manage : WaypointManager?
     
-    public init(cameraAngle : Double, manager : WaypointManager) {
+    public init(manager : WaypointManager) {
         self.manage = manager
         super.init(myLetter: "A", orderNum: 3)
-        myMath = MyMath(cameraAngle : cameraAngle)
+        myMath = MyMath()
     }
     
     required public init?(coder aDecoder: NSCoder) {

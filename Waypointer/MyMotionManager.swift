@@ -21,7 +21,7 @@ public class MyMotionManager {
     var vertSubtract: Double?
     
     init(myView : ViewController, manage : WaypointManager) {
-        vertSubtract = (myView.cameraAngle / 2)
+        vertSubtract = (myView.cameraAngleY / 2)
         motionManager = CMMotionManager()
         self.myView = myView
         self.manage = manage

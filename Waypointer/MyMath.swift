@@ -11,20 +11,20 @@ import Darwin
 
 public class MyMath {
     
-    var cameraAngle :Double
     
-    public init(cameraAngle : Double) {
-        self.cameraAngle = cameraAngle
+    public init() {
+        
     }
     
-    func findSmallestAngle(angle : Double) -> Double {
+    func findSmallestAngle(angle : Double, currentFOV: Double) -> Double {
         var calc = angle
-        if(calc > M_PI - self.cameraAngle) {
+        if(calc > M_PI - currentFOV) {
             calc = calc -  M_PI * 2
-            return findSmallestAngle(calc)
-        } else if(calc < (-self.cameraAngle - M_PI)) {
+            return findSmallestAngle(calc, currentFOV: currentFOV)
+        } else if(calc < (-currentFOV - M_PI)) {
             calc = calc + M_PI * 2
-            return findSmallestAngle(calc)
+            return findSmallestAngle(calc, currentFOV: currentFOV
+            )
         } else {
             return calc
         }

@@ -15,7 +15,7 @@ public class CannotRunScreen : UIView {
     var blueVal = 0.0
     var alphaVal = 0.6
     
-    public init() {
+    public init() { //TO STUDY
         super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 0.0, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }

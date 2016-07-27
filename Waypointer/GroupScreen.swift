@@ -14,7 +14,8 @@ public class GroupScreen : UIButton {
     var buttons : Array<GroupButton>?
     var manage : WaypointManager?
     var goAwayGroupScreen = false
-    var cameraAngle: Double?
+    var cameraAngleX: Double?
+    var cameraAngleY: Double?
     var currentLocButton: CurrentLocationButton?
     var buttonLimit: Int?
     var viewController: ViewController?
@@ -25,7 +26,8 @@ public class GroupScreen : UIButton {
     
     init(manage : WaypointManager, viewController: ViewController) {
         self.manage = manage
-        cameraAngle = manage.cameraAngle
+        cameraAngleX = manage.cameraAngleX
+        cameraAngleY = manage.cameraAngleY
         buttons = Array<GroupButton>()
         self.viewController = viewController
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
@@ -55,7 +57,7 @@ public class GroupScreen : UIButton {
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
             let textf1 = alert.textFields![0] as UITextField
             let name = textf1.text
-            let currentWaypoint = Waypoint(xPos: self.manage!.personX, yPos: self.manage!.personY, zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), displayName: name!, cameraAngle: self.cameraAngle!, manage: self.manage!)
+            let currentWaypoint = Waypoint(xPos: self.manage!.personX, yPos: self.manage!.personY, zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), displayName: name!, cameraAngleX: self.cameraAngleX!, cameraAngleY: self.cameraAngleY!, manage: self.manage!)
             let group = WaypointGroup(name: name!)
             group.addWaypoint(currentWaypoint)
             self.addGroup(group)

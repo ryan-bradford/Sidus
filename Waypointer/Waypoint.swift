@@ -34,12 +34,13 @@ public class Waypoint : UIView {
     var leftArrowShape: CAShapeLayer?
     public var yShift: Double?
     var myID = random()
-    var cameraAngle: Double?
+    var cameraAngleX : Double?
+    var cameraAngleY : Double?
     var myMath: MyMath?
     var manage: WaypointManager!?
     var drawn = false
     
-    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, displayName : String, cameraAngle : Double, manage : WaypointManager) {
+    public init(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, displayName : String, cameraAngleX : Double, cameraAngleY: Double, manage : WaypointManager) {
         self.manage = manage
         self.red = red
         self.displayName = displayName
@@ -56,8 +57,9 @@ public class Waypoint : UIView {
         self.blue = blue
         self.green = green
         self.line = Line(startingXPos: self.manage!.personX, startingYPos: self.manage!.personY, startingZPos: self.manage!.personZ, endingXPos: xPos, endingYPos: yPos, endingZPos: zPos)
-        self.cameraAngle = cameraAngle
-        myMath = MyMath(cameraAngle: cameraAngle)
+        self.cameraAngleX = cameraAngleX
+        self.cameraAngleY = cameraAngleY
+        myMath = MyMath()
         super.init(frame : CGRect(x: 0, y: 0, width: 20, height: 20))
         self.generateVars()
         self.drawText()
@@ -105,23 +107,21 @@ public class Waypoint : UIView {
     }
     
     public func getScreenX() -> Double {
-        let x1 = CGFloat(self.manage!.horAngle - myMath!.findSmallestAngle(manage!.startFromNorth))
-        let realFOV = cameraAngle! * (classes.screenWidth / classes.screenDiameter)
+        let x1 = CGFloat(self.manage!.horAngle - myMath!.findSmallestAngle(manage!.startFromNorth, currentFOV: cameraAngleX!))
         var horAngle = line!.getLineHorizontalAngle()
         horAngle = (horAngle + Double(x1))
-        horAngle = myMath!.findSmallestAngle(horAngle)
-        let perInstanceIncrease = Double(cameraAngle!) * (classes.screenWidth / classes.screenHeight) / classes.screenWidth
-        return (horAngle + realFOV) / (perInstanceIncrease)
+        horAngle = myMath!.findSmallestAngle(horAngle, currentFOV: cameraAngleX!)
+        let perInstanceIncrease = Double(cameraAngleX!) / classes.screenWidth
+        return (horAngle + cameraAngleX!) / (perInstanceIncrease)
     }
     
     public func getScreenY() -> Double {
         let y1 = CGFloat(-self.manage!.vertAngle)
         var vertAngle = line!.getLineVerticalAngle()
-        let realFOV = cameraAngle! * (classes.screenHeight / classes.screenDiameter)
         vertAngle = vertAngle + Double(y1)
-        vertAngle = myMath!.findSmallestAngle(vertAngle)
-        let perInstanceIncrease = Double(realFOV) / classes.screenHeight
-        return (-vertAngle + cameraAngle!) / (perInstanceIncrease)
+        vertAngle = myMath!.findSmallestAngle(vertAngle, currentFOV: cameraAngleY!)
+        let perInstanceIncrease = Double(cameraAngleY!) / classes.screenHeight
+        return (-vertAngle + cameraAngleY!) / (perInstanceIncrease)
     }
     
     public func getScreenScaller() -> Double {

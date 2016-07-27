@@ -20,15 +20,17 @@ public class WaypointManager {
     var vertAngle = 0.0
     var horAngleScaler = 1
     var vertAngleScaler = 1
-    var cameraAngle : Double
+    var cameraAngleX : Double
+    var cameraAngleY : Double
     var groups : Array<WaypointGroup>
     var startFromNorth : Double
     var waitCount = 6
     
-    init(x : Double, y : Double, z : Double, cameraAngle : Double, groups : Array<WaypointGroup>, startFromNorth : Double) {
+    init(x : Double, y : Double, z : Double, cameraAngleX : Double, cameraAngleY: Double, groups : Array<WaypointGroup>, startFromNorth : Double) {
         self.startFromNorth = startFromNorth
+        self.cameraAngleX = cameraAngleX
+        self.cameraAngleY = cameraAngleY
         self.groups = groups
-        self.cameraAngle = cameraAngle
         allWaypoints = Array<Waypoint>()
         drawnWaypoints = Array<Waypoint>()
         personX = x
@@ -37,7 +39,7 @@ public class WaypointManager {
     }
     
     public func addWaypoint(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
-        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, displayName : name, cameraAngle : cameraAngle, manage: self))
+        allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, displayName : name, cameraAngleX : cameraAngleX, cameraAngleY: cameraAngleY, manage: self))
     }
     
     public func addWaypoint(toAdd : Waypoint) {

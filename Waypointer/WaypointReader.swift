@@ -11,13 +11,15 @@ import Foundation
 public class WaypointReader {
     
     var myMath : MyMath
-    var cameraAngle : Double
+    var cameraAngleX : Double
+    var cameraAngleY : Double
     var startFromNorth : Double
     var manage : WaypointManager
     
-    init(cameraAngle : Double, startFromNorth : Double, manage : WaypointManager) {
-        self.cameraAngle = cameraAngle
-        myMath = MyMath(cameraAngle: cameraAngle)
+    init(cameraAngleX : Double, cameraAngleY : Double, startFromNorth : Double, manage : WaypointManager) {
+        self.cameraAngleX = cameraAngleX
+        self.cameraAngleY = cameraAngleY
+        myMath = MyMath()
         self.manage = manage
         self.startFromNorth = startFromNorth
     }
@@ -62,13 +64,6 @@ public class WaypointReader {
         if(!(parts[6] as NSString).isEqualToString("-1")) {
             blueValue = (parts[6] as NSString).integerValue
         }
-        return Waypoint(xPos: myMath.degreesToFeet((parts[2] as NSString).doubleValue), yPos: myMath.degreesToFeet((parts[1] as NSString).doubleValue), zPos: (parts[3] as NSString).doubleValue, red: redValue, green: greenValue, blue: blueValue, displayName: parts[0], cameraAngle : cameraAngle, manage : manage)
-    }
-    
-    func addMountainGroup() {
-        let group = WaypointGroup(name: "App Mtns")
-        let waypoint  = Waypoint(xPos: myMath.degreesToFeet(-71.273333), yPos: myMath.degreesToFeet(43.954167), zPos: 3480, red: 255, green: 0, blue: 0, displayName: "Chocorua", cameraAngle : cameraAngle, manage : manage)
-        group.addWaypoint(waypoint)
-        manage.groups.append(group)
+        return Waypoint(xPos: myMath.degreesToFeet((parts[2] as NSString).doubleValue), yPos: myMath.degreesToFeet((parts[1] as NSString).doubleValue), zPos: (parts[3] as NSString).doubleValue, red: redValue, green: greenValue, blue: blueValue, displayName: parts[0], cameraAngleX : cameraAngleX, cameraAngleY: cameraAngleY, manage : manage)
     }
 }
