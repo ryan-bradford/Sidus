@@ -53,6 +53,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 if(h2 == -1) {
                     myView!.isAbleToRun = false
                     myView!.removeAllGraphics()
+                    myView!.cannotRun = CannotRunScreen(message: "Could not get a compass reading")
                     myView!.view.addSubview(myView!.cannotRun)
                 } else if(myView!.startFromNorth == -1.0 && newHeading.headingAccuracy > 0.0) {
                     myView!.startFromNorth = 0
@@ -114,6 +115,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
     
     public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {               myView!.removeAllGraphics()
         myView!.isAbleToRun = false
+        myView!.cannotRun = CannotRunScreen(message: "Could not get a GPS signal")
         myView!.view.addSubview(myView!.cannotRun)
     }
     

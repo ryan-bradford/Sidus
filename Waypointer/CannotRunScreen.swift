@@ -14,14 +14,16 @@ public class CannotRunScreen : UIView {
     var redVal = 1.0
     var blueVal = 0.0
     var alphaVal = 0.6
+    var message: String?
     
-    public init() { //TO STUDY
+    public init(message: String) { //TO STUDY
         super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 0.0, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        self.message = message
     }
     
     override public func drawRect(rect: CGRect) {
-        drawMessage("The Application Could Not Launch", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 30.0)
+        drawMessage("The Application Could Not Launch" + "\n" + message!, X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 30.0)
         
     }
     

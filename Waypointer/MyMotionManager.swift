@@ -34,13 +34,13 @@ public class MyMotionManager {
             } else {
                 myView.removeAllGraphics()
                 myView.isAbleToRun = false
-                print("Gyro is already active")
+                myView.cannotRun = CannotRunScreen(message: "No gyroscope available.")
                 myView.view.addSubview(myView.cannotRun)
             }
         } else {
             myView.removeAllGraphics()
             myView.isAbleToRun = false
-            print("Gyro isn't available")
+            myView.cannotRun = CannotRunScreen(message: "No gyroscope available.")
             myView.view.addSubview(myView.cannotRun)
         }
     }

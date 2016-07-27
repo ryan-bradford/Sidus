@@ -16,7 +16,7 @@ import CoreLocation //Longitude is X, Latitude is Y
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var startFromNorth = -1.0 //The heading of the person
-    var cannotRun = CannotRunScreen() //The screen that is displayed if the app cannot run
+    var cannotRun = CannotRunScreen(message: "Could not get a compass reading") //The screen that is displayed if the app cannot run
     var locationManager : MyLocationManager?
     internal var motionManager : MyMotionManager?
     var activeLine = CenterLine() //The line that moves in initStage1
@@ -181,6 +181,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         for v in self.view.subviews {
             v.removeFromSuperview()
         }
+        for i in self.manage.drawnWaypoints {
+                i.drawn = false
+        }
     }
     
     //Init Stages ->
@@ -247,9 +250,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 cameraWidth = Double(dimensions.height)
                 cameraHeight = Double(dimensions.width)
             }
-            videoDevice.activeFormat.highResolutionStillImageDimensions
-            cameraAngleX = Double(videoDevice.activeFormat.videoFieldOfView)
-            cameraAngleY = Double(videoDevice.activeFormat.videoFieldOfView) * cameraRatio
+            cameraAngleX = Double(videoDevice.activeFormat.videoFieldOfView) * cameraRatio
+            cameraAngleY = Double(videoDevice.activeFormat.videoFieldOfView)
             let screenRatio = classes.screenWidth / classes.screenHeight
             if(screenRatio > cameraRatio) {
                 let scaleFactor = 1 - (((classes.screenWidth * cameraHeight / classes.screenHeight) - cameraWidth) / cameraWidth)
@@ -270,11 +272,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             } catch _ {
                 removeAllGraphics()
                 isAbleToRun = false
+                cannotRun = CannotRunScreen(message: "No camera available")
                 self.view.addSubview(cannotRun)
             }
         } else {
             removeAllGraphics()
             isAbleToRun = false
+            cannotRun = CannotRunScreen(message: "No camera available")
             self.view.addSubview(cannotRun)
         }
         captureSession.startRunning()
@@ -333,6 +337,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func checkResume(canRun: Bool) {
+        print(String(!self.isAbleToRun) + " Run")
+        print(String(classes.isInForeground) + " Foreground")
+        if (!self.isAbleToRun) && canRun && classes.isInForeground {
+            self.cannotRun.removeFromSuperview()
+            isAbleToRun = true
+            self.view.addSubview(addButton!)
+            self.view.addSubview(addGroupButton!)
+            self.view.addSubview(addressButton!)
+            startThread()
+        }
+    }
+
     
     
 }
