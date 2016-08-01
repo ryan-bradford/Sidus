@@ -93,6 +93,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
             } else {
                 myView!.manage.horAngle = toUse
             }
+            //myView!.manage.horAngle = 0
         }
     }
     

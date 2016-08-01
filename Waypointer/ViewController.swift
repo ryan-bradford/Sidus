@@ -238,7 +238,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func initCameraFeed() { //TO STUDY
         let captureSession = AVCaptureSession()
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspect //TO STUDY
+        previewLayer.videoGravity = AVLayerVideoGravityResize //TO STUDY
         if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
             //videoDevice.activeFormat.highResolutionStillImageDimensions
             var cameraRatio = 1.0
