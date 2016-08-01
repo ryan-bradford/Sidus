@@ -49,18 +49,14 @@ public class Line {
     }
     
     func getLineVerticalAngle() -> Double {
-        let adjcent = sqrt(pow(getZLength(), 2) + pow(getYLength(), 2));
+        let adjcent = sqrt(pow(getXLength(), 2) + pow(getYLength(), 2));
         var newAngle: Double
         if(adjcent != 0) {
-            newAngle = atan(abs(getZLength()) / adjcent)
+            newAngle = atan(getZLength() / adjcent)
         } else {
             newAngle = 0
         }
-        if(getZLength() < 0) {
-            return M_PI * 2 - newAngle
-        } else {
-            return newAngle
-        }
+        return newAngle
     }
     
     func getXLength() ->  Double {
