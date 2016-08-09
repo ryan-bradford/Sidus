@@ -87,7 +87,6 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
             }
         } else {
             let toUse = -h2 * M_PI / 180 - horSubtract
-            ///print(abs(toUse - myView!.manage.horAngle))
             if((abs(toUse - myView!.manage.horAngle)) < M_PI) {
                 myView!.manage.horAngle = (myView!.manage.horAngle + (toUse)) / 2
             } else {

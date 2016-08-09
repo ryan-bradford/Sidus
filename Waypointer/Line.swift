@@ -34,7 +34,7 @@ public class Line {
         if(adjcent == 0) {
             tanValue = M_PI / 2
         } else {
-            tanValue = atan(abs(opposite) / abs(adjcent));//Expands upon the java trig functions
+            tanValue = atan(abs(opposite) / abs(adjcent));//Expands upon the swift trig functions
         }
         if(opposite < 0 && adjcent < 0) {									//Allows for more accurate
             return M_PI + tanValue;

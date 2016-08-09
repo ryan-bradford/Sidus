@@ -338,8 +338,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func checkResume(canRun: Bool) {
-        print(String(!self.isAbleToRun) + " Run")
-        print(String(classes.isInForeground) + " Foreground")
         if (!self.isAbleToRun) && canRun && classes.isInForeground {
             self.cannotRun.removeFromSuperview()
             isAbleToRun = true
