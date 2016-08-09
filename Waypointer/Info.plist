@@ -26,8 +26,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to know your location to place the chosen waypoints on your screen.</string>
 	<key>UILaunchStoryboardName</key>
