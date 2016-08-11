@@ -509,6 +509,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanb3.Sidus;
 				PRODUCT_NAME = Sidus;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -525,6 +526,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanb3.Sidus;
 				PRODUCT_NAME = Sidus;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
