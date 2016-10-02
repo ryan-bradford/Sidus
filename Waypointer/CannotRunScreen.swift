@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class CannotRunScreen : UIView {
+open class CannotRunScreen : UIView {
     
     var redVal = 1.0
     var blueVal = 0.0
@@ -17,19 +17,19 @@ public class CannotRunScreen : UIView {
     var message: String?
     
     public init(message: String) { //TO STUDY
-        super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
+        super.init(frame: CGRect(x: 0, y: 0, width: CGFloat(classes.screenWidth), height: CGFloat(classes.screenHeight)))
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 0.0, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
         self.message = message
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         drawMessage("The Application Could Not Launch" + "\n" + message!, X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 30.0)
         
     }
     
-    func drawMessage(message : String, X : CGFloat, Y : CGFloat) {
+    func drawMessage(_ message : String, X : CGFloat, Y : CGFloat) {
         
-        drawTextWithNoBox(X, y: Y, width: CGFloat(classes.screenWidth), toDraw: message, fontSize: 25)
+        let _ = drawTextWithNoBox(X, y: Y, width: CGFloat(classes.screenWidth), toDraw: message, fontSize: 25)
         
     }
     
@@ -37,13 +37,13 @@ public class CannotRunScreen : UIView {
         super.init(coder: aDecoder)
     }
     
-    func drawTextWithNoBox(x: CGFloat, y: CGFloat, width: CGFloat, toDraw: String, fontSize: CGFloat) -> CGFloat {
+    func drawTextWithNoBox(_ x: CGFloat, y: CGFloat, width: CGFloat, toDraw: String, fontSize: CGFloat) -> CGFloat {
         let message: NSMutableAttributedString = NSMutableAttributedString(string: toDraw)
         
-        let fieldColor: UIColor = UIColor.blackColor()
+        let fieldColor: UIColor = UIColor.black
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(fontSize))
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.Center
+        paraStyle.alignment = NSTextAlignment.center
         
         let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
@@ -52,15 +52,15 @@ public class CannotRunScreen : UIView {
         ]
         let countString = (message.length)
         message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
-        let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFontOfSize(25), toGet: toDraw)
-        message.drawInRect(CGRectMake(x, y, width, textHeight))
+        let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFont(ofSize: 25), toGet: toDraw)
+        message.draw(in: CGRect(x: x, y: y, width: width, height: textHeight))
         return textHeight
     }
     
-    func heightWithConstrainedWidth(width: CGFloat, font: UIFont, toGet: String) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: CGFloat.max)
+    func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont, toGet: String) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         
-        let boundingBox = toGet.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = toGet.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
         
         return boundingBox.height
     }

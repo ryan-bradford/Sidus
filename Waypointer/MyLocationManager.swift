@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import SceneKit
 
-public class MyLocationManager : NSObject, CLLocationManagerDelegate {
+open class MyLocationManager : NSObject, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager? //The thing that manages the persons locaion
     var myView : ViewController?
@@ -33,8 +33,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         locationManager!.startUpdatingHeading()
     }
     
-    public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        manager.location!.course
+    open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let latitude = Double(manager.location!.coordinate.latitude)
         let longitude = Double(manager.location!.coordinate.longitude)
         let altitude = manager.location!.altitude
@@ -46,7 +45,7 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         timesLocationRecorded += 1
     }
     
-    public func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    open func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
         if(stageOne) {
             if(myView!.verifyButton!.canContinue) {
@@ -62,11 +61,11 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                     if !classes.isInForeground {
                         myView!.initStage3()
                         let message = "We Have Detected You Are "  + Int(round(h2)).description + " Degrees From North, Press OK You Agree, or Override"
-                        let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+                        let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
                             let text: AnyObject? = alert.textFields?[0]
                             if let textf = text as? UITextField {
-                                if let number = NSNumberFormatter().numberFromString(textf.text!) {
+                                if let number = NumberFormatter().number(from: textf.text!) {
                                     self.myView!.startFromNorth = (Double(number) - h2) * M_PI / 180
                                 }
                             }
@@ -77,11 +76,11 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
                             self.myView!.lastTimeInAppReset = CACurrentMediaTime()
                             //self.locationManager!.headingFilter = 1.0
                         }))
-                        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+                        alert.addTextField(configurationHandler: {(textField: UITextField) in
                             textField.placeholder = ""
-                            textField.secureTextEntry = false
+                            textField.isSecureTextEntry = false
                         })
-                        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                     }
                 }
             }
@@ -112,13 +111,13 @@ public class MyLocationManager : NSObject, CLLocationManagerDelegate {
         return false
     }
     
-    public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {               myView!.removeAllGraphics()
+    open func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {               myView!.removeAllGraphics()
         myView!.isAbleToRun = false
         myView!.cannotRun = CannotRunScreen(message: "Could not get a GPS signal")
         myView!.view.addSubview(myView!.cannotRun)
     }
     
-    public func locationManagerShouldDisplayHeadingCalibration(manager: CLLocationManager) -> Bool {
+    open func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
         if(myView!.isAbleToRun && myView!.startFromNorth == -1.0) {
             if let h = manager.heading {
                 return (h.headingAccuracy < 0 || h.headingAccuracy > 10)

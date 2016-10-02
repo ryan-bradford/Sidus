@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class CurrentLocationButton: UIButton {
+open class CurrentLocationButton: UIButton {
     
     var groups: GroupScreen?
     var redVal = 0.5
@@ -21,7 +21,7 @@ public class CurrentLocationButton: UIButton {
         self.groups = groups
         super.init(frame: CGRect(x: 5, y: groups.frame.height / 2, width: groups.frame.width - 10, height: classes.addButtonDimension))
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), for: .touchUpInside)
 
     }
     
@@ -29,13 +29,13 @@ public class CurrentLocationButton: UIButton {
         super.init(coder: aDecoder)!
     }
 
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         let name = "Current Location"
-        let fieldColor: UIColor = UIColor.blackColor()
+        let fieldColor: UIColor = UIColor.black
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.lineSpacing = 6.0
-        paraStyle.alignment = NSTextAlignment.Center
+        paraStyle.alignment = NSTextAlignment.center
         let skew = 0.1
         let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
@@ -43,10 +43,10 @@ public class CurrentLocationButton: UIButton {
             NSObliquenessAttributeName: skew,
             NSFontAttributeName: fieldFont!
         ]
-        name.drawInRect(CGRectMake(0, 3, rect.width, rect.height), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
+        name.draw(in: CGRect(x: 0, y: 3, width: rect.width, height: rect.height), withAttributes: attributes as! [AnyHashable: Any] as? [String : AnyObject])
     }
     
-    func pressed(sender: UIButton!) {
+    func pressed(_ sender: UIButton!) {
         redVal = 0
         blueVal = 0
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))

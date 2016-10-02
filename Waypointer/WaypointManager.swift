@@ -8,11 +8,31 @@
 
 import Foundation
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-public class WaypointManager {
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+
+open class WaypointManager {
     
-    public var drawnWaypoints :  Array<Waypoint>
-    public var allWaypoints :  Array<Waypoint>
+    open var drawnWaypoints :  Array<Waypoint>
+    open var allWaypoints :  Array<Waypoint>
     var personX : Double
     var personY : Double
     var personZ : Double
@@ -38,20 +58,20 @@ public class WaypointManager {
         personZ = z
     }
     
-    public func addWaypoint(xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
+    open func addWaypoint(_ xPos : Double, yPos : Double, zPos : Double, red : Int, green : Int, blue : Int, name : String) {
         allWaypoints.append(Waypoint(xPos: xPos, yPos: yPos, zPos: zPos, red: red, green: green, blue: blue, displayName : name, cameraAngleX : cameraAngleX, cameraAngleY: cameraAngleY, manage: self))
     }
     
-    public func addWaypoint(toAdd : Waypoint) {
+    open func addWaypoint(_ toAdd : Waypoint) {
         allWaypoints.append(toAdd)
     }
     
     
-    public func removeWaypoint(ID : Int) {
-        allWaypoints.removeAtIndex(ID)
+    open func removeWaypoint(_ ID : Int) {
+        allWaypoints.remove(at: ID)
     }
     
-    public func changePersonLocation(xPos : Double, yPos : Double, zPos : Double) {
+    open func changePersonLocation(_ xPos : Double, yPos : Double, zPos : Double) {
         personX = xPos
         personY = yPos
         personZ = zPos
@@ -60,7 +80,7 @@ public class WaypointManager {
         }
     }
     
-    public func orderWaypoints() { //Correct Ordering and Add Limit
+    open func orderWaypoints() { //Correct Ordering and Add Limit
         if(waitCount > 5) {
             let start = allWaypoints
             for i in 0 ..< self.groups.count {
@@ -85,7 +105,7 @@ public class WaypointManager {
                 }
                 allWaypoints[heighestID].orderNum = newWaypoints.count
                 newWaypoints.append(allWaypoints[heighestID])
-                allWaypoints.removeAtIndex(heighestID)
+                allWaypoints.remove(at: heighestID)
             }
             processNewGroup(newWaypoints)
             allWaypoints = start
@@ -95,7 +115,7 @@ public class WaypointManager {
         }
     }
     
-    func processNewGroup(newGroup : Array<Waypoint>) {
+    func processNewGroup(_ newGroup : Array<Waypoint>) {
         var drawnWaypoints = Array<Waypoint>()
         for i in 0 ..< self.drawnWaypoints.count {
             drawnWaypoints.append(self.drawnWaypoints[i])
@@ -103,7 +123,7 @@ public class WaypointManager {
         for i in 0 ..< drawnWaypoints.count {
             var found = false
             for x in 0 ..< newGroup.count {
-                if(((newGroup[x].idName! as NSString)).isEqualToString(drawnWaypoints[i].idName!)) {
+                if(((newGroup[x].idName! as NSString)).isEqual(to: drawnWaypoints[i].idName!)) {
                     found = true
                 }
             }
@@ -133,7 +153,7 @@ public class WaypointManager {
         self.drawnWaypoints = drawnWaypoints
     }
     
-    func checkY(i : Int, x : Int) -> Bool {
+    func checkY(_ i : Int, x : Int) -> Bool {
         //xmax1 >= xmin2 and xmax2 >= xmin1
         let realYSizeX = drawnWaypoints[x].ySize// * 5/3
         let realYSizeI = drawnWaypoints[i].ySize// * 5/3
@@ -149,7 +169,7 @@ public class WaypointManager {
         return false
     }
     
-    func checkX(i : Int, x : Int) -> Bool {
+    func checkX(_ i : Int, x : Int) -> Bool {
         //xmax1 >= xmin2 and xmax2 >= xmin1
         let realXSizeX = drawnWaypoints[x].xSize // * 5/2
         let realXSizeI = drawnWaypoints[i].xSize // * 5/2

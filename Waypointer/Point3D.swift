@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class Point3D {
+open class Point3D {
     
-    public var xPos : Double
-    public var yPos : Double
-    public var zPos : Double
+    open var xPos : Double
+    open var yPos : Double
+    open var zPos : Double
     
     init(xPos1 : Double, yPos1 : Double, zPos1 : Double) {
         self.xPos = xPos1

@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-public class AddButton : StandardAddButton {
+open class AddButton : StandardAddButton {
     
     var myMath = MyMath()
     var manage : WaypointManager?
@@ -25,7 +25,7 @@ public class AddButton : StandardAddButton {
         super.init(coder: aDecoder)
     }
     
-    override func pressed(sender: UIButton!) {
+    override func pressed(_ sender: UIButton!) {
         super.pressed(sender)
         classes.cantRecal = true
         handleLatitude()
@@ -33,9 +33,9 @@ public class AddButton : StandardAddButton {
     }
     
     func handleLatitude() {
-        let alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.alert)
         var yDeg : Double = 0.0
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
             let textf = alert.textFields![0] as UITextField
             if(textf.text != "") {
                 yDeg = Double((textf.text! as NSString).doubleValue)
@@ -45,17 +45,17 @@ public class AddButton : StandardAddButton {
             }
             
         }))
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+        alert.addTextField(configurationHandler: {(textField: UITextField) in
             textField.placeholder = "52.723"
-            textField.secureTextEntry = false
+            textField.isSecureTextEntry = false
         })
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func handleLongitude(yDeg: Double) {
+    func handleLongitude(_ yDeg: Double) {
         var xDeg = 0.0
-        let alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Longitude Degree Amount", preferredStyle: UIAlertControllerStyle.Alert)
-        alert2.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+        let alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Longitude Degree Amount", preferredStyle: UIAlertControllerStyle.alert)
+        alert2.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
             let textf = alert2.textFields![0] as UITextField
             if(textf.text != "") {
                 xDeg = Double((textf.text! as NSString).doubleValue)
@@ -64,18 +64,18 @@ public class AddButton : StandardAddButton {
                 self.finish()
             }
         }))
-        alert2.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+        alert2.addTextField(configurationHandler: {(textField: UITextField) in
             textField.placeholder = "45.1281"
-            textField.secureTextEntry = false
+            textField.isSecureTextEntry = false
         })
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert2, animated: true, completion: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert2, animated: true, completion: nil)
     }
     
-    func handleHeight(xDeg: Double, yDeg: Double) {
+    func handleHeight(_ xDeg: Double, yDeg: Double) {
         var zHeight = manage!.personZ
         
-        let alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Height of the Location", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+        let alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Height of the Location", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
             let textf = alert.textFields![0] as UITextField
             if(textf.text != "") {
                 zHeight = Double((textf.text! as NSString).doubleValue)
@@ -84,16 +84,16 @@ public class AddButton : StandardAddButton {
                 self.finish()
             }
         }))
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+        alert.addTextField(configurationHandler: {(textField: UITextField) in
             textField.placeholder = "45"
-            textField.secureTextEntry = false
+            textField.isSecureTextEntry = false
         })
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func handleName(xDeg: Double, yDeg: Double, zHeight: Double) {
-        let alert4 = UIAlertController(title: "Waypoint Creator", message: "Enter Name", preferredStyle: UIAlertControllerStyle.Alert)
-        alert4.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+    func handleName(_ xDeg: Double, yDeg: Double, zHeight: Double) {
+        let alert4 = UIAlertController(title: "Waypoint Creator", message: "Enter Name", preferredStyle: UIAlertControllerStyle.alert)
+        alert4.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
             let textf = alert4.textFields![0] as UITextField
             if(textf.text != "") {
                 let name = textf.text!
@@ -103,10 +103,10 @@ public class AddButton : StandardAddButton {
                 self.finish()
             }
         }))
-        alert4.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+        alert4.addTextField(configurationHandler: {(textField: UITextField) in
             textField.placeholder = "Work"
-            textField.secureTextEntry = false
+            textField.isSecureTextEntry = false
         })
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert4, animated: true, completion: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert4, animated: true, completion: nil)
     }
 }

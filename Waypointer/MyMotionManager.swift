@@ -9,7 +9,7 @@
 import Foundation
 import CoreMotion
 
-public class MyMotionManager {
+open class MyMotionManager {
     
     var myView : ViewController?
     var manage : WaypointManager?
@@ -25,8 +25,8 @@ public class MyMotionManager {
         motionManager = CMMotionManager()
         self.myView = myView
         self.manage = manage
-        if motionManager!.gyroAvailable {
-            if motionManager!.gyroActive == false {
+        if motionManager!.isGyroAvailable {
+            if motionManager!.isGyroActive == false {
                 motionManager!.deviceMotionUpdateInterval = 0.02;
                 motionManager!.startDeviceMotionUpdates()
                 motionManager!.gyroUpdateInterval = 0.02
@@ -51,8 +51,8 @@ public class MyMotionManager {
         motionManager = nil
     }
     
-    func setMotionManagerThread(motionManager : CMMotionManager) {
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.currentQueue()!) {
+    func setMotionManagerThread(_ motionManager : CMMotionManager) {
+        motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) {
             [weak self] (motion, error) in
             self!.lastPitch = motion!.attitude.pitch
             if(self!.motionStage1Or2) {
@@ -77,8 +77,8 @@ public class MyMotionManager {
         return false
     }
     
-    func manageMotion(attitude : CMAttitude) {
-        attitude.multiplyByInverseOfAttitude(startAttitude)
+    func manageMotion(_ attitude : CMAttitude) {
+        attitude.multiply(byInverseOf: startAttitude)
         let realVertAngle = cos(attitude.roll) * attitude.pitch - sin(attitude.roll) * attitude.yaw
         manage!.vertAngle = realVertAngle - vertSubtract!
     }

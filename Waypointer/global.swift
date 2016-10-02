@@ -15,8 +15,8 @@ public struct classes {
     
     //System Derived
     
-    static public var screenWidth = Double(UIScreen.mainScreen().bounds.width) //Final
-    static public var screenHeight = Double(UIScreen.mainScreen().bounds.height) //Final
+    static public var screenWidth = Double(UIScreen.main.bounds.width) //Final
+    static public var screenHeight = Double(UIScreen.main.bounds.height) //Final
     static public var screenDiameter = 0.0
     //AppDelegate to ViewController
     

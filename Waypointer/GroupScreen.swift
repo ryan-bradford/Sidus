@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class GroupScreen : UIButton {
+open class GroupScreen : UIButton {
     
     var buttons : Array<GroupButton>?
     var manage : WaypointManager?
@@ -31,7 +31,7 @@ public class GroupScreen : UIButton {
         buttons = Array<GroupButton>()
         self.viewController = viewController
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
-        self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
+        self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), for: UIControlEvents.touchUpInside);
         buttonLimit = Int(floor((self.frame.height / 2) - 20) / ((CGFloat(self.frame.height - 20.0)) / classes.groupsPerCollum)) * Int(classes.groupsPerRow)
         for i in 0 ..< self.manage!.groups.count {
             buttons!.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
@@ -43,7 +43,7 @@ public class GroupScreen : UIButton {
         self.backgroundColor = (UIColor(red: 1, green: 1, blue: 1, alpha: 0.3))
     }
     
-    func addGroup(toAdd: WaypointGroup) {
+    func addGroup(_ toAdd: WaypointGroup) {
         if(manage!.groups.count < buttonLimit!) {
             manage!.groups.append(toAdd)
             let id = manage!.groups.count - 1
@@ -53,8 +53,8 @@ public class GroupScreen : UIButton {
     }
     
     func currentLocationGroup() {
-        let alert = UIAlertController(title: "Current Location Name", message: "What do you want to call your current location?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler:{ (alertAction:UIAlertAction) in
+        let alert = UIAlertController(title: "Current Location Name", message: "What do you want to call your current location?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
             let textf1 = alert.textFields![0] as UITextField
             let name = textf1.text
             let currentWaypoint = Waypoint(xPos: self.manage!.personX, yPos: self.manage!.personY, zPos: self.manage!.personZ, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), displayName: name!, cameraAngleX: self.cameraAngleX!, cameraAngleY: self.cameraAngleY!, manage: self.manage!)
@@ -63,25 +63,25 @@ public class GroupScreen : UIButton {
             self.addGroup(group)
             self.currentLocButton?.finish()
         }))
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField) in
+        alert.addTextField(configurationHandler: {(textField: UITextField) in
                 textField.placeholder = "My Car"
-                textField.secureTextEntry = false
+                textField.isSecureTextEntry = false
         })
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
 
         let message1  = "Press Which Group You Want to Add or Remove" + "\n" + "(tap screen to dismiss)"
         let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
         
-        let fieldColor: UIColor = UIColor.blackColor()
+        let fieldColor: UIColor = UIColor.black
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.Center
+        paraStyle.alignment = NSTextAlignment.center
         paraStyle.lineSpacing = 6.0
         let skew = 0.1
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 5, length: 2))
+        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 5, length: 2))
         
         let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
@@ -90,14 +90,14 @@ public class GroupScreen : UIButton {
             NSFontAttributeName: fieldFont!
         ]
         let countString = (message.length)
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
+        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 0, length: countString))
         message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
         //let toSubtract = CGFloat(countString / 2 * 7)
-        message.drawInRect(CGRectMake(CGFloat(0), CGFloat(classes.screenHeight - 120.0), 300.0, 120.0))
+        message.draw(in: CGRect(x: CGFloat(0), y: CGFloat(classes.screenHeight - 120.0), width: 300.0, height: 120.0))
         
     }
     
-    func pressed(sender: UIButton!) {
+    func pressed(_ sender: UIButton!) {
         viewController?.hideGroupScreen()
     }
     

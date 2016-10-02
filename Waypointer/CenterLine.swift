@@ -9,18 +9,18 @@
 import Foundation
 import UIKit
 
-public class CenterLine : UIView{
+open class CenterLine : UIView{
     
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: classes.screenWidth, height: 5))
-        self.backgroundColor = UIColor.greenColor()
+        self.backgroundColor = UIColor.green
     }
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
     
-    func setY(Y  : Int) {
+    func setY(_ Y  : Int) {
         self.frame = CGRect(x: 0.0, y: Double(Y), width: classes.screenWidth, height: 5)
     }
     

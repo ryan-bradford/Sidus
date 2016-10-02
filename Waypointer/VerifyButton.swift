@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class VerifyButton : UIButton {
+open class VerifyButton : UIButton {
     
     var redVal = 1.0
     var blueVal = 1.0
@@ -17,12 +17,12 @@ public class VerifyButton : UIButton {
     var canContinue = false
     
     public init() {
-        super.init(frame: CGRectMake(0, 0, CGFloat(classes.screenWidth), CGFloat(classes.screenHeight)))
-        self.addTarget(self, action: #selector(VerifyButton.pressed(_:)), forControlEvents: .TouchUpInside)
+        super.init(frame: CGRect(x: 0, y: 0, width: CGFloat(classes.screenWidth), height: CGFloat(classes.screenHeight)))
+        self.addTarget(self, action: #selector(VerifyButton.pressed(_:)), for: .touchUpInside)
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         drawMessage("Hold the Device Vertically Then Tap The Screen", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 10)
         //drawMessage("Key : ", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 190.0)
         drawMessage("G = Add A Group", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 160.0)
@@ -31,17 +31,17 @@ public class VerifyButton : UIButton {
         drawMessage("For Best Results, Spin the Phone Around A Bit", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 200.0)
     }
     
-    func drawMessage(message2 : String, X : CGFloat, Y : CGFloat) {
+    func drawMessage(_ message2 : String, X : CGFloat, Y : CGFloat) {
         let message1  = message2
         let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
         
-        let fieldColor: UIColor = UIColor.blackColor()
+        let fieldColor: UIColor = UIColor.black
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.Center
+        paraStyle.alignment = NSTextAlignment.center
         paraStyle.lineSpacing = 6.0
         let skew = 0.1
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 5, length: 2))
+        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 5, length: 2))
         
         let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
@@ -50,11 +50,11 @@ public class VerifyButton : UIButton {
             NSFontAttributeName: fieldFont!
         ]
         let countString = (message.length)
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(25)], range: NSRange(location: 0, length: countString))
-        message.addAttributes(attributes as [NSObject : AnyObject] as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
+        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 0, length: countString))
+        message.addAttributes(attributes as! [AnyHashable: Any] as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
         //let toSubtract = CGFloat(countString / 2 * 7)
         //classes.screenWidth / 2) - toSubtract) + 10
-        message.drawInRect(CGRectMake(X, Y, 300.0, 60.0))
+        message.draw(in: CGRect(x: X, y: Y, width: 300.0, height: 60.0))
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -62,7 +62,7 @@ public class VerifyButton : UIButton {
         super.init(coder: aDecoder)
     }
     
-    func pressed(sender: UIButton!) {
+    func pressed(_ sender: UIButton!) {
 
             self.canContinue = true
             redVal = 0

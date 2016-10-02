@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-public class GreyTintScreen : UIView {
+open class GreyTintScreen : UIView {
     
     var redVal = 1.0
     var blueVal = 1.0

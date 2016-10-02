@@ -38,8 +38,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var myMath : MyMath?
     var reader : WaypointReader?
     
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-        classes.screenDiameter = Double(sqrt(pow(UIScreen.mainScreen().bounds.width,2) + pow(UIScreen.mainScreen().bounds.height,2)))
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
+        classes.screenDiameter = Double(sqrt(pow(UIScreen.main.bounds.width,2) + pow(UIScreen.main.bounds.height,2)))
         groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
@@ -55,7 +55,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        classes.screenDiameter = Double(sqrt(pow(UIScreen.mainScreen().bounds.width,2) + pow(UIScreen.mainScreen().bounds.height,2)))
+        classes.screenDiameter = Double(sqrt(pow(UIScreen.main.bounds.width,2) + pow(UIScreen.main.bounds.height,2)))
         groups = Array<WaypointGroup>()
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
         groupScreen = nil
@@ -75,23 +75,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
-    override func viewWillAppear(anim : Bool) {
+    override func viewWillAppear(_ anim : Bool) {
         //sleep(1)
         initStage1()
         startThread()
     }
     
     func startThread() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        DispatchQueue.global().async {
             while(self.isAbleToRun) {
                 usleep(20000)
                 if(classes.isInForeground && self.initIsFinished && self.buttonsAreGood()) {
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         self.updateVars()
                         self.manage.orderWaypoints()
                         self.updateWaypoints()
@@ -146,8 +145,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func updateWaypoints() {
-        for i in (self.manage.drawnWaypoints.reverse()) {
-            i.drawRect(self.view.frame)
+        for i in (self.manage.drawnWaypoints.reversed()) {
+            i.draw(self.view.frame)
             if(!i.drawn) {
                 self.view.addSubview(i)
                 i.drawn = true
@@ -238,8 +237,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func initCameraFeed() { //TO STUDY
         let captureSession = AVCaptureSession()
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = AVLayerVideoGravityResize //TO STUDY
-        if let videoDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
+        previewLayer?.videoGravity = AVLayerVideoGravityResize //TO STUDY
+        if let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) {
             //videoDevice.activeFormat.highResolutionStillImageDimensions
             var cameraRatio = 1.0
             var cameraHeight = 1.0
@@ -282,8 +281,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.view.addSubview(cannotRun)
         }
         captureSession.startRunning()
-        previewLayer.frame = self.view.bounds
-        self.view.layer.addSublayer(previewLayer)
+        previewLayer?.frame = self.view.bounds
+        self.view.layer.addSublayer(previewLayer!)
     }
     
     //<- Device Parts Init
@@ -301,11 +300,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager!.locationManager!.startUpdatingHeading()
         self.centerLine.setY(Int(classes.screenHeight / 2))
         self.view.addSubview(activeLine)
-        activeLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        activeLine.draw(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.view.addSubview(centerLine)
-        centerLine.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        centerLine.draw(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
         self.view.addSubview(verifyButton!)
-        verifyButton!.drawRect(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
+        verifyButton!.draw(CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
     }
     
     func inAppRecalibrate() {
@@ -337,7 +336,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func checkResume(canRun: Bool) {
+    func checkResume(_ canRun: Bool) {
         if (!self.isAbleToRun) && canRun && classes.isInForeground {
             self.cannotRun.removeFromSuperview()
             isAbleToRun = true

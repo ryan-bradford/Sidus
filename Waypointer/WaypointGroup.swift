@@ -9,18 +9,18 @@
 import Foundation
 
 
-public class WaypointGroup {
+open class WaypointGroup {
     
-    public var waypoints :  Array<Waypoint>
-    public var name : String
-    public var active = false
+    open var waypoints :  Array<Waypoint>
+    open var name : String
+    open var active = false
     
     init(name : String) {
         waypoints = Array<Waypoint>()
         self.name = name
     }
     
-    public func addWaypoint(toAdd : Waypoint) {
+    open func addWaypoint(_ toAdd : Waypoint) {
         waypoints.append(toAdd)
     }
     

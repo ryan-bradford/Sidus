@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-public class StandardAddButton : UIButton {
+open class StandardAddButton : UIButton {
     
     var redVal = 0.5
     var blueVal = 0.5
@@ -19,54 +19,54 @@ public class StandardAddButton : UIButton {
     var myLetter : String?
     
     public init(myLetter : String, orderNum : Int) {
-        super.init(frame: CGRectMake(5, CGFloat(orderNum * (classes.buttonOutlineWidth + classes.buttonGap)), classes.addButtonDimension, classes.addButtonDimension))
+        super.init(frame: CGRect(x: 5, y: CGFloat(orderNum * (classes.buttonOutlineWidth + classes.buttonGap)), width: classes.addButtonDimension, height: classes.addButtonDimension))
         self.myLetter = myLetter
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), for: .touchUpInside)
     }
     
     public init(myLetter : String, y : CGFloat, width: CGFloat, height: CGFloat) {
-        super.init(frame: CGRectMake(5, y, width, height))
+        super.init(frame: CGRect(x: 5, y: y, width: width, height: height))
         self.myLetter = myLetter
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), for: .touchUpInside)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override public func drawRect(rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         removeAllGraphics()
         let shape = CAShapeLayer()
         self.layer.addSublayer(shape)
         shape.opacity = 1
         shape.lineWidth = 1
         shape.lineJoin = kCALineJoinMiter
-        shape.fillColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: CGFloat(0.5)).CGColor
+        shape.fillColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: CGFloat(0.5)).cgColor
         let path = UIBezierPath()
         let width = CGFloat(classes.buttonWidth)
         let startX = CGFloat(classes.buttonStart) * rect.width / classes.addButtonDimension
         let startY = CGFloat(classes.buttonStart) * rect.height / classes.addButtonDimension
         let sideLengthW = CGFloat(classes.buttonLength) * rect.width / classes.addButtonDimension
         let sideLengthH = CGFloat(classes.buttonLength) * rect.height / classes.addButtonDimension
-        path.moveToPoint(CGPoint(x: startX, y: startY + sideLengthH))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY + sideLengthH))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY + sideLengthH))
-        path.addLineToPoint(CGPoint(x: startX + 2 * sideLengthW + width, y: startY + sideLengthH))
-        path.addLineToPoint(CGPoint(x: startX + 2 * sideLengthW + width, y: startY + sideLengthH + width))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY + sideLengthH + width))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW + width, y: startY + 2 * sideLengthH + width))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY + 2 * sideLengthH + width))
-        path.addLineToPoint(CGPoint(x: startX + sideLengthW, y: startY + sideLengthH + width))
-        path.addLineToPoint(CGPoint(x: startX, y: startY + sideLengthH + width))
-        path.closePath()
-        shape.path = path.CGPath
+        path.move(to: CGPoint(x: startX, y: startY + sideLengthH))
+        path.addLine(to: CGPoint(x: startX + sideLengthW, y: startY + sideLengthH))
+        path.addLine(to: CGPoint(x: startX + sideLengthW, y: startY))
+        path.addLine(to: CGPoint(x: startX + sideLengthW + width, y: startY))
+        path.addLine(to: CGPoint(x: startX + sideLengthW + width, y: startY + sideLengthH))
+        path.addLine(to: CGPoint(x: startX + 2 * sideLengthW + width, y: startY + sideLengthH))
+        path.addLine(to: CGPoint(x: startX + 2 * sideLengthW + width, y: startY + sideLengthH + width))
+        path.addLine(to: CGPoint(x: startX + sideLengthW + width, y: startY + sideLengthH + width))
+        path.addLine(to: CGPoint(x: startX + sideLengthW + width, y: startY + 2 * sideLengthH + width))
+        path.addLine(to: CGPoint(x: startX + sideLengthW, y: startY + 2 * sideLengthH + width))
+        path.addLine(to: CGPoint(x: startX + sideLengthW, y: startY + sideLengthH + width))
+        path.addLine(to: CGPoint(x: startX, y: startY + sideLengthH + width))
+        path.close()
+        shape.path = path.cgPath
         
         let name = myLetter
-        let fieldColor: UIColor = UIColor.darkGrayColor()
+        let fieldColor: UIColor = UIColor.darkGray
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(9))
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.lineSpacing = 6.0
@@ -77,7 +77,7 @@ public class StandardAddButton : UIButton {
             NSObliquenessAttributeName: skew,
             NSFontAttributeName: fieldFont!
         ]
-        name!.drawInRect(CGRectMake(5, 0, 10, 10), withAttributes: attributes as [NSObject : AnyObject] as? [String : AnyObject])
+        name!.draw(in: CGRect(x: 5, y: 0, width: 10, height: 10), withAttributes: attributes as! [AnyHashable: Any] as? [String : AnyObject])
     }
     
     func removeAllGraphics() {
@@ -88,7 +88,7 @@ public class StandardAddButton : UIButton {
         }
     }
     
-    func pressed(sender: UIButton!) {
+    func pressed(_ sender: UIButton!) {
         redVal = 0
         blueVal = 0
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))

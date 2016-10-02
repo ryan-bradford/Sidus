@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-public class AddGroup : StandardAddButton {
+open class AddGroup : StandardAddButton {
     
     var viewController: ViewController?
     var showGroupScreen = false
@@ -24,7 +24,7 @@ public class AddGroup : StandardAddButton {
         super.init(coder: aDecoder)
     }
     
-    override func pressed(sender: UIButton!) {
+    override func pressed(_ sender: UIButton!) {
         viewController?.showGroupScreen()
     }
 }

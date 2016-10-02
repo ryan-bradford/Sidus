@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Line {
+open class Line {
     
     var length : Double
     var start : Point3D

@@ -41,11 +41,11 @@ class GroupButton : UIButton {
         width = (Int(classes.screenWidth)) / Int(numPerRow) - 25
         height = (Int(screenHeight) / Int(numPerCollom) - 12)
         super.init(frame: CGRect(x: xCord, y: yCord, width: width, height: height));
-        self.addTarget(self, action: #selector(GroupButton.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
+        self.addTarget(self, action: #selector(GroupButton.pressed(_:)), for: UIControlEvents.touchUpInside);
         self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
     }
     
-    func pressed(sender: UIButton!) {
+    func pressed(_ sender: UIButton!) {
         shouldRedraw = false
         self.manage.groups[myID].active = !self.manage.groups[myID].active
         if(!self.manage.groups[myID].active) {
@@ -55,7 +55,7 @@ class GroupButton : UIButton {
                     if(i.myID == self.manage.drawnWaypoints[x].myID) {
                         self.manage.drawnWaypoints[x].removeFromSuperview()
                         self.manage.drawnWaypoints[x].drawn = false
-                        self.manage.drawnWaypoints.removeAtIndex(x)
+                        self.manage.drawnWaypoints.remove(at: x)
                         i.removeFromSuperview()
                         break
                     }
@@ -69,7 +69,7 @@ class GroupButton : UIButton {
         shouldRedraw = true
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let width = CGFloat(classes.screenWidth - 80) / CGFloat(numPerRow)
         let stringDraw = UILabel(frame: CGRect(x: 2, y: CGFloat(1), width: width, height: 20))
         stringDraw.text = self.manage.groups[myID].name

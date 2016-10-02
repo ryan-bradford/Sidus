@@ -9,14 +9,14 @@
 import Foundation
 import Darwin
 
-public class MyMath {
+open class MyMath {
     
     
     public init() {
         
     }
     
-    func findSmallestAngle(angle : Double, currentFOV: Double) -> Double {
+    func findSmallestAngle(_ angle : Double, currentFOV: Double) -> Double {
         var calc = angle
         if(calc > M_PI - currentFOV) {
             calc = calc -  M_PI * 2
@@ -30,7 +30,7 @@ public class MyMath {
         }
     }
     
-    func degreesToFeet(angle : Double) -> Double {
+    func degreesToFeet(_ angle : Double) -> Double {
         let kiloScaler = Double(10000/90)
         let kilos = angle * kiloScaler
         let feetScaler = 3280.84
@@ -38,7 +38,7 @@ public class MyMath {
         return feet
     }
     
-    func getMyAverage(nums : Array<Double>, placeToRoundTo : Double) -> Double {
+    func getMyAverage(_ nums : Array<Double>, placeToRoundTo : Double) -> Double {
         var heighestCount = 0.0
         var heighestID = 0.0
         var currentCount = 0.0
