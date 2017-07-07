@@ -32,18 +32,18 @@ open class Line {
         let adjcent = getYLength()
         var tanValue: Double
         if(adjcent == 0) {
-            tanValue = M_PI / 2
+            tanValue = .pi / 2
         } else {
             tanValue = atan(abs(opposite) / abs(adjcent));//Expands upon the swift trig functions
         }
         if(opposite < 0 && adjcent < 0) {									//Allows for more accurate
-            return M_PI + tanValue;
+            return .pi + tanValue;
         }
         if(opposite < 0) {
-            return M_PI * 2 - tanValue;
+            return .pi * 2 - tanValue;
         }
         if(adjcent < 0) {
-            return M_PI - tanValue;
+            return .pi - tanValue;
         }
         return tanValue;
     }

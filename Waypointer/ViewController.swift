@@ -259,8 +259,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 let scaleFactor = 1 - (((classes.screenHeight * cameraWidth / classes.screenWidth) - cameraHeight) / cameraHeight)
                 cameraAngleY *= scaleFactor
             }
-            cameraAngleX *= (M_PI / 180)
-            cameraAngleY *= (M_PI / 180)
+            cameraAngleX *= (.pi / 180)
+            cameraAngleY *= (.pi / 180)
             myMath = MyMath()
             let videoIn : AVCaptureDeviceInput?
             do {

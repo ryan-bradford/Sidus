@@ -66,7 +66,7 @@ open class MyLocationManager : NSObject, CLLocationManagerDelegate {
                             let text: AnyObject? = alert.textFields?[0]
                             if let textf = text as? UITextField {
                                 if let number = NumberFormatter().number(from: textf.text!) {
-                                    self.myView!.startFromNorth = (Double(number) - h2) * M_PI / 180
+                                    self.myView!.startFromNorth = (Double(number) - h2) * .pi / 180
                                 }
                             }
                             self.myView!.initIsFinished = true
@@ -85,8 +85,8 @@ open class MyLocationManager : NSObject, CLLocationManagerDelegate {
                 }
             }
         } else {
-            let toUse = -h2 * M_PI / 180 - horSubtract
-            if((abs(toUse - myView!.manage.horAngle)) < M_PI) {
+            let toUse = -h2 * .pi / 180 - horSubtract
+            if((abs(toUse - myView!.manage.horAngle)) < .pi) {
                 myView!.manage.horAngle = (myView!.manage.horAngle + (toUse)) / 2
             } else {
                 myView!.manage.horAngle = toUse

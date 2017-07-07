@@ -18,11 +18,11 @@ open class MyMath {
     
     func findSmallestAngle(_ angle : Double, currentFOV: Double) -> Double {
         var calc = angle
-        if(calc > M_PI - currentFOV) {
-            calc = calc -  M_PI * 2
+        if(calc > .pi - currentFOV) {
+            calc = calc -  .pi * 2
             return findSmallestAngle(calc, currentFOV: currentFOV)
-        } else if(calc < (-currentFOV - M_PI)) {
-            calc = calc + M_PI * 2
+        } else if(calc < (-currentFOV - .pi)) {
+            calc = calc + .pi * 2
             return findSmallestAngle(calc, currentFOV: currentFOV
             )
         } else {
