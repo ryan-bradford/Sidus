@@ -13,6 +13,8 @@
 		00C69E6F1F19560A0057A529 /* AddCordinateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E6E1F19560A0057A529 /* AddCordinateButton.swift */; };
 		00C69E711F1956280057A529 /* AddGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E701F1956280057A529 /* AddGroupButton.swift */; };
 		00C69E731F1956AF0057A529 /* AddAddressScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E721F1956AF0057A529 /* AddAddressScreen.swift */; };
+		00C69E761F195F470057A529 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E751F195F470057A529 /* CancelButton.swift */; };
+		00C69E781F195F510057A529 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E771F195F510057A529 /* DoneButton.swift */; };
 		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
 		943ED48B1B1E657C00AF96E9 /* AddressCodeReligated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */; };
 		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
@@ -58,6 +60,8 @@
 		00C69E6E1F19560A0057A529 /* AddCordinateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCordinateButton.swift; sourceTree = "<group>"; };
 		00C69E701F1956280057A529 /* AddGroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupButton.swift; sourceTree = "<group>"; };
 		00C69E721F1956AF0057A529 /* AddAddressScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressScreen.swift; sourceTree = "<group>"; };
+		00C69E751F195F470057A529 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
+		00C69E771F195F510057A529 /* DoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
 		943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCodeReligated.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 			children = (
 				9480A2091AE54BC9007F45BE /* AddButton.swift */,
 				000B6B241F156D8A006301AD /* AddScreen.swift */,
+				00C69E751F195F470057A529 /* CancelButton.swift */,
+				00C69E771F195F510057A529 /* DoneButton.swift */,
 			);
 			name = PrimiaryButtons;
 			sourceTree = "<group>";
@@ -396,9 +402,11 @@
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				949772BE1D11FDE800DF9331 /* CurrentLocationButton.swift in Sources */,
+				00C69E781F195F510057A529 /* DoneButton.swift in Sources */,
 				943ED48B1B1E657C00AF96E9 /* AddressCodeReligated.swift in Sources */,
 				947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */,
 				94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */,
+				00C69E761F195F470057A529 /* CancelButton.swift in Sources */,
 				9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,

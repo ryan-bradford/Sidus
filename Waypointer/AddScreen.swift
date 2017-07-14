@@ -18,9 +18,10 @@ public class AddScreen: UIView {
 	var addCordScreen: AddCordinateScreen!
 	var addGroupScreen: AddGroupScreen!
 	var addGroupButton: AddGroupButton!
-	var cancelButtion: UIButton!
-	var doneButton: UIButton!
-	var inset = CGFloat(20.0)
+	var cancelButtion: CancelButton!
+	var doneButton: DoneButton!
+	var xInset = CGFloat(20.0)
+	var yInset = CGFloat(20.0)
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -37,31 +38,36 @@ public class AddScreen: UIView {
 		super.init(coder: aDecoder)
 	}
 	
+	func getButtonHeight() -> CGFloat {
+		return (self.frame.height - yInset*2)/5
+	}
+	
 	func initCancelButton() {
-		cancelButtion = UIButton(frame: CGRect(x: inset, y: 0, width: self.frame.width - inset*2, height: self.frame.height/5))
+		cancelButtion = CancelButton(frame: CGRect(x: xInset, y: yInset, width: self.frame.width - xInset*2, height: getButtonHeight()))
 		self.addSubview(cancelButtion)
 	}
 	
-	func initDoneButton() {
-		doneButton = UIButton(frame: CGRect(x: inset, y: 4*self.frame.height/5, width: self.frame.width - 2*inset, height: self.frame.height/5))
-		self.addSubview(doneButton)
-	}
-	
-	func initAddCordinateButton() {
-		addCordButton = AddCordinateButton(frame: CGRect(x: inset, y: 3*self.frame.height/5, width: self.frame.width - 2*inset, height: self.frame.height/5))
-		self.addSubview(addCordButton)
-	}
-	
 	func initAddAddressButton() {
-		addAddressButton = AddAddressButton(frame: CGRect(x: inset, y: self.frame.height/5, width: self.frame.width - 2*inset, height: self.frame.height/5))
+		addAddressButton = AddAddressButton(frame: CGRect(x: xInset, y: getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
 		self.addSubview(addAddressButton)
 	}
 	
 	func initAddGroupButton() {
-		addGroupButton = AddGroupButton(frame: CGRect(x: inset, y: 2*self.frame.height/5, width: self.frame.width - 2*inset, height: self.frame.height/5))
+		addGroupButton = AddGroupButton(frame: CGRect(x: xInset, y: 2*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
 		self.addSubview(addGroupButton)
-
+		
 	}
+	
+	func initAddCordinateButton() {
+		addCordButton = AddCordinateButton(frame: CGRect(x: xInset, y: 3*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
+		self.addSubview(addCordButton)
+	}
+	
+	func initDoneButton() {
+		doneButton = DoneButton(frame: CGRect(x: xInset, y: 4*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
+		self.addSubview(doneButton)
+	}
+
 	
 	func transitionToCordinate() {
 		

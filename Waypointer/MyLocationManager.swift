@@ -34,17 +34,19 @@ open class MyLocationManager : NSObject, CLLocationManagerDelegate {
     }
     
     open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let latitude = Double(manager.location!.coordinate.latitude)
-        let longitude = Double(manager.location!.coordinate.longitude)
-        let altitude = manager.location!.altitude
-        let feetZ = altitude * 3.28084
-        myView!.manage.changePersonLocation(myView!.myMath!.degreesToFeet(longitude), yPos: myView!.myMath!.degreesToFeet(latitude), zPos: feetZ) //To Reverse
-        if(timesLocationRecorded == 0) {
-            myView!.initStage2()
-        }
-        timesLocationRecorded += 1
+		if(myView!.manage != nil) {
+			let latitude = Double(manager.location!.coordinate.latitude)
+			let longitude = Double(manager.location!.coordinate.longitude)
+			let altitude = manager.location!.altitude
+			let feetZ = altitude * 3.28084
+			myView!.manage.changePersonLocation(myView!.myMath!.degreesToFeet(longitude), yPos: myView!.myMath!.degreesToFeet(latitude), zPos: feetZ) //To Reverse
+		}
+		if(timesLocationRecorded == 0) {
+			myView!.initStage2()
+		}
+		timesLocationRecorded += 1
     }
-    
+	
     open func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
         if(stageOne) {

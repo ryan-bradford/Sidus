@@ -28,8 +28,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var initIsFinished = false //Set to true when the heading is set
     var lastTimeInAppReset = CACurrentMediaTime()
     //These Are Kinda In Order
-    var groups : Array<WaypointGroup> //Just Blank
-    internal var manage : WaypointManager
+    var groups : Array<WaypointGroup>! //Just Blank
+    internal var manage : WaypointManager!
     var groupScreen : AddGroupScreen?
     var addButton : AddButton?
     var verifyButton : VerifyButton?
@@ -37,16 +37,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var reader : WaypointReader?
     
     required init?(coder aDecoder: NSCoder) {
-        classes.screenDiameter = Double(sqrt(pow(UIScreen.main.bounds.width,2) + pow(UIScreen.main.bounds.height,2)))
-        groups = Array<WaypointGroup>()
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
-        groupScreen = nil
-        addButton = nil
-        self.verifyButton = nil
-        myMath = nil
-        reader = nil
-        motionManager = nil
-        locationManager = nil
         super.init(coder: aDecoder)
     }
     
@@ -60,7 +50,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(_ anim : Bool) {
-        //sleep(1)
         initStage1()
         startThread()
     }
@@ -72,17 +61,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 if(classes.isInForeground && self.initIsFinished && self.buttonsAreGood()) {
                     DispatchQueue.main.async {
                         self.updateVars()
-                        self.manage.orderWaypoints()
+                        self.manage!.orderWaypoints()
                         self.updateWaypoints()
                     }
                 }
             }
         }
     }
+	
     //Periodic Processing ->
     
     func updateVars() {
-        self.manage.generateVars()
+        self.manage!.generateVars()
     }
     
     func buttonsAreGood() -> Bool {
@@ -99,7 +89,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //Periodic Graphics ->
     
     func updateWaypoints() {
-        for i in (self.manage.drawnWaypoints.reversed()) {
+        for i in (self.manage!.drawnWaypoints.reversed()) {
             i.draw(self.view.frame)
             if(!i.drawn) {
                 self.view.addSubview(i)
@@ -111,7 +101,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //<- Periodic Graphics
     
     func removeWaypoints() {
-        for i in 0 ..< self.manage.drawnWaypoints.count {
+        for i in 0 ..< self.manage!.drawnWaypoints.count {
             self.manage.drawnWaypoints[i].removeFromSuperview()
             self.manage.drawnWaypoints[i].drawn = false
         }
@@ -130,7 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         for v in self.view.subviews {
             v.removeFromSuperview()
         }
-        for i in self.manage.drawnWaypoints {
+        for i in self.manage!.drawnWaypoints {
                 i.drawn = false
         }
     }
@@ -138,6 +128,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //Init Stages ->
     
     func initStage1() {
+		groups = Array<WaypointGroup>()
+		manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
         classes.cantRecal = true
         initCameraFeed()
         if(isAbleToRun) {
@@ -149,8 +141,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage2()  {
         if(isAbleToRun) {
-            tint.removeFromSuperview()
-            motionManager = MyMotionManager(myView: self, manage: manage)
+            motionManager = MyMotionManager(myView: self, manage: manage!)
         }
         if(isAbleToRun) {
             self.centerLine.setY(Int(classes.screenHeight / 2))
@@ -170,6 +161,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 				addButton = AddButton(manager: manage, frame: CGRect(x: 0, y: 0, width: 100, height: 100), fullFrame: self.view.frame)
             }
             motionManager!.motionStage1Or2 = false
+			tint.removeFromSuperview()
             verifyButton!.removeFromSuperview()
             showAllButtons()
             self.activeLine.removeFromSuperview()

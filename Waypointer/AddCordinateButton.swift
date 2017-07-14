@@ -13,7 +13,7 @@ public class AddCordinateButton: UIButton {
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.backgroundColor = UIColor.blue
+		self.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {

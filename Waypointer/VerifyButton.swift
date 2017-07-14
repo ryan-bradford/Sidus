@@ -20,8 +20,7 @@ open class VerifyButton : UIButton {
         super.init(frame: CGRect(x: 0, y: 0, width: CGFloat(classes.screenWidth), height: CGFloat(classes.screenHeight)))
         self.addTarget(self, action: #selector(VerifyButton.pressed(_:)), for: .touchUpInside)
         //self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-		initBlur()
-	}
+    }
     
     override open func draw(_ rect: CGRect) {
         drawMessage("Hold the Device Vertically Then Tap The Screen", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 10)
@@ -71,13 +70,6 @@ open class VerifyButton : UIButton {
             self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
 	}
 	
-	func initBlur() {
-		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-		let blurEffectView = UIVisualEffectView(effect: blurEffect)
-		blurEffectView.frame = self.bounds
-		blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.addSubview(blurEffectView)
-	}
     
     
 }
