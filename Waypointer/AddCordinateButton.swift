@@ -1,5 +1,5 @@
 //
-//  AddAddressScreen.swift
+//  AddCordinateButton.swift
 //  waypointr
 //
 //  Created by Ryan Bradford on 7/14/17.
@@ -9,15 +9,16 @@
 import Foundation
 import UIKit
 
-public class AddAddressButton: UIButton {
+public class AddCordinateButton: UIButton {
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.backgroundColor = UIColor.green
+		self.backgroundColor = UIColor.blue
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
+	
 	
 }

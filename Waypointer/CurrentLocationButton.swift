@@ -1,6 +1,6 @@
 //
 //  CurrentLocationButton.swift
-//  Sidus
+//  waypointr
 //
 //  Created by Ryan on 6/15/16.
 //  Copyright © 2016 Ryan. All rights reserved.
@@ -11,18 +11,17 @@ import UIKit
 
 open class CurrentLocationButton: UIButton {
     
-    var groups: GroupScreen?
+    var groups: AddGroupScreen?
     var redVal = 0.5
     var blueVal = 0.5
     var greenVal = 0.5
     var alphaVal = 0.3
     
-    public init(groups : GroupScreen) {
+    public init(groups : AddGroupScreen) {
         self.groups = groups
         super.init(frame: CGRect(x: 5, y: groups.frame.height / 2, width: groups.frame.width - 10, height: classes.addButtonDimension))
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
-        self.addTarget(self, action: #selector(AddGroup.pressed(_:)), for: .touchUpInside)
-
+        self.addTarget(self, action: #selector(CurrentLocationButton.pressed(_:)), for: .touchUpInside)
     }
     
     required public init(coder aDecoder: NSCoder) {

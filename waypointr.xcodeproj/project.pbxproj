@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		940DF6DA1B2C858300552527 /* StandardAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940DF6D91B2C858300552527 /* StandardAddButton.swift */; };
-		941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC5F1AE70F360089EF3B /* AddGroup.swift */; };
+		000B6B251F156D8A006301AD /* AddScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000B6B241F156D8A006301AD /* AddScreen.swift */; };
+		00C69E6B1F1955F40057A529 /* AddCordinateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E6A1F1955F40057A529 /* AddCordinateScreen.swift */; };
+		00C69E6D1F1956000057A529 /* AddAddressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E6C1F1956000057A529 /* AddAddressButton.swift */; };
+		00C69E6F1F19560A0057A529 /* AddCordinateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E6E1F19560A0057A529 /* AddCordinateButton.swift */; };
+		00C69E711F1956280057A529 /* AddGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E701F1956280057A529 /* AddGroupButton.swift */; };
+		00C69E731F1956AF0057A529 /* AddAddressScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E721F1956AF0057A529 /* AddAddressScreen.swift */; };
 		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
-		943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */; };
+		943ED48B1B1E657C00AF96E9 /* AddressCodeReligated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */; };
 		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
 		947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947146E61C29FEEB00397A99 /* WaypointReader.swift */; };
 		9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1E81AE54BAB007F45BE /* AppDelegate.swift */; };
@@ -31,7 +35,7 @@
 		949772BE1D11FDE800DF9331 /* CurrentLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */; };
 		949CA03B1B803A92006BA3EA /* groups.txt in Resources */ = {isa = PBXBuildFile; fileRef = 949CA03A1B803A92006BA3EA /* groups.txt */; };
 		94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF40441B507A020052E347 /* GreyTintScreen.swift */; };
-		94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */; };
+		94C6E1001B38C04200F6FA08 /* AddGroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E0FF1B38C04200F6FA08 /* AddGroupScreen.swift */; };
 		94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C6E1011B38C08E00F6FA08 /* GroupButton.swift */; };
 		94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */; };
 		94D5E8E41C5482680080C61B /* MyLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D5E8E31C5482680080C61B /* MyLocationManager.swift */; };
@@ -48,20 +52,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		940DF6D91B2C858300552527 /* StandardAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardAddButton.swift; sourceTree = "<group>"; };
-		941DAC5F1AE70F360089EF3B /* AddGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroup.swift; sourceTree = "<group>"; };
+		000B6B241F156D8A006301AD /* AddScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddScreen.swift; sourceTree = "<group>"; };
+		00C69E6A1F1955F40057A529 /* AddCordinateScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCordinateScreen.swift; sourceTree = "<group>"; };
+		00C69E6C1F1956000057A529 /* AddAddressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressButton.swift; sourceTree = "<group>"; };
+		00C69E6E1F19560A0057A529 /* AddCordinateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCordinateButton.swift; sourceTree = "<group>"; };
+		00C69E701F1956280057A529 /* AddGroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupButton.swift; sourceTree = "<group>"; };
+		00C69E721F1956AF0057A529 /* AddAddressScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressScreen.swift; sourceTree = "<group>"; };
 		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
-		943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressButton.swift; sourceTree = "<group>"; };
+		943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCodeReligated.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
 		947146E61C29FEEB00397A99 /* WaypointReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointReader.swift; sourceTree = "<group>"; };
-		9480A1E31AE54BAB007F45BE /* Waypointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waypointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9480A1E31AE54BAB007F45BE /* waypointr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = waypointr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1E71AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1E81AE54BAB007F45BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Waypointer/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		9480A1EA1AE54BAB007F45BE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Waypointer/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		9480A1ED1AE54BAB007F45BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9480A1EF1AE54BAB007F45BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Waypointer/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		9480A1F21AE54BAB007F45BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9480A1F81AE54BAB007F45BE /* Waypointer.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Waypointer.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9480A1F81AE54BAB007F45BE /* waypointr.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = waypointr.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480A1FD1AE54BAB007F45BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9480A1FE1AE54BAB007F45BE /* SidusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SidusTests.swift; path = WaypointerTests/SidusTests.swift; sourceTree = SOURCE_ROOT; };
 		9480A2091AE54BC9007F45BE /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
@@ -76,7 +84,7 @@
 		949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationButton.swift; sourceTree = "<group>"; };
 		949CA03A1B803A92006BA3EA /* groups.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = groups.txt; path = Waypointer/groups.txt; sourceTree = SOURCE_ROOT; };
 		94AF40441B507A020052E347 /* GreyTintScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyTintScreen.swift; sourceTree = "<group>"; };
-		94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupScreen.swift; sourceTree = "<group>"; };
+		94C6E0FF1B38C04200F6FA08 /* AddGroupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupScreen.swift; sourceTree = "<group>"; };
 		94C6E1011B38C08E00F6FA08 /* GroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupButton.swift; sourceTree = "<group>"; };
 		94D5E8E11C5477EF0080C61B /* MyMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMotionManager.swift; sourceTree = "<group>"; };
 		94D5E8E31C5482680080C61B /* MyLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLocationManager.swift; sourceTree = "<group>"; };
@@ -100,25 +108,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00C69E681F1955CE0057A529 /* AddressWaypoint */ = {
+			isa = PBXGroup;
+			children = (
+				943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */,
+				00C69E6C1F1956000057A529 /* AddAddressButton.swift */,
+				00C69E721F1956AF0057A529 /* AddAddressScreen.swift */,
+			);
+			name = AddressWaypoint;
+			sourceTree = "<group>";
+		};
+		00C69E691F1955D90057A529 /* CordinateWaypoint */ = {
+			isa = PBXGroup;
+			children = (
+				00C69E6A1F1955F40057A529 /* AddCordinateScreen.swift */,
+				00C69E6E1F19560A0057A529 /* AddCordinateButton.swift */,
+			);
+			name = CordinateWaypoint;
+			sourceTree = "<group>";
+		};
+		00C69E741F19589B0057A529 /* GroupButtons */ = {
+			isa = PBXGroup;
+			children = (
+				94C6E1011B38C08E00F6FA08 /* GroupButton.swift */,
+				949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */,
+			);
+			name = GroupButtons;
+			sourceTree = "<group>";
+		};
 		943F4D501B39EDA000A1EBCF /* PrimiaryButtons */ = {
 			isa = PBXGroup;
 			children = (
-				940DF6D91B2C858300552527 /* StandardAddButton.swift */,
 				9480A2091AE54BC9007F45BE /* AddButton.swift */,
-				941DAC5F1AE70F360089EF3B /* AddGroup.swift */,
-				943ED48A1B1E657C00AF96E9 /* AddAddressButton.swift */,
+				000B6B241F156D8A006301AD /* AddScreen.swift */,
 			);
 			name = PrimiaryButtons;
 			sourceTree = "<group>";
 		};
-		943F4D511B39EDD200A1EBCF /* SecondaryButtons */ = {
+		943F4D511B39EDD200A1EBCF /* GroupManagement */ = {
 			isa = PBXGroup;
 			children = (
-				94C6E0FF1B38C04200F6FA08 /* GroupScreen.swift */,
-				94C6E1011B38C08E00F6FA08 /* GroupButton.swift */,
-				949772BD1D11FDE800DF9331 /* CurrentLocationButton.swift */,
+				00C69E741F19589B0057A529 /* GroupButtons */,
+				94C6E0FF1B38C04200F6FA08 /* AddGroupScreen.swift */,
+				00C69E701F1956280057A529 /* AddGroupButton.swift */,
 			);
-			name = SecondaryButtons;
+			name = GroupManagement;
 			sourceTree = "<group>";
 		};
 		9480A1DA1AE54BAB007F45BE = {
@@ -133,8 +167,8 @@
 		9480A1E41AE54BAB007F45BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9480A1E31AE54BAB007F45BE /* Waypointer.app */,
-				9480A1F81AE54BAB007F45BE /* Waypointer.xctest */,
+				9480A1E31AE54BAB007F45BE /* waypointr.app */,
+				9480A1F81AE54BAB007F45BE /* waypointr.xctest */,
 			);
 			name = Products;
 			sourceTree = SOURCE_ROOT;
@@ -190,7 +224,9 @@
 		9480A2081AE54BC0007F45BE /* UIStuff */ = {
 			isa = PBXGroup;
 			children = (
-				943F4D511B39EDD200A1EBCF /* SecondaryButtons */,
+				00C69E691F1955D90057A529 /* CordinateWaypoint */,
+				00C69E681F1955CE0057A529 /* AddressWaypoint */,
+				943F4D511B39EDD200A1EBCF /* GroupManagement */,
 				943F4D501B39EDA000A1EBCF /* PrimiaryButtons */,
 				94616B391AE54F3700904114 /* VerifyButton.swift */,
 				9494B2741B5058730038D3B6 /* CannotRunScreen.swift */,
@@ -245,9 +281,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9480A1E21AE54BAB007F45BE /* Waypointer */ = {
+		9480A1E21AE54BAB007F45BE /* waypointr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "Waypointer" */;
+			buildConfigurationList = 9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "waypointr" */;
 			buildPhases = (
 				9480A1DF1AE54BAB007F45BE /* Sources */,
 				9480A1E01AE54BAB007F45BE /* Frameworks */,
@@ -257,14 +293,14 @@
 			);
 			dependencies = (
 			);
-			name = Waypointer;
+			name = waypointr;
 			productName = Waypointer;
-			productReference = 9480A1E31AE54BAB007F45BE /* Waypointer.app */;
+			productReference = 9480A1E31AE54BAB007F45BE /* waypointr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9480A1F71AE54BAB007F45BE /* WaypointerTests */ = {
+		9480A1F71AE54BAB007F45BE /* waypointrTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "WaypointerTests" */;
+			buildConfigurationList = 9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "waypointrTests" */;
 			buildPhases = (
 				9480A1F41AE54BAB007F45BE /* Sources */,
 				9480A1F51AE54BAB007F45BE /* Frameworks */,
@@ -275,9 +311,9 @@
 			dependencies = (
 				9480A1FA1AE54BAB007F45BE /* PBXTargetDependency */,
 			);
-			name = WaypointerTests;
+			name = waypointrTests;
 			productName = WaypointerTests;
-			productReference = 9480A1F81AE54BAB007F45BE /* Waypointer.xctest */;
+			productReference = 9480A1F81AE54BAB007F45BE /* waypointr.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -303,7 +339,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "Waypointer" */;
+			buildConfigurationList = 9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "waypointr" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -316,8 +352,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9480A1E21AE54BAB007F45BE /* Waypointer */,
-				9480A1F71AE54BAB007F45BE /* WaypointerTests */,
+				9480A1E21AE54BAB007F45BE /* waypointr */,
+				9480A1F71AE54BAB007F45BE /* waypointrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -349,28 +385,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				9480A20D1AE54BED007F45BE /* Waypoint.swift in Sources */,
-				94C6E1001B38C04200F6FA08 /* GroupScreen.swift in Sources */,
+				94C6E1001B38C04200F6FA08 /* AddGroupScreen.swift in Sources */,
 				9494B2771B505F1D0038D3B6 /* CenterLine.swift in Sources */,
+				00C69E6F1F19560A0057A529 /* AddCordinateButton.swift in Sources */,
 				9480A20A1AE54BC9007F45BE /* AddButton.swift in Sources */,
 				94D5E8E41C5482680080C61B /* MyLocationManager.swift in Sources */,
 				94AF40451B507A020052E347 /* GreyTintScreen.swift in Sources */,
+				00C69E731F1956AF0057A529 /* AddAddressScreen.swift in Sources */,
 				9480A1EB1AE54BAB007F45BE /* ViewController.swift in Sources */,
 				9480A2191AE54C7D007F45BE /* global.swift in Sources */,
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				949772BE1D11FDE800DF9331 /* CurrentLocationButton.swift in Sources */,
-				943ED48B1B1E657C00AF96E9 /* AddAddressButton.swift in Sources */,
+				943ED48B1B1E657C00AF96E9 /* AddressCodeReligated.swift in Sources */,
 				947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */,
 				94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */,
 				9494B2751B5058730038D3B6 /* CannotRunScreen.swift in Sources */,
 				9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */,
 				9480A20F1AE54C08007F45BE /* WaypointManager.swift in Sources */,
+				00C69E6D1F1956000057A529 /* AddAddressButton.swift in Sources */,
 				941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */,
 				94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */,
 				9480A2171AE54C65007F45BE /* Line.swift in Sources */,
-				940DF6DA1B2C858300552527 /* StandardAddButton.swift in Sources */,
 				9480A2121AE54C30007F45BE /* MyMath.swift in Sources */,
-				941DAC601AE70F360089EF3B /* AddGroup.swift in Sources */,
 				9480A2151AE54C58007F45BE /* Point3D.swift in Sources */,
+				00C69E711F1956280057A529 /* AddGroupButton.swift in Sources */,
+				00C69E6B1F1955F40057A529 /* AddCordinateScreen.swift in Sources */,
+				000B6B251F156D8A006301AD /* AddScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +427,7 @@
 /* Begin PBXTargetDependency section */
 		9480A1FA1AE54BAB007F45BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9480A1E21AE54BAB007F45BE /* Waypointer */;
+			target = 9480A1E21AE54BAB007F45BE /* waypointr */;
 			targetProxy = 9480A1F91AE54BAB007F45BE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -514,7 +554,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanb3.Sidus;
-				PRODUCT_NAME = Waypointer;
+				PRODUCT_NAME = waypointr;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -533,7 +573,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanb3.Sidus;
-				PRODUCT_NAME = Waypointer;
+				PRODUCT_NAME = waypointr;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -555,9 +595,9 @@
 				INFOPLIST_FILE = WaypointerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Waypointer;
+				PRODUCT_NAME = waypointr;
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waypointer.app/Waypointer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/waypointr.app/waypointr";
 			};
 			name = Debug;
 		};
@@ -572,16 +612,16 @@
 				INFOPLIST_FILE = WaypointerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Waypointer;
+				PRODUCT_NAME = waypointr;
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Waypointer.app/Waypointer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/waypointr.app/waypointr";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "Waypointer" */ = {
+		9480A1DE1AE54BAB007F45BE /* Build configuration list for PBXProject "waypointr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9480A2001AE54BAB007F45BE /* Debug */,
@@ -590,7 +630,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "Waypointer" */ = {
+		9480A2021AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "waypointr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9480A2031AE54BAB007F45BE /* Debug */,
@@ -599,7 +639,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "WaypointerTests" */ = {
+		9480A2051AE54BAB007F45BE /* Build configuration list for PBXNativeTarget "waypointrTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9480A2061AE54BAB007F45BE /* Debug */,

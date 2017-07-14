@@ -1,6 +1,6 @@
 //
 //  GroupScreen.swift
-//  Sidus
+//  waypointr
 //
 //  Created by Ryan on 6/22/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-open class GroupScreen : UIButton {
+open class AddGroupScreen : UIButton {
     
     var buttons : Array<GroupButton>?
     var manage : WaypointManager?
@@ -31,7 +31,7 @@ open class GroupScreen : UIButton {
         buttons = Array<GroupButton>()
         self.viewController = viewController
         super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
-        self.addTarget(self, action: #selector(GroupScreen.pressed(_:)), for: UIControlEvents.touchUpInside);
+        self.addTarget(self, action: #selector(AddGroupScreen.pressed(_:)), for: UIControlEvents.touchUpInside);
         buttonLimit = Int(floor((self.frame.height / 2) - 20) / ((CGFloat(self.frame.height - 20.0)) / classes.groupsPerCollum)) * Int(classes.groupsPerRow)
         for i in 0 ..< self.manage!.groups.count {
             buttons!.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
@@ -98,7 +98,6 @@ open class GroupScreen : UIButton {
     }
     
     func pressed(_ sender: UIButton!) {
-        viewController?.hideGroupScreen()
     }
     
 }

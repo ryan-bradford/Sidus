@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-               BuildableName = "Waypointer.app"
-               BlueprintName = "Waypointer"
-               ReferencedContainer = "container:Waypointer.xcodeproj">
+               BuildableName = "waypointr.app"
+               BlueprintName = "waypointr"
+               ReferencedContainer = "container:waypointr.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9480A1F71AE54BAB007F45BE"
-               BuildableName = "Waypointer.xctest"
-               BlueprintName = "WaypointerTests"
-               ReferencedContainer = "container:Waypointer.xcodeproj">
+               BuildableName = "waypointr.xctest"
+               BlueprintName = "waypointrTests"
+               ReferencedContainer = "container:waypointr.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-            BuildableName = "Waypointer.app"
-            BlueprintName = "Waypointer"
-            ReferencedContainer = "container:Waypointer.xcodeproj">
+            BuildableName = "waypointr.app"
+            BlueprintName = "waypointr"
+            ReferencedContainer = "container:waypointr.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-            BuildableName = "Waypointer.app"
-            BlueprintName = "Waypointer"
-            ReferencedContainer = "container:Waypointer.xcodeproj">
+            BuildableName = "waypointr.app"
+            BlueprintName = "waypointr"
+            ReferencedContainer = "container:waypointr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9480A1E21AE54BAB007F45BE"
-            BuildableName = "Waypointer.app"
-            BlueprintName = "Waypointer"
-            ReferencedContainer = "container:Waypointer.xcodeproj">
+            BuildableName = "waypointr.app"
+            BlueprintName = "waypointr"
+            ReferencedContainer = "container:waypointr.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

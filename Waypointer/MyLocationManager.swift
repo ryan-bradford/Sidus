@@ -1,6 +1,6 @@
 //
 //  MyLocationManager.swift
-//  Sidus
+//  waypointr
 //
 //  Created by Ryan on 1/23/16.
 //  Copyright © 2016 Ryan. All rights reserved.

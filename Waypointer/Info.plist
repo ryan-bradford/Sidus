@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Waypointer</string>
+	<string>waypointr</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,6 +28,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We use the camera to show you where the waypoints are on the screen. </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to know your location to place the chosen waypoints on your screen.</string>
 	<key>UILaunchStoryboardName</key>

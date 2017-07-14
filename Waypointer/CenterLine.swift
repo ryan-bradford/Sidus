@@ -1,6 +1,6 @@
 //
 //  CenterLine.swift
-//  Sidus
+//  waypointr
 //
 //  Created by Ryan on 7/10/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Sidus
+//  waypointr
 //
 //  Created by Ryan on 4/20/15.
 //  Copyright (c) 2015 Ryan. All rights reserved.
@@ -30,29 +30,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //These Are Kinda In Order
     var groups : Array<WaypointGroup> //Just Blank
     internal var manage : WaypointManager
-    var groupScreen : GroupScreen?
+    var groupScreen : AddGroupScreen?
     var addButton : AddButton?
-    var addGroupButton : AddGroup?
     var verifyButton : VerifyButton?
-    var addressButton : AddAddressButton?
     var myMath : MyMath?
     var reader : WaypointReader?
-    
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
-        classes.screenDiameter = Double(sqrt(pow(UIScreen.main.bounds.width,2) + pow(UIScreen.main.bounds.height,2)))
-        groups = Array<WaypointGroup>()
-        manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, groups: groups, startFromNorth: startFromNorth)
-        groupScreen = nil
-        addButton = nil
-        self.verifyButton = nil
-        addressButton = nil
-        myMath = nil
-        reader = nil
-        motionManager = nil
-        locationManager = nil
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        addGroupButton = AddGroup(viewController: self)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         classes.screenDiameter = Double(sqrt(pow(UIScreen.main.bounds.width,2) + pow(UIScreen.main.bounds.height,2)))
@@ -61,13 +43,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         groupScreen = nil
         addButton = nil
         self.verifyButton = nil
-        addressButton = nil
         myMath = nil
         reader = nil
         motionManager = nil
         locationManager = nil
         super.init(coder: aDecoder)
-        addGroupButton = AddGroup(viewController: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,32 +98,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //Periodic Graphics ->
     
-    func showGroupScreen() {
-        self.view.addSubview(self.groupScreen!)
-        addGroupButton!.showGroupScreen = false
-        self.hideAllButtons()
-    }
-    
-    func hideGroupScreen() {
-        self.showAllButtons()
-        self.groupScreen!.removeFromSuperview()
-        groupScreen!.goAwayGroupScreen = false
-    }
-    
-    func manageGroupScreen() {
-        if(addGroupButton!.showGroupScreen) {
-            self.view.addSubview(self.groupScreen!)
-            addGroupButton!.showGroupScreen = false
-            self.hideAllButtons()
-        }
-        if(groupScreen!.goAwayGroupScreen) {
-            self.showAllButtons()
-            self.groupScreen!.removeFromSuperview()
-            groupScreen!.goAwayGroupScreen = false
-        }
-    }
-    
-    
     func updateWaypoints() {
         for i in (self.manage.drawnWaypoints.reversed()) {
             i.draw(self.view.frame)
@@ -166,14 +120,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func showAllButtons() {
         self.view.addSubview(addButton!)
-        self.view.addSubview(addressButton!)
-        self.view.addSubview(addGroupButton!)
     }
     
     func hideAllButtons() {
         addButton!.removeFromSuperview()
-        addressButton!.removeFromSuperview()
-        addGroupButton!.removeFromSuperview()
     }
     
     func removeAllGraphics() {
@@ -216,9 +166,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             if(groupScreen == nil) {
                 reader = WaypointReader(cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, startFromNorth: startFromNorth, manage: manage)
                 reader!.readGroups()
-                groupScreen = GroupScreen( manage: manage, viewController: self)
-                addButton = AddButton(manager: manage)
-                addressButton = AddAddressButton(manager: manage)
+                groupScreen = AddGroupScreen( manage: manage, viewController: self)
+				addButton = AddButton(manager: manage, frame: CGRect(x: 0, y: 0, width: 100, height: 100), fullFrame: self.view.frame)
             }
             motionManager!.motionStage1Or2 = false
             verifyButton!.removeFromSuperview()
@@ -323,8 +272,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.startFromNorth = -1.0
         locationManager!.stageOne = true
         self.verifyButton = VerifyButton()
-        addGroupButton!.removeFromSuperview()
-        addressButton!.removeFromSuperview()
         addButton!.removeFromSuperview()
     }
     
@@ -341,8 +288,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.cannotRun.removeFromSuperview()
             isAbleToRun = true
             self.view.addSubview(addButton!)
-            self.view.addSubview(addGroupButton!)
-            self.view.addSubview(addressButton!)
             startThread()
         }
     }

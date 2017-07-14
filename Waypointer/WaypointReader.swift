@@ -1,6 +1,6 @@
 //
 //  WaypointReader.swift
-//  Sidus
+//  waypointr
 //
 //  Created by Ryan on 12/22/15.
 //  Copyright © 2015 Ryan. All rights reserved.
