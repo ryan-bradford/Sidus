@@ -27,7 +27,7 @@ open class CannotRunScreen : UIView {
         
     }
     
-    func drawMessage(_ message : String, X : CGFloat, Y : CGFloat) {
+    override func drawMessage(_ message : String, X : CGFloat, Y : CGFloat) {
         
         let _ = drawTextWithNoBox(X, y: Y, width: CGFloat(classes.screenWidth), toDraw: message, fontSize: 25)
         
@@ -35,34 +35,6 @@ open class CannotRunScreen : UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    func drawTextWithNoBox(_ x: CGFloat, y: CGFloat, width: CGFloat, toDraw: String, fontSize: CGFloat) -> CGFloat {
-        let message: NSMutableAttributedString = NSMutableAttributedString(string: toDraw)
-        
-        let fieldColor: UIColor = UIColor.black
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(fontSize))
-        let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.center
-        
-        let attributes: NSDictionary = [
-            NSForegroundColorAttributeName: fieldColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            NSFontAttributeName: fieldFont!
-        ]
-        let countString = (message.length)
-        message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
-        let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFont(ofSize: 25), toGet: toDraw)
-        message.draw(in: CGRect(x: x, y: y, width: width, height: textHeight))
-        return textHeight
-    }
-    
-    func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont, toGet: String) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        
-        let boundingBox = toGet.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-        
-        return boundingBox.height
     }
     
 }

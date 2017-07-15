@@ -158,7 +158,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 reader = WaypointReader(cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, startFromNorth: startFromNorth, manage: manage)
                 reader!.readGroups()
                 groupScreen = AddGroupScreen( manage: manage, viewController: self)
-				addButton = AddButton(manager: manage, frame: CGRect(x: 0, y: 0, width: 100, height: 100), fullFrame: self.view.frame)
+				addButton = AddButton(manager: manage, frame: CGRect(x: 0, y: 0, width: 100, height: 100), viewController: self)
             }
             motionManager!.motionStage1Or2 = false
 			tint.removeFromSuperview()

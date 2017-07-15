@@ -76,7 +76,8 @@ open class AddGroupScreen : UIButton {
         let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
         
         let fieldColor: UIColor = UIColor.black
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
+		
+        let fieldFont = UIFont(name: "Symbol", size: CGFloat(25))
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.alignment = NSTextAlignment.center
         paraStyle.lineSpacing = 6.0

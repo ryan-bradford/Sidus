@@ -19,7 +19,7 @@ open class VerifyButton : UIButton {
     public init() {
         super.init(frame: CGRect(x: 0, y: 0, width: CGFloat(classes.screenWidth), height: CGFloat(classes.screenHeight)))
         self.addTarget(self, action: #selector(VerifyButton.pressed(_:)), for: .touchUpInside)
-        //self.backgroundColor = UIColor(red: CGFloat(redVal), green: 1, blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
+        self.backgroundColor = UIColor.clear
     }
     
     override open func draw(_ rect: CGRect) {
@@ -31,39 +31,12 @@ open class VerifyButton : UIButton {
         drawMessage("For Best Results, Spin the Phone Around A Bit", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 200.0)
     }
     
-    func drawMessage(_ message2 : String, X : CGFloat, Y : CGFloat) {
-        let message1  = message2
-        let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
-        
-        let fieldColor: UIColor = UIColor.black
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
-        let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.center
-        paraStyle.lineSpacing = 6.0
-        let skew = 0.1
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 5, length: 2))
-        
-        let attributes: NSDictionary = [
-            NSForegroundColorAttributeName: fieldColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            NSObliquenessAttributeName: skew,
-            NSFontAttributeName: fieldFont!
-        ]
-        let countString = (message.length)
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 0, length: countString))
-        message.addAttributes(attributes as! [AnyHashable: Any] as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
-        //let toSubtract = CGFloat(countString / 2 * 7)
-        //classes.screenWidth / 2) - toSubtract) + 10
-        message.draw(in: CGRect(x: X, y: Y, width: 300.0, height: 60.0))
-    }
-    
     required public init?(coder aDecoder: NSCoder) {
         self.canContinue = true
         super.init(coder: aDecoder)
     }
     
     func pressed(_ sender: UIButton!) {
-
             self.canContinue = true
             redVal = 0
             blueVal = 0.4

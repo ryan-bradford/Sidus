@@ -61,28 +61,14 @@ open class MyLocationManager : NSObject, CLLocationManagerDelegate {
                     myView!.manage.startFromNorth = myView!.startFromNorth
                     myView!.manage.updateStartFromNorth()
                     if !classes.isInForeground {
+						usleep(250000)
                         myView!.initStage3()
-                        let message = "We Have Detected You Are "  + Int(round(h2)).description + " Degrees From North, Press OK You Agree, or Override"
-                        let alert = UIAlertController(title: "Waypoint Creator", message: message, preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
-                            let text: AnyObject? = alert.textFields?[0]
-                            if let textf = text as? UITextField {
-                                if let number = NumberFormatter().number(from: textf.text!) {
-                                    self.myView!.startFromNorth = (Double(number) - h2) * .pi / 180
-                                }
-                            }
-                            self.myView!.initIsFinished = true
-                            classes.isInForeground = true
-                            classes.cantRecal = false
-                            self.stageOne = false
-                            self.myView!.lastTimeInAppReset = CACurrentMediaTime()
-                            //self.locationManager!.headingFilter = 1.0
-                        }))
-                        alert.addTextField(configurationHandler: {(textField: UITextField) in
-                            textField.placeholder = ""
-                            textField.isSecureTextEntry = false
-                        })
-                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+						self.myView!.initIsFinished = true
+						classes.isInForeground = true
+						classes.cantRecal = false
+						self.stageOne = false
+						self.myView!.lastTimeInAppReset = CACurrentMediaTime()
+						//self.locationManager!.headingFilter = 1.0
                     }
                 }
             }

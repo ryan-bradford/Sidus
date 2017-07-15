@@ -31,7 +31,7 @@ open class CurrentLocationButton: UIButton {
     override open func draw(_ rect: CGRect) {
         let name = "Current Location"
         let fieldColor: UIColor = UIColor.black
-        let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(25))
+        let fieldFont = UIFont(name: "Symbol", size: CGFloat(25))
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.lineSpacing = 6.0
         paraStyle.alignment = NSTextAlignment.center

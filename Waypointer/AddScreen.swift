@@ -43,7 +43,7 @@ public class AddScreen: UIView {
 	}
 	
 	func initCancelButton() {
-		cancelButtion = CancelButton(frame: CGRect(x: xInset, y: yInset, width: self.frame.width - xInset*2, height: getButtonHeight()))
+		cancelButtion = CancelButton(frame: CGRect(x: xInset, y: yInset, width: self.frame.width - xInset*2, height: getButtonHeight()), superScreen: self)
 		self.addSubview(cancelButtion)
 	}
 	
@@ -87,5 +87,11 @@ public class AddScreen: UIView {
 		blurEffectView.frame = self.bounds
 		blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		self.addSubview(blurEffectView)
+	}
+	
+	func slideSelfUp() {
+		UIView.animate(withDuration: 0.5, animations: {
+			self.frame.origin.y -= self.frame.height
+		})
 	}
 }

@@ -14,11 +14,11 @@ open class AddButton : UIButton {
     
     var myMath = MyMath()
     var manage : WaypointManager?
-	var fullFrame: CGRect!
+	var viewController: ViewController!
     
-	public init(manager : WaypointManager, frame: CGRect, fullFrame: CGRect) {
+	init(manager : WaypointManager, frame: CGRect, viewController: ViewController) {
         self.manage = manager
-		self.fullFrame = fullFrame
+		self.viewController = viewController
 		super.init(frame: frame)
 		self.backgroundColor = UIColor.red
         myMath = MyMath()
@@ -31,12 +31,11 @@ open class AddButton : UIButton {
     
 	
 	func pressed(_ sender: UIButton!) {
-		print("Pressed")
-		let newFrame = CGRect(x: fullFrame.origin.x, y: -fullFrame.height, width: fullFrame.width, height: fullFrame.height)
+		let newFrame = CGRect(x: viewController.view.frame.origin.x, y: -viewController.view.frame.height, width: viewController.view.frame.width, height: viewController.view.frame.height)
 		let addScreen = AddScreen(frame: newFrame)
-		self.addSubview(addScreen)
+		viewController.view.addSubview(addScreen)
 		UIView.animate(withDuration: 0.5, animations: {
-			addScreen.frame = self.fullFrame
+			addScreen.frame = self.viewController.view.frame
 		})
 	}
 
@@ -117,4 +116,13 @@ open class AddButton : UIButton {
         })
         UIApplication.shared.keyWindow?.rootViewController?.present(alert4, animated: true, completion: nil)
     }
+	
+	override open func draw(_ rect: CGRect) {
+		let linePath = UIBezierPath()
+		linePath.move(to: CGPoint(x: 0, y: 0))
+		linePath.addLine(to: CGPoint(x: 100, y: 100))
+		linePath.addLine(to: CGPoint(x: 100, y: 0))
+		UIColor.black.set()
+		linePath.stroke()
+	}
 }
