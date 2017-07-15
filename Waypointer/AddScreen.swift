@@ -21,7 +21,7 @@ public class AddScreen: UIView {
 	var cancelButtion: CancelButton!
 	var doneButton: DoneButton!
 	var xInset = CGFloat(20.0)
-	var yInset = CGFloat(20.0)
+	var yInset = CGFloat(40.0)
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -79,14 +79,6 @@ public class AddScreen: UIView {
 	
 	func transitionToGroup() {
 		
-	}
-	
-	func initBlur() {
-		let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-		let blurEffectView = UIVisualEffectView(effect: blurEffect)
-		blurEffectView.frame = self.bounds
-		blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.addSubview(blurEffectView)
 	}
 	
 	func slideSelfUp() {

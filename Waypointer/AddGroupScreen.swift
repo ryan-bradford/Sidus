@@ -72,28 +72,10 @@ open class AddGroupScreen : UIButton {
     
     override open func draw(_ rect: CGRect) {
 
-        let message1  = "Press Which Group You Want to Add or Remove" + "\n" + "(tap screen to dismiss)"
-        let message: NSMutableAttributedString = NSMutableAttributedString(string: message1)
-        
-        let fieldColor: UIColor = UIColor.black
-		
-        let fieldFont = UIFont(name: "Symbol", size: CGFloat(25))
-        let paraStyle = NSMutableParagraphStyle()
-        paraStyle.alignment = NSTextAlignment.center
-        paraStyle.lineSpacing = 6.0
-        let skew = 0.1
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 5, length: 2))
-        
-        let attributes: NSDictionary = [
-            NSForegroundColorAttributeName: fieldColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            NSObliquenessAttributeName: skew,
-            NSFontAttributeName: fieldFont!
-        ]
-        let countString = (message.length)
-        message.addAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25)], range: NSRange(location: 0, length: countString))
-        message.addAttributes(attributes as! [String : AnyObject], range: NSRange(location: 0, length: countString) )
+        let message  = "Press Which Group You Want to Add or Remove" + "\n" + "(tap screen to dismiss)"
+	
         //let toSubtract = CGFloat(countString / 2 * 7)
+		self.drawTextWithBox(0, y: CGFloat(classes.screenHeight - 120.0), width: 300, height: 120, toDraw: message, fontSize: 25)
         message.draw(in: CGRect(x: CGFloat(0), y: CGFloat(classes.screenHeight - 120.0), width: 300.0, height: 120.0))
         
     }

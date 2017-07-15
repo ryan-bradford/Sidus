@@ -23,8 +23,6 @@ public struct classes {
     static public var isInForeground = false
     static public var cantRecal = true
     
-    
-    
     //Preferences
 
     static public var waypointTransparency = ( 255.0 ) //Final
@@ -41,4 +39,6 @@ public struct classes {
     
     static public var groupsPerCollum = CGFloat(15.0) //Final
     static public var groupsPerRow = CGFloat(3.0) //Final
+	
+	static public var FONT_NAME = "Thonburi"
 }

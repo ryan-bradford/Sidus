@@ -23,12 +23,12 @@ open class VerifyButton : UIButton {
     }
     
     override open func draw(_ rect: CGRect) {
-        drawMessage("Hold the Device Vertically Then Tap The Screen", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 10)
+		let drawSpace = (300.0)
+		var yToUse = CGFloat(classes.screenHeight / 2.0) + 10
+        yToUse += drawTextWithNoBox(CGFloat(classes.screenWidth / 2 - drawSpace/2), y: CGFloat(yToUse), width: CGFloat(drawSpace), toDraw: "Hold the Device Vertically Then Tap The Screen", fontSize: 25)
+		yToUse += CGFloat(100)
         //drawMessage("Key : ", X: 0, Y: CGFloat(classes.screenHeight / 2.0) - 190.0)
-        drawMessage("G = Add A Group", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 160.0)
-        drawMessage("A = Add An Address", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 130.0)
-        drawMessage("C = Add A Coordinate", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 100.0)
-        drawMessage("For Best Results, Spin the Phone Around A Bit", X: CGFloat(classes.screenWidth / 2 - 150.0), Y: CGFloat(classes.screenHeight / 2.0) + 200.0)
+		yToUse += drawTextWithNoBox(CGFloat(classes.screenWidth / 2 - drawSpace/2), y: CGFloat(yToUse), width: CGFloat(drawSpace), toDraw: "For Best Results, Spin the Phone Around A Bit", fontSize: 25)
     }
     
     required public init?(coder aDecoder: NSCoder) {

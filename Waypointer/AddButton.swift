@@ -20,9 +20,10 @@ open class AddButton : UIButton {
         self.manage = manager
 		self.viewController = viewController
 		super.init(frame: frame)
-		self.backgroundColor = UIColor.red
+		//self.backgroundColor = UIColor.red
         myMath = MyMath()
 		self.addTarget(self, action: #selector(AddButton.pressed(_:)), for: .touchUpInside)
+		//initBlur()
     }
 	
     required public init?(coder aDecoder: NSCoder) {
@@ -118,11 +119,23 @@ open class AddButton : UIButton {
     }
 	
 	override open func draw(_ rect: CGRect) {
-		let linePath = UIBezierPath()
-		linePath.move(to: CGPoint(x: 0, y: 0))
-		linePath.addLine(to: CGPoint(x: 100, y: 100))
-		linePath.addLine(to: CGPoint(x: 100, y: 0))
+		let lineWidth = CGFloat(3)
+		let linePath1 = UIBezierPath()
+		linePath1.move(to: CGPoint(x: 0, y: lineWidth))
+		linePath1.addLine(to: CGPoint(x: self.frame.width/2, y: self.frame.height-lineWidth))
+		linePath1.addLine(to: CGPoint(x: self.frame.width, y: lineWidth))
+		linePath1.lineJoinStyle = CGLineJoin.round
+		linePath1.lineWidth = lineWidth
+		
+		let linePath2 = UIBezierPath()
+		linePath2.move(to: CGPoint(x: self.frame.width/4, y: lineWidth))
+		linePath2.addLine(to: CGPoint(x: self.frame.width/2, y: (self.frame.height-lineWidth)/2))
+		linePath2.addLine(to: CGPoint(x: 3*self.frame.width/4, y: lineWidth))
+		linePath2.lineJoinStyle = CGLineJoin.round
+		linePath2.lineWidth = lineWidth
+		
 		UIColor.black.set()
-		linePath.stroke()
+		linePath1.stroke()
+		linePath2.stroke()
 	}
 }

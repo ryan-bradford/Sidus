@@ -22,7 +22,7 @@ public class AddGroupButton: UIView {
 	}
 	
 	public override func draw(_ rect: CGRect) {
-		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: "Add Group", fontSize: 40)
+		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: "Add Group", fontSize: 35)
 	}
 	
 	

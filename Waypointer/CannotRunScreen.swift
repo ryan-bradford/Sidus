@@ -27,7 +27,7 @@ open class CannotRunScreen : UIView {
         
     }
     
-    override func drawMessage(_ message : String, X : CGFloat, Y : CGFloat) {
+	override func drawMessage(_ message : String, X : CGFloat, Y : CGFloat) {
         
         let _ = drawTextWithNoBox(X, y: Y, width: CGFloat(classes.screenWidth), toDraw: message, fontSize: 25)
         

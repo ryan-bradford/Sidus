@@ -30,19 +30,7 @@ open class CurrentLocationButton: UIButton {
 
     override open func draw(_ rect: CGRect) {
         let name = "Current Location"
-        let fieldColor: UIColor = UIColor.black
-        let fieldFont = UIFont(name: "Symbol", size: CGFloat(25))
-        let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineSpacing = 6.0
-        paraStyle.alignment = NSTextAlignment.center
-        let skew = 0.1
-        let attributes: NSDictionary = [
-            NSForegroundColorAttributeName: fieldColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            NSObliquenessAttributeName: skew,
-            NSFontAttributeName: fieldFont!
-        ]
-        name.draw(in: CGRect(x: 0, y: 3, width: rect.width, height: rect.height), withAttributes: attributes as! [AnyHashable: Any] as? [String : AnyObject])
+		self.drawMessage(name, X: 0, Y: 3)
     }
     
     func pressed(_ sender: UIButton!) {

@@ -114,6 +114,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		006803D51F1A9FE100A15F45 /* Add Button */ = {
+			isa = PBXGroup;
+			children = (
+				9480A2091AE54BC9007F45BE /* AddButton.swift */,
+			);
+			name = "Add Button";
+			sourceTree = "<group>";
+		};
 		00C69E681F1955CE0057A529 /* AddressWaypoint */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +153,7 @@
 		943F4D501B39EDA000A1EBCF /* PrimiaryButtons */ = {
 			isa = PBXGroup;
 			children = (
-				9480A2091AE54BC9007F45BE /* AddButton.swift */,
+				006803D51F1A9FE100A15F45 /* Add Button */,
 				000B6B241F156D8A006301AD /* AddScreen.swift */,
 				00C69E751F195F470057A529 /* CancelButton.swift */,
 				00C69E771F195F510057A529 /* DoneButton.swift */,

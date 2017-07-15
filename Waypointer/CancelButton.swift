@@ -26,7 +26,7 @@ public class CancelButton: UIButton {
 	}
 	
 	public override func draw(_ rect: CGRect) {
-		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: "Cancel", fontSize: 65)
+		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: "Cancel", fontSize: 50)
 	}
 	
 	func pressed(_ sender: UIButton!) {

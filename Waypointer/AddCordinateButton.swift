@@ -21,7 +21,7 @@ public class AddCordinateButton: UIButton {
 	}
 	
 	public override func draw(_ rect: CGRect) {
-		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: "Add Cordinate", fontSize: 40)
+		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: "Add Cordinate", fontSize: 35)
 	}
 	
 	
