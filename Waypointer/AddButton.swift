@@ -33,108 +33,50 @@ open class AddButton : UIButton {
 	
 	func pressed(_ sender: UIButton!) {
 		let newFrame = CGRect(x: viewController.view.frame.origin.x, y: -viewController.view.frame.height, width: viewController.view.frame.width, height: viewController.view.frame.height)
-		let addScreen = AddScreen(frame: newFrame)
-		viewController.view.addSubview(addScreen)
-		UIView.animate(withDuration: 0.5, animations: {
-			addScreen.frame = self.viewController.view.frame
-		})
-	}
+		if(viewController.addScreen == nil) {
+			viewController.addScreen = AddScreen(frame: newFrame, manager: manage!, viewController: viewController)
+		}
+		viewController.view.addSubview(viewController.addScreen)
+		UIView.animate(withDuration: 0.2, animations: {
+			self.frame.origin.y += 15
+		}, completion: {
+			(value: Bool) in
+			UIView.animate(withDuration: 0.2, animations: {
+				self.frame.origin.y -= 15
+			}, completion: {
+				(value: Bool) in
 
-    func handleLatitude() {
-        let alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Latitude Degree Amount", preferredStyle: UIAlertControllerStyle.alert)
-        var yDeg : Double = 0.0
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
-            let textf = alert.textFields![0] as UITextField
-            if(textf.text != "") {
-                yDeg = Double((textf.text! as NSString).doubleValue)
-                self.handleLongitude(yDeg)
-            } else {
-                //self.finish()
-            }
-            
-        }))
-        alert.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "52.723"
-            textField.isSecureTextEntry = false
-        })
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
-    
-    func handleLongitude(_ yDeg: Double) {
-        var xDeg = 0.0
-        let alert2 = UIAlertController(title: "Waypoint Creator", message: "Enter The Longitude Degree Amount", preferredStyle: UIAlertControllerStyle.alert)
-        alert2.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
-            let textf = alert2.textFields![0] as UITextField
-            if(textf.text != "") {
-                xDeg = Double((textf.text! as NSString).doubleValue)
-                self.handleHeight(xDeg, yDeg: yDeg)
-            } else {
-                //self.finish()
-            }
-        }))
-        alert2.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "45.1281"
-            textField.isSecureTextEntry = false
-        })
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert2, animated: true, completion: nil)
-    }
-    
-    func handleHeight(_ xDeg: Double, yDeg: Double) {
-        var zHeight = manage!.personZ
-        
-        let alert = UIAlertController(title: "Waypoint Creator", message: "Enter The Height of the Location", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
-            let textf = alert.textFields![0] as UITextField
-            if(textf.text != "") {
-                zHeight = Double((textf.text! as NSString).doubleValue)
-                self.handleName(xDeg, yDeg: yDeg, zHeight: zHeight)
-            } else {
-                //self.finish()
-            }
-        }))
-        alert.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "45"
-            textField.isSecureTextEntry = false
-        })
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
-    
-    func handleName(_ xDeg: Double, yDeg: Double, zHeight: Double) {
-        let alert4 = UIAlertController(title: "Waypoint Creator", message: "Enter Name", preferredStyle: UIAlertControllerStyle.alert)
-        alert4.addAction(UIAlertAction(title: "Ok", style: .default, handler:{ (alertAction:UIAlertAction) in
-            let textf = alert4.textFields![0] as UITextField
-            if(textf.text != "") {
-                let name = textf.text!
-                self.manage!.addWaypoint(self.myMath.degreesToFeet(xDeg) , yPos : self.myMath.degreesToFeet(yDeg), zPos: zHeight, red: Int(arc4random_uniform(256)), green: Int(arc4random_uniform(256)), blue: Int(arc4random_uniform(256)), name: name)
-                //self.finish()
-            } else {
-                //self.finish()
-            }
-        }))
-        alert4.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "Work"
-            textField.isSecureTextEntry = false
-        })
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert4, animated: true, completion: nil)
-    }
+				UIView.animate(withDuration: 0.5, animations: {
+					
+					self.viewController.addScreen.frame = self.viewController.view.frame
+				})
+			})
+		})
+
+	}
 	
 	override open func draw(_ rect: CGRect) {
+		let scaleFactor = CGFloat(1.0/4.0)
+		let graphicWidth = self.frame.width*scaleFactor
+		let graphicHeight = self.frame.height*scaleFactor
+		let centerXShift = (self.frame.width - graphicWidth)/2
+		let centerYShift = CGFloat(25)
 		let lineWidth = CGFloat(3)
 		let linePath1 = UIBezierPath()
-		linePath1.move(to: CGPoint(x: 0, y: lineWidth))
-		linePath1.addLine(to: CGPoint(x: self.frame.width/2, y: self.frame.height-lineWidth))
-		linePath1.addLine(to: CGPoint(x: self.frame.width, y: lineWidth))
+		linePath1.move(to: CGPoint(x: centerXShift, y: centerYShift+lineWidth))
+		linePath1.addLine(to: CGPoint(x: centerXShift+graphicWidth/2, y: centerYShift+graphicHeight-lineWidth))
+		linePath1.addLine(to: CGPoint(x: centerXShift+graphicWidth, y: centerYShift+lineWidth))
 		linePath1.lineJoinStyle = CGLineJoin.round
 		linePath1.lineWidth = lineWidth
 		
 		let linePath2 = UIBezierPath()
-		linePath2.move(to: CGPoint(x: self.frame.width/4, y: lineWidth))
-		linePath2.addLine(to: CGPoint(x: self.frame.width/2, y: (self.frame.height-lineWidth)/2))
-		linePath2.addLine(to: CGPoint(x: 3*self.frame.width/4, y: lineWidth))
+		linePath2.move(to: CGPoint(x: centerXShift+graphicWidth/4, y: centerYShift+lineWidth))
+		linePath2.addLine(to: CGPoint(x: centerXShift+graphicWidth/2, y: centerYShift+(graphicHeight-lineWidth)/2))
+		linePath2.addLine(to: CGPoint(x: centerXShift+3*graphicWidth/4, y: centerYShift+lineWidth))
 		linePath2.lineJoinStyle = CGLineJoin.round
 		linePath2.lineWidth = lineWidth
 		
-		UIColor.black.set()
+		UIColor.white.set()
 		linePath1.stroke()
 		linePath2.stroke()
 	}

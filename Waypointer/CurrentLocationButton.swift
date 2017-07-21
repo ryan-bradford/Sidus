@@ -19,7 +19,7 @@ open class CurrentLocationButton: UIButton {
     
     public init(groups : AddGroupScreen) {
         self.groups = groups
-        super.init(frame: CGRect(x: 5, y: groups.frame.height / 2, width: groups.frame.width - 10, height: classes.addButtonDimension))
+        super.init(frame: CGRect(x: 5, y: groups.frame.height - 2*classes.addButtonDimension, width: groups.frame.width - 10, height: classes.addButtonDimension))
         self.backgroundColor = UIColor(red: CGFloat(redVal), green: CGFloat(greenVal), blue: CGFloat(blueVal), alpha: CGFloat(alphaVal))
         self.addTarget(self, action: #selector(CurrentLocationButton.pressed(_:)), for: .touchUpInside)
     }
@@ -30,7 +30,7 @@ open class CurrentLocationButton: UIButton {
 
     override open func draw(_ rect: CGRect) {
         let name = "Current Location"
-		self.drawMessage(name, X: 0, Y: 3)
+		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: name, fontSize: 25)
     }
     
     func pressed(_ sender: UIButton!) {

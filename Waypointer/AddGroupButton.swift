@@ -9,12 +9,20 @@
 import Foundation
 import UIKit
 
-public class AddGroupButton: UIView {
+public class AddGroupButton: UIButton {
 	
-	public override init(frame: CGRect) {
+	var superScreen: AddScreen!
+	
+	public init(frame: CGRect, superScreen: AddScreen) {
+		self.superScreen = superScreen
 		super.init(frame: frame)
 		self.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 0.5)
-		
+		self.addTarget(self, action: #selector(AddGroupButton.pressed(_:)), for: .touchUpInside)
+	}
+	
+	func pressed(_ sender: UIButton!) {
+		superScreen.activeView = superScreen.addGroupScreen
+		superScreen.transitionToMain()
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {

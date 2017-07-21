@@ -48,7 +48,7 @@ extension UIView {
 			NSFontAttributeName: fieldFont!
 		]
 		
-		let attbrMessage = NSAttributedString(string: toDraw, attributes: attributes as! [String : Any])
+		let attbrMessage = NSAttributedString(string: toDraw, attributes: attributes as? [String : Any])
 		
 		let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: fieldFont!, toGet: toDraw)
 		attbrMessage.draw(in: CGRect(x: x, y: y, width: width, height: textHeight))
@@ -58,7 +58,7 @@ extension UIView {
 	func drawTextWithBox(_ x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, toDraw: String, fontSize: CGFloat) {
 		let fieldFont = UIFont(name: "HelveticaNeue", size: CGFloat(fontSize))
 		let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: fieldFont!, toGet: toDraw)
-		drawTextWithNoBox(0, y: (height - textHeight)/2, width: width, toDraw: toDraw, fontSize: fontSize)
+		let _ = drawTextWithNoBox(0, y: (height - textHeight)/2, width: width, toDraw: toDraw, fontSize: fontSize)
 	}
 	
 	func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont, toGet: String) -> CGFloat {
@@ -80,6 +80,10 @@ extension UIView {
 		blurEffectView.frame = self.bounds
 		blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		self.addSubview(blurEffectView)
+	}
+	
+	func submitWaypoints() -> Bool {
+		return true
 	}
 	
 }

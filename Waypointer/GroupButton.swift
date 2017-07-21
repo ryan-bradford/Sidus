@@ -18,31 +18,30 @@ class GroupButton : UIButton {
     var numPerRow = classes.groupsPerRow
     var spaceNeeded = 80.0
     var manage : WaypointManager
-    var goAwayGroupScreen : Bool
     var shouldRedraw = true
+	var superRect: CGRect!
 
     // #1
     required init?(coder: NSCoder) {
         manage = WaypointManager(x: 0.0, y: 0.0, z: 0.0, cameraAngleX: 1.0, cameraAngleY: 1.0, groups: Array<WaypointGroup>(), startFromNorth: 0.0)
-        goAwayGroupScreen = false
         super.init(coder: coder);
     }
     
     // #2
-    init(group : WaypointGroup, order : Int, manage : WaypointManager, goAwayGroupScreen : Bool) {
+	init(group : WaypointGroup, order : Int, manage : WaypointManager, superFrame: CGRect) {
         self.manage = manage
-        self.goAwayGroupScreen = goAwayGroupScreen
+		self.superRect = superFrame
         myID = order
         let xPos = order % Int(numPerRow)
         let yPos = order / Int(numPerRow)
-        let screenHeight = classes.screenHeight - spaceNeeded
-        let xCord = 20 + (xPos * (Int(classes.screenWidth - 20)) / Int(numPerRow))
-        let yCord = 20 + yPos * (Int(screenHeight - 20)) / Int(numPerCollom)
-        width = (Int(classes.screenWidth)) / Int(numPerRow) - 25
+        let screenHeight = superFrame.height
+        let xCord = 20 + (xPos * (Int(superFrame.width - 20)) / Int(numPerRow)) + Int(superFrame.origin.x)
+        let yCord = 20 + yPos * (Int(screenHeight - 20)) / Int(numPerCollom) + Int(superFrame.origin.y)
+        width = (Int(superFrame.width)) / Int(numPerRow) - 25
         height = (Int(screenHeight) / Int(numPerCollom) - 12)
         super.init(frame: CGRect(x: xCord, y: yCord, width: width, height: height));
         self.addTarget(self, action: #selector(GroupButton.pressed(_:)), for: UIControlEvents.touchUpInside);
-        self.backgroundColor = UIColor(red: 1, green: 0, blue: 0.2, alpha: 0.8)
+        self.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
     }
     
     func pressed(_ sender: UIButton!) {
@@ -65,16 +64,11 @@ class GroupButton : UIButton {
         if(self.manage.groups[myID].active) {
             self.backgroundColor = UIColor(red: 0, green: 1, blue: 0.2, alpha: 0.8)
         }
-        self.goAwayGroupScreen = true
         shouldRedraw = true
     }
     
     override func draw(_ rect: CGRect) {
-        let width = CGFloat(classes.screenWidth - 80) / CGFloat(numPerRow)
-        let stringDraw = UILabel(frame: CGRect(x: 2, y: CGFloat(1), width: width, height: 20))
-        stringDraw.text = self.manage.groups[myID].name
-        stringDraw.font = UIFont(name: "Times New Roman", size: CGFloat(12))
-        self.addSubview(stringDraw)
+		self.drawTextWithBox(0, y: 0, width: self.frame.width, height: self.frame.height, toDraw: self.manage.groups[myID].name, fontSize: 12)
     }
     
 }

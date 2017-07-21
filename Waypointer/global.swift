@@ -37,7 +37,7 @@ public struct classes {
 
     static public var addButtonDimension = CGFloat(40.0) //Final
     
-    static public var groupsPerCollum = CGFloat(15.0) //Final
+    static public var groupsPerCollum = CGFloat(8.0) //Final
     static public var groupsPerRow = CGFloat(3.0) //Final
 	
 	static public var FONT_NAME = "Thonburi"

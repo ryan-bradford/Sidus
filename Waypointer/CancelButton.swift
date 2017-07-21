@@ -30,6 +30,17 @@ public class CancelButton: UIButton {
 	}
 	
 	func pressed(_ sender: UIButton!) {
+		if (superScreen.activeView as? AddAddressScreen) != nil {
+			superScreen.slideDownDone()
+			self.superScreen.addAddressScreen.endEditing(true)
+		}
+		if (superScreen.activeView as? AddCordinateScreen) != nil {
+			superScreen.slideDownDone()
+			self.superScreen.addCordScreen.endEditing(true)
+		}
+		if(superScreen.activeView != nil) {
+			superScreen.transitionAwayFromActiveView()
+		}
 		superScreen.slideSelfUp()
 	}
 	

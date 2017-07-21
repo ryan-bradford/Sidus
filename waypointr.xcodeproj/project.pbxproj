@@ -17,7 +17,6 @@
 		00C69E761F195F470057A529 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E751F195F470057A529 /* CancelButton.swift */; };
 		00C69E781F195F510057A529 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C69E771F195F510057A529 /* DoneButton.swift */; };
 		941DAC621AE7110E0089EF3B /* WaypointGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941DAC611AE7110E0089EF3B /* WaypointGroup.swift */; };
-		943ED48B1B1E657C00AF96E9 /* AddressCodeReligated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */; };
 		94616B3A1AE54F3700904114 /* VerifyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94616B391AE54F3700904114 /* VerifyButton.swift */; };
 		947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947146E61C29FEEB00397A99 /* WaypointReader.swift */; };
 		9480A1E91AE54BAB007F45BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480A1E81AE54BAB007F45BE /* AppDelegate.swift */; };
@@ -65,7 +64,6 @@
 		00C69E751F195F470057A529 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		00C69E771F195F510057A529 /* DoneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 		941DAC611AE7110E0089EF3B /* WaypointGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointGroup.swift; sourceTree = "<group>"; };
-		943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCodeReligated.swift; sourceTree = "<group>"; };
 		94616B391AE54F3700904114 /* VerifyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyButton.swift; sourceTree = "<group>"; };
 		947146E61C29FEEB00397A99 /* WaypointReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointReader.swift; sourceTree = "<group>"; };
 		9480A1E31AE54BAB007F45BE /* waypointr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = waypointr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,7 +123,6 @@
 		00C69E681F1955CE0057A529 /* AddressWaypoint */ = {
 			isa = PBXGroup;
 			children = (
-				943ED48A1B1E657C00AF96E9 /* AddressCodeReligated.swift */,
 				00C69E6C1F1956000057A529 /* AddAddressButton.swift */,
 				00C69E721F1956AF0057A529 /* AddAddressScreen.swift */,
 			);
@@ -414,7 +411,6 @@
 				94C6E1021B38C08E00F6FA08 /* GroupButton.swift in Sources */,
 				949772BE1D11FDE800DF9331 /* CurrentLocationButton.swift in Sources */,
 				00C69E781F195F510057A529 /* DoneButton.swift in Sources */,
-				943ED48B1B1E657C00AF96E9 /* AddressCodeReligated.swift in Sources */,
 				947146E71C29FEEB00397A99 /* WaypointReader.swift in Sources */,
 				94D5E8E21C5477EF0080C61B /* MyMotionManager.swift in Sources */,
 				000605DD1F199FA400BC5A88 /* UIViewExtensions.swift in Sources */,

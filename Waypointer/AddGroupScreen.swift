@@ -9,45 +9,46 @@
 import Foundation
 import UIKit
 
-open class AddGroupScreen : UIButton {
+open class AddGroupScreen : UIView {
     
     var buttons : Array<GroupButton>?
     var manage : WaypointManager?
-    var goAwayGroupScreen = false
     var cameraAngleX: Double?
     var cameraAngleY: Double?
     var currentLocButton: CurrentLocationButton?
     var buttonLimit: Int?
     var viewController: ViewController?
+	var startShift: CGFloat!
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    init(manage : WaypointManager, viewController: ViewController) {
+	init(manage : WaypointManager, viewController: ViewController, frame: CGRect) {
         self.manage = manage
         cameraAngleX = manage.cameraAngleX
         cameraAngleY = manage.cameraAngleY
         buttons = Array<GroupButton>()
         self.viewController = viewController
-        super.init(frame : CGRect(x: 0, y: 0, width: classes.screenWidth, height: classes.screenHeight))
-        self.addTarget(self, action: #selector(AddGroupScreen.pressed(_:)), for: UIControlEvents.touchUpInside);
+        super.init(frame : frame)
+		self.draw(frame)
         buttonLimit = Int(floor((self.frame.height / 2) - 20) / ((CGFloat(self.frame.height - 20.0)) / classes.groupsPerCollum)) * Int(classes.groupsPerRow)
+		let newFrame = CGRect(x: 0, y: startShift, width: frame.width, height: frame.height)
         for i in 0 ..< self.manage!.groups.count {
-            buttons!.append(GroupButton(group: manage.groups[i], order: i, manage: manage, goAwayGroupScreen: goAwayGroupScreen))
+			buttons!.append(GroupButton(group: manage.groups[i], order: i, manage: manage, superFrame: newFrame))
             self.addSubview(buttons![buttons!.count - 1])
             
         }
         currentLocButton = CurrentLocationButton(groups: self)
         self.addSubview(currentLocButton!)
-        self.backgroundColor = (UIColor(red: 1, green: 1, blue: 1, alpha: 0.3))
+		self.backgroundColor = UIColor.clear
     }
     
     func addGroup(_ toAdd: WaypointGroup) {
         if(manage!.groups.count < buttonLimit!) {
             manage!.groups.append(toAdd)
             let id = manage!.groups.count - 1
-            buttons!.append(GroupButton(group: manage!.groups[id], order: id, manage: manage!, goAwayGroupScreen: goAwayGroupScreen))
+			buttons!.append(GroupButton(group: manage!.groups[id], order: id, manage: manage!, superFrame: self.frame))
             self.addSubview(buttons![buttons!.count - 1])
         }
     }
@@ -72,15 +73,9 @@ open class AddGroupScreen : UIButton {
     
     override open func draw(_ rect: CGRect) {
 
-        let message  = "Press Which Group You Want to Add or Remove" + "\n" + "(tap screen to dismiss)"
+        let message  = "Press Which Group You Want to Add or Remove"
 	
         //let toSubtract = CGFloat(countString / 2 * 7)
-		self.drawTextWithBox(0, y: CGFloat(classes.screenHeight - 120.0), width: 300, height: 120, toDraw: message, fontSize: 25)
-        message.draw(in: CGRect(x: CGFloat(0), y: CGFloat(classes.screenHeight - 120.0), width: 300.0, height: 120.0))
-        
+		startShift = self.drawTextWithNoBox(0, y: 0, width: self.frame.width, toDraw: message, fontSize: 15)
     }
-    
-    func pressed(_ sender: UIButton!) {
-    }
-    
 }

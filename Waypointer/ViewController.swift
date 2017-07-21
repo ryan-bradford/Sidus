@@ -30,12 +30,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //These Are Kinda In Order
     var groups : Array<WaypointGroup>! //Just Blank
     internal var manage : WaypointManager!
-    var groupScreen : AddGroupScreen?
     var addButton : AddButton?
     var verifyButton : VerifyButton?
     var myMath : MyMath?
     var reader : WaypointReader?
-    
+    var addScreen: AddScreen!
+	
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -58,7 +58,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         DispatchQueue.global().async {
             while(self.isAbleToRun) {
                 usleep(20000)
-                if(classes.isInForeground && self.initIsFinished && self.buttonsAreGood()) {
+                if(classes.isInForeground && self.initIsFinished) {
                     DispatchQueue.main.async {
                         self.updateVars()
                         self.manage!.orderWaypoints()
@@ -73,15 +73,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func updateVars() {
         self.manage!.generateVars()
-    }
-    
-    func buttonsAreGood() -> Bool {
-        for i in 0 ..< groupScreen!.buttons!.count {
-            if !groupScreen!.buttons![i].shouldRedraw {
-                return false
-            }
-        }
-        return true
     }
     
     //<- Periodic Processing
@@ -113,6 +104,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func hideAllButtons() {
+		if(addScreen != nil) {
+			addScreen.removeFromSuperview()
+			addScreen = nil
+		}
         addButton!.removeFromSuperview()
     }
     
@@ -154,12 +149,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func initStage3() {
         if(isAbleToRun) {
-            if(groupScreen == nil) {
-                reader = WaypointReader(cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, startFromNorth: startFromNorth, manage: manage)
-                reader!.readGroups()
-                groupScreen = AddGroupScreen( manage: manage, viewController: self)
-				addButton = AddButton(manager: manage, frame: CGRect(x: (self.view.frame.width/2-25/2), y: 25, width: 25, height: 25), viewController: self)
-            }
+			reader = WaypointReader(cameraAngleX: cameraAngleX, cameraAngleY: cameraAngleY, startFromNorth: startFromNorth, manage: manage)
+			reader!.readGroups()
+			let addWidth = CGFloat(120)
+			addButton = AddButton(manager: manage, frame: CGRect(x: (self.view.frame.width/2-addWidth/2), y: 0, width: addWidth, height: addWidth), viewController: self)
             motionManager!.motionStage1Or2 = false
 			tint.removeFromSuperview()
             verifyButton!.removeFromSuperview()
@@ -264,15 +257,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.startFromNorth = -1.0
         locationManager!.stageOne = true
         self.verifyButton = VerifyButton()
-        addButton!.removeFromSuperview()
+		hideAllButtons()
     }
     
     //<- Recalibrate Stuff
     
     func removeScreens() {
-        if(groupScreen != nil) {
-            groupScreen!.removeFromSuperview()
-        }
+        //if(groupScreen != nil) {
+        //    groupScreen!.removeFromSuperview()
+        //}
     }
     
     func checkResume(_ canRun: Bool) {

@@ -22,13 +22,20 @@ public class AddScreen: UIView {
 	var doneButton: DoneButton!
 	var xInset = CGFloat(20.0)
 	var yInset = CGFloat(40.0)
+	var manager: WaypointManager!
+	var viewController: ViewController!
 	
-	public override init(frame: CGRect) {
+	init(frame: CGRect, manager: WaypointManager, viewController: ViewController) {
+		self.manager = manager
+		self.viewController = viewController
 		super.init(frame: frame)
 		initBlur()
 		initAddGroupButton()
 		initAddAddressButton()
 		initAddCordinateButton()
+		initGroupScreen()
+		initAddressScreen()
+		initCordScreen()
 		initCancelButton()
 		initDoneButton()
 		self.backgroundColor = UIColor.clear
@@ -48,24 +55,39 @@ public class AddScreen: UIView {
 	}
 	
 	func initAddAddressButton() {
-		addAddressButton = AddAddressButton(frame: CGRect(x: xInset, y: getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
+		addAddressButton = AddAddressButton(frame: CGRect(x: xInset, y: getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()), superScreen: self)
 		self.addSubview(addAddressButton)
 	}
 	
 	func initAddGroupButton() {
-		addGroupButton = AddGroupButton(frame: CGRect(x: xInset, y: 2*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
+		addGroupButton = AddGroupButton(frame: CGRect(x: xInset, y: 2*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()), superScreen: self)
 		self.addSubview(addGroupButton)
 		
 	}
 	
 	func initAddCordinateButton() {
-		addCordButton = AddCordinateButton(frame: CGRect(x: xInset, y: 3*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
+		addCordButton = AddCordinateButton(frame: CGRect(x: xInset, y: 3*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()), superScreen: self)
 		self.addSubview(addCordButton)
 	}
 	
 	func initDoneButton() {
-		doneButton = DoneButton(frame: CGRect(x: xInset, y: 4*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()))
+		doneButton = DoneButton(frame: CGRect(x: xInset + self.frame.width, y: 4*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: getButtonHeight()), superScreen: self)
 		self.addSubview(doneButton)
+	}
+	
+	func initGroupScreen() {
+		addGroupScreen = AddGroupScreen(manage: manager, viewController: viewController, frame: CGRect(x: xInset + self.frame.width, y: 1*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: 3*getButtonHeight()))
+		self.addSubview(addGroupScreen)
+	}
+	
+	func initAddressScreen() {
+		addAddressScreen = AddAddressScreen(manage: manager, viewController: viewController, frame: CGRect(x: xInset + self.frame.width, y: 1*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: 3*getButtonHeight()), superScreen: self)
+		self.addSubview(addAddressScreen)
+	}
+	
+	func initCordScreen() {
+		addCordScreen = AddCordinateScreen(manage: manager, viewController: viewController, frame: CGRect(x: xInset + self.frame.width, y: 1*getButtonHeight()+yInset, width: self.frame.width - 2*xInset, height: 3*getButtonHeight()), superScreen: self)
+		self.addSubview(addCordScreen )
 	}
 
 	
@@ -77,13 +99,61 @@ public class AddScreen: UIView {
 		
 	}
 	
-	func transitionToGroup() {
-		
+	func transitionAwayFromActiveView() {
+		slideMiddleThree(leftOrRight: false)
+		slideDone(leftOrRight: false)
+		UIView.animate(withDuration: 0.5, animations: {
+			self.activeView?.frame.origin.x += self.frame.width
+		})
+		self.activeView = nil
+	}
+	
+	func transitionToMain() {
+		slideMiddleThree(leftOrRight: true)
+		slideDone(leftOrRight: true)
+		UIView.animate(withDuration: 0.5, animations: {
+			self.activeView?.frame.origin.x -= self.frame.width
+			
+		})
+	}
+	
+	func slideDone(leftOrRight: Bool) {
+		var sign = CGFloat(1)
+		if(leftOrRight) {
+			sign = CGFloat(-1)
+		}
+		UIView.animate(withDuration: 0.5, animations: {
+			self.doneButton.frame.origin.x += self.frame.width*sign
+		})
+	}
+	
+	func slideMiddleThree(leftOrRight: Bool) {
+		var sign = CGFloat(1)
+		if(leftOrRight) {
+			sign = CGFloat(-1)
+		}
+		UIView.animate(withDuration: 0.5, animations: {
+			self.addAddressButton.frame.origin.x += self.frame.width*sign
+			self.addGroupButton.frame.origin.x += self.frame.width*sign
+			self.addCordButton.frame.origin.x += self.frame.width*sign
+		})
 	}
 	
 	func slideSelfUp() {
 		UIView.animate(withDuration: 0.5, animations: {
 			self.frame.origin.y -= self.frame.height
+		})
+	}
+	
+	func slideUpDone() {
+		UIView.animate(withDuration: 0.5, animations: {
+			self.doneButton.frame.origin.y -= (self.doneButton.frame.height + self.yInset + self.doneButton.frame.height/8)
+		})
+	}
+	
+	func slideDownDone() {
+		UIView.animate(withDuration: 0.5, animations: {
+			self.doneButton.frame.origin.y += (self.doneButton.frame.height + self.yInset + self.doneButton.frame.height/8)
 		})
 	}
 }
